@@ -9,8 +9,8 @@
 ### 第二步、安装依赖
 *npm install --save-dev*
 
-### 第三步、ElectronBuild
-*./node_modules/.bin/electron-build*
+### 第三步、ElectronRebuild
+*./node_modules/.bin/electron-rebuild*
 
 
 ## 启动
