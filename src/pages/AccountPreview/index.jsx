@@ -43,7 +43,7 @@ export default class AccountPreview extends Component {
                 <PreviewHeader cions={9} />
                 <section className="account-list">
                     {
-                        accounts.map((account, index) => <AccountCard key={index} link="/account" deleteCallBack={this.deleteAccount} account={account} />)
+                        accounts.map((account, index) => <AccountCard key={index} link="/account" onConfirm={this.deleteAccount} account={account} />)
                     }
                 </section>
             </div>

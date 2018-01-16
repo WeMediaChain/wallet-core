@@ -8,15 +8,12 @@
     display: flex;
     justify-content: center;
     margin-top: 50px;
-
     &:hover {
         color: #FFFFFF;
     }
-
     &:focus {
         text-decoration: none;
     }
-
     .account-id {
         position: absolute;
         top: -25px;
@@ -30,13 +27,12 @@
         font-family: PingFangTC-Regular;
         font-size: 16px;
     }
-
     .account-remove {
         position: absolute;
-        top: 10px;
-        right: 10px;
+        top: 0;
+        right: 0;
+        padding: 10px;
     }
-
     .account-content {
         width: 100%;
         display: flex;
@@ -45,26 +41,21 @@
         justify-content: center;
         margin-top: 25px;
         padding: 20px;
-
         p {
             margin: 0;
             word-break: break-all;
             text-align: center;
-
             &.account-name {
                 font-size: 12px;
             }
-
             &.account-cions {
                 font-size: 20px;
                 line-height: 1.2;
                 font-family: PingFangTC-Regular;
             }
-
             &.account-by {
                 font-size: 15px;
             }
-
             &.account-key {
                 color: #3D6BAB;
                 font-size: 12px;
@@ -72,4 +63,13 @@
             }
         }
     }
+}
+
+.modal-footer-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.modal-title-container {
+    text-align: center;
 }
