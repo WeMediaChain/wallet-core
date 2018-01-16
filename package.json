@@ -9,6 +9,7 @@
         "build": "npx better-npm-run build",
         "ele:rebuild": "npx electron-rebuild",
         "ele:dev": "npx better-npm-run electron:dev",
+        "ele:run": "npx better-npm-run electron:run",
         "ele:release": "npx better-npm-run build && npx better-npm-run electron:release"
     },
     "betterScripts": {
@@ -34,6 +35,12 @@
             "command": "npx electron .",
             "env": {
                 "NODE_ENV": "development"
+            }
+        },
+        "electron:run": {
+            "command": "npx electron .",
+            "env": {
+                "NODE_ENV": "production"
             }
         },
         "electron:release": {

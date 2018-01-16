@@ -5,7 +5,7 @@ import './style';
 export default function PreviewHeader(props) {
     const { cions } = props;
     return (
-        <header>
+        <header className="preview-header-container">
             <p className="text">目前总共获取</p>
             <p className="number">{cions}</p>
             <p className="text">币</p>

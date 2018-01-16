@@ -6,20 +6,20 @@ let win;
 
 function createWindow() {
     win = new BrowserWindow({ width: 800, height: 600 });
-    
+
     if (process.env.NODE_ENV === 'development') {
         const port = process.argv[2] || 4040;
-        
         win.loadURL(`http://127.0.0.1:${port}/`);
         win.webContents.openDevTools();
     } else {
+        win.webContents.openDevTools();
         win.loadURL(url.format({
             pathname: path.join(__dirname, 'dist', 'index.html'),
             protocol: 'file:',
             slashes: true,
         }));
     }
-    
+
     win.on('closed', () => {
         win = null;
     });
