@@ -3,3 +3,6 @@ wallet
 password
 package-lock.json
 .idea
+public
+dist
+*.iml
