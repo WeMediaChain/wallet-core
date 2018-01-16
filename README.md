@@ -2,19 +2,17 @@
 
 ## 安装环境
 ### 第一步、配置ElectronMirror
-*code ~/.npmrc*
 
-*electron_mirror="https://npm.taobao.org/mirrors/electron/*
+> 在`.zshrc`或`.bashfile`中配置`Eeletron`下载路径
+
+`export ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/`
 
 ### 第二步、安装依赖
 *npm install --save-dev*
 
-### 第三步、ElectronRebuild
-*./node_modules/.bin/electron-rebuild*
-
-
 ## 启动
-*npm start*
+*npm run start*
+*npm run ele:dev*
 
 
 
