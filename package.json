@@ -8,8 +8,7 @@
         "start": "npx better-npm-run start:dll && npx better-npm-run start:dev",
         "build": "npx better-npm-run build",
         "ele:dev": "npx electron-rebuild && npx better-npm-run electron:dev",
-        "ele:build": "npx better-npm-run electron:build",
-        "ele:release": "npx better-npm-run electron:release"
+        "ele:release": "npx better-npm-run build && npx better-npm-run electron:release"
     },
     "betterScripts": {
         "start:dll": {
@@ -34,12 +33,6 @@
             "command": "npx electron .",
             "env": {
                 "NODE_ENV": "development"
-            }
-        },
-        "electron:build": {
-            "command": "npx electron .",
-            "env": {
-                "NODE_ENV": "production"
             }
         },
         "electron:release": {

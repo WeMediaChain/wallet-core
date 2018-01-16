@@ -24,7 +24,7 @@ exports.devPlugins = [
     new webpack.NamedModulesPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new HtmlWebpackPlugin({
-        title: 'MReader',
+        title: 'OTCWallet',
         filename: 'index.html',
         template: 'index.html',
         inject: true,
@@ -99,7 +99,7 @@ exports.prodPlugins = [
     new webpack.HashedModuleIdsPlugin(),
     new WebpackChunkHash(),
     new HtmlWebpackPlugin({
-        title: 'MReader',
+        title: 'OTCWallet',
         filename: 'index.html',
         template: 'index.html',
         inject: true,
