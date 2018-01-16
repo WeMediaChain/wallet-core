@@ -8,7 +8,7 @@ export const routes = [
     {
         path: '/',
         component: Loadable({
-            loader: () => import(/* webpackChunkName: "home" */ '../pages/Home'),
+            loader: () => import(/* webpackChunkName: "AccountPreview" */ '../pages/AccountPreview'),
             loading: Loading,
         }),
         exact: true,
@@ -16,23 +16,13 @@ export const routes = [
         key: 1,
     },
     {
-        path: '/todo',
+        path: '/account/:address',
         component: Loadable({
-            loader: () => import(/* webpackChunkName: "example" */ '../pages/Todo'),
+            loader: () => import(/* webpackChunkName: "Account" */ '../pages/Account'),
             loading: Loading,
         }),
         exact: true,
         strict: true,
         key: 2,
-    },
-    {
-        path: '/plain',
-        component: Loadable({
-            loader: () => import(/* webpackChunkName: "second" */ '../pages/Plain'),
-            loading: Loading,
-        }),
-        exact: true,
-        strict: true,
-        key: 3,
     },
 ];

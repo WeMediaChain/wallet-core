@@ -9,7 +9,7 @@ const path = require('path'),
         options: {
             // modules: true,
             importLoaders: 1,
-            localIdentName: '[name]__[local]--[hash:base64:5]'
+            localIdentName: '[name]__[local]--[hash:base64:5]',
         }
     },
     postCSSLoader = {

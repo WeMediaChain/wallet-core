@@ -1,0 +1,26 @@
+.account-container {
+    header {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: #22252D;
+        color: #FFFFFF;
+        height: 220px;
+        border-radius: 5px;
+
+        p {
+            margin: 0;
+
+            &.number {
+                color: #FFCA00;
+                font-size: 50px;
+                font-family: PingFangTC-Medium;
+            }
+
+            &.text {
+                color: #ADADB3;
+            }
+        }
+    }
+}
