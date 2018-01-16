@@ -1,0 +1,67 @@
+.account-block {
+    position: relative;
+    background: #3290FF;
+    color: #FFFFFF;
+    width: 240px;
+    border-radius: 5px;
+    height: 160px;
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+
+    .account-id {
+        position: absolute;
+        top: -25px;
+        height: 50px;
+        width: 50px;
+        line-height: 50px;
+        border-radius: 50%;
+        color: #3290FF;
+        text-align: center;
+        background: #FFFFFF;
+        font-family: PingFangTC-Regular;
+        font-size: 16px;
+    }
+
+    .account-remove {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+
+    .account-content {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 25px;
+        padding: 20px;
+
+        p {
+            margin: 0;
+            word-break: break-all;
+            text-align: center;
+
+            &.account-name {
+                font-size: 12px;
+            }
+
+            &.account-cions {
+                font-size: 20px;
+                line-height: 1.2;
+                font-family: PingFangTC-Regular;
+            }
+
+            &.account-by {
+                font-size: 15px;
+            }
+
+            &.account-key {
+                color: #1f6fdc;
+                font-size: 12px;
+                margin-top: 10px;
+            }
+        }
+    }
+}
