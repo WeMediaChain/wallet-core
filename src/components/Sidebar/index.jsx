@@ -21,8 +21,31 @@ export default class Home extends Component {
         logo: '',
     };
 
+    static contextTypes = {
+        router: PropTypes.object,
+    };
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            currentId: ['0'],
+        };
+    }
+
+    componentWillReceiveProps() {
+        const currentId = this.calculateCurrentMenu();
+        this.setState({ currentId });
+    }
+
+    calculateCurrentMenu() {
+        const { location } = this.context.router.history,
+            currentID = this.props.items.findIndex(item => item.path === location.pathname);
+        return [currentID.toString()];
+    }
+
     render() {
-        const { items, logo } = this.props;
+        const { items, logo } = this.props,
+            { currentId } = this.state;
 
         return (
             <Sider>
@@ -32,7 +55,7 @@ export default class Home extends Component {
                 <SideMenu
                     theme="dark"
                     mode="inline"
-                    defaultSelectedKeys={['0']}
+                    selectedKeys={currentId}
                 >
                     {
                         items.map((item, key) => (

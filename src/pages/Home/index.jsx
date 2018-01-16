@@ -23,6 +23,11 @@ export default class Home extends Component {
                 text: '账户1',
                 icon: 'solution',
             },
+            {
+                path: '/account/0x71390Ad7724BC0c478C19531E389978F97cBB877',
+                text: '账户2',
+                icon: 'solution',
+            },
         ];
 
         return (
