@@ -3,17 +3,29 @@
  */
 import React, { Component } from 'react';
 import { Layout } from 'antd';
+import SideBar from '../../components/Sidebar';
 import './style';
 
-const { Header, Content } = Layout;
+const { Content } = Layout;
 
 export default class Home extends Component {
     render() {
+        const sides = [
+            {
+                path: '/',
+                text: '账户总览',
+                icon: 'wallet',
+            },
+            {
+                path: '/account',
+                text: '账户1',
+                icon: 'solution',
+            },
+        ];
+
         return (
             <Layout className="home-container">
-                <Header className="home-header">
-                    <span>OTCWallet</span>
-                </Header>
+                <SideBar items={sides} />
                 <Content className="content">
                     <span>test</span>
                 </Content>

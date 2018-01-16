@@ -12,27 +12,23 @@ const { Sider } = Layout,
 
 export default class Home extends Component {
     static propTypes = {
-        collapsed: PropTypes.bool,
         items: PropTypes.array.isRequired,
+        logo: PropTypes.string.isRequired,
     };
 
     static defaultProps = {
-        collapsed: false,
         items: [],
+        logo: '',
     };
 
     render() {
-        const { collapsed, items } = this.props;
+        const { items, logo } = this.props;
 
         return (
-            <Sider
-                trigger={null}
-                collapsible
-                collapsed={collapsed}
-            >
-                <Link to="/">
-                    <div className="logo" />
-                </Link>
+            <Sider>
+                <div className="logo">
+                    {logo ? <img src={logo} alt="OTCWallet" /> : null}
+                </div>
                 <SideMenu
                     theme="dark"
                     mode="inline"

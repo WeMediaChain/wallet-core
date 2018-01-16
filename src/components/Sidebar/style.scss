@@ -9,3 +9,16 @@
     display: inline-block !important;
     color: #ffffff;
 }
+
+.ant-layout-sider,
+.ant-menu-dark {
+    background: #000000
+}
+
+.ant-menu.ant-menu-dark .ant-menu-item-selected {
+    background: rgb(23, 23, 23);
+}
+
+.ant-menu-dark.ant-menu-inline .ant-menu-item {
+    margin: 0;
+}

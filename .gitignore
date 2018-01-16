@@ -3,6 +3,7 @@ wallet
 password
 package-lock.json
 .idea
+.vscode
 public
 dist
 *.iml

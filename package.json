@@ -7,7 +7,8 @@
     "scripts": {
         "start": "npx better-npm-run start:dll && npx better-npm-run start:dev",
         "build": "npx better-npm-run build",
-        "ele:dev": "npx electron-rebuild && npx better-npm-run electron:dev",
+        "ele:rebuild": "npx electron-rebuild",
+        "ele:dev": "npx better-npm-run electron:dev",
         "ele:release": "npx better-npm-run build && npx better-npm-run electron:release"
     },
     "betterScripts": {
