@@ -9,6 +9,14 @@
     justify-content: center;
     margin-top: 50px;
 
+    &:hover {
+        color: #FFFFFF;
+    }
+
+    &:focus {
+        text-decoration: none;
+    }
+
     .account-id {
         position: absolute;
         top: -25px;
@@ -58,7 +66,7 @@
             }
 
             &.account-key {
-                color: #1f6fdc;
+                color: #3D6BAB;
                 font-size: 12px;
                 margin-top: 10px;
             }

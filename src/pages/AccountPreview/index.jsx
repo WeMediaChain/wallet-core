@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
+import autobind from 'autobind-decorator';
+import PreviewHeader from '../../components/PreviewHeader';
 import AccountCard from '../../components/AccountCard';
 import './style';
 
 export default class AccountPreview extends Component {
+    @autobind
+    deleteAccount(account) {
+        console.log(account, this.props);
+    }
+
     render() {
         const accounts = [
             {
@@ -33,14 +40,10 @@ export default class AccountPreview extends Component {
 
         return (
             <div className="account-container">
-                <header>
-                    <p className="text">目前总共获取</p>
-                    <p className="number">10</p>
-                    <p className="text">币</p>
-                </header>
+                <PreviewHeader cions={9} />
                 <section className="account-list">
                     {
-                        accounts.map((account, index) => <AccountCard key={index} account={account} />)
+                        accounts.map((account, index) => <AccountCard key={index} link="/account" deleteCallBack={this.deleteAccount} account={account} />)
                     }
                 </section>
             </div>
