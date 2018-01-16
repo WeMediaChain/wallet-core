@@ -1,29 +1,125 @@
 {
-  "name": "electron-quick-start",
-  "version": "1.0.0",
-  "description": "A minimal Electron application",
-  "main": "main.js",
-  "scripts": {
-    "start": "electron ."
-  },
-  "repository": "https://github.com/electron/electron-quick-start",
-  "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
-  ],
-  "author": "GitHub",
-  "license": "CC0-1.0",
-  "devDependencies": {
-    "electron": "~1.7.8",
-    "electron-rebuild": "^1.7.3"
-  },
-  "dependencies": {
-    "ethereumjs-abi": "^0.6.5",
-    "ethereumjs-tx": "^1.3.3",
-    "ethereumjs-wallet": "^0.6.0",
-    "web3": "^1.0.0-beta.27"
-  }
+    "name": "react-webpack-boilerplate",
+    "version": "1.0.0",
+    "description": "a react webpack boilerplate project",
+    "main": "main.js",
+    "homepage": ".",
+    "scripts": {
+        "start": "npx better-npm-run start:dll && npx better-npm-run start:dev",
+        "build": "npx better-npm-run build",
+        "ele:dev": "npx electron-rebuild && npx better-npm-run electron:dev",
+        "ele:build": "npx better-npm-run electron:build",
+        "ele:release": "npx better-npm-run electron:release"
+    },
+    "betterScripts": {
+        "start:dll": {
+            "command": "npx webpack --config ./config/dll.conf.js",
+            "env": {
+                "NODE_ENV": "development"
+            }
+        },
+        "start:dev": {
+            "command": "npx webpack-dashboard -- node --harmony ./config/dev.conf.js",
+            "env": {
+                "NODE_ENV": "development"
+            }
+        },
+        "build": {
+            "command": "npx webpack --config ./config/base.conf.js",
+            "env": {
+                "NODE_ENV": "production"
+            }
+        },
+        "electron:dev": {
+            "command": "npx electron .",
+            "env": {
+                "NODE_ENV": "development"
+            }
+        },
+        "electron:build": {
+            "command": "npx electron .",
+            "env": {
+                "NODE_ENV": "production"
+            }
+        },
+        "electron:release": {
+            "command": "npx electron-packager ./ --platform=darwin --arch=all --version=1.0.0 --out=release/ --overwrite --ignore=node_modules/electron-* --ignore=node_modules/.bin --ignore=.git --ignore=release --prune=true",
+            "env": {
+                "NODE_ENV": "production"
+            }
+        }
+    },
+    "eslintConfig": {
+        "extends": "./config/tools/.eslintrc"
+    },
+    "babel": {
+        "extends": "./config/tools/.babelrc"
+    },
+    "repository": "git@github.com:MiRinZhang/react-boilerplate.git",
+    "author": "MiRinZhang <noodles@yabing.me>",
+    "license": "MIT",
+    "devDependencies": {
+        "babel-core": "^6.26.0",
+        "babel-eslint": "^7.2.3",
+        "babel-loader": "^7.1.2",
+        "babel-plugin-import": "^1.6.2",
+        "babel-plugin-react-transform": "^3.0.0",
+        "babel-plugin-syntax-dynamic-import": "^6.18.0",
+        "babel-plugin-transform-async-to-generator": "^6.24.1",
+        "babel-plugin-transform-decorators-legacy": "^1.3.4",
+        "babel-plugin-transform-regenerator": "^6.26.0",
+        "babel-plugin-transform-runtime": "^6.23.0",
+        "babel-preset-env": "^1.6.1",
+        "babel-preset-react": "^6.24.1",
+        "babel-preset-react-hmre": "^1.1.1",
+        "babel-preset-react-optimize": "^1.0.1",
+        "babel-preset-stage-2": "^6.24.1",
+        "babel-runtime": "^6.26.0",
+        "better-npm-run": "^0.0.15",
+        "clean-webpack-plugin": "^0.1.17",
+        "css-loader": "^0.28.7",
+        "electron": "^1.7.10",
+        "electron-packager": "^10.1.1",
+        "electron-rebuild": "^1.7.3",
+        "eslint": "3.19.0",
+        "eslint-config-airbnb": "^15.0.1",
+        "eslint-loader": "^1.8.0",
+        "eslint-plugin-babel": "^4.1.1",
+        "eslint-plugin-import": "^2.6.0",
+        "eslint-plugin-jsx-a11y": "^5.0.3",
+        "eslint-plugin-react": "^7.1.0",
+        "extract-text-webpack-plugin": "^2.1.2",
+        "html-webpack-plugin": "^2.30.1",
+        "node-sass": "^4.6.1",
+        "postcss-cssnext": "^2.11.0",
+        "postcss-loader": "^2.0.8",
+        "react-transform-catch-errors": "^1.0.2",
+        "react-transform-hmr": "^1.0.4",
+        "redbox-react": "^1.5.0",
+        "sass-loader": "^6.0.6",
+        "source-map-loader": "^0.2.3",
+        "style-loader": "^0.18.2",
+        "webpack": "^3.8.1",
+        "webpack-bundle-analyzer": "^2.9.1",
+        "webpack-chunk-hash": "^0.4.0",
+        "webpack-dashboard": "^0.4.0",
+        "webpack-dev-server": "^2.9.4"
+    },
+    "dependencies": {
+        "antd": "^3.1.1",
+        "autobind-decorator": "^2.1.0",
+        "classnames": "^2.2.5",
+        "ethereumjs-abi": "^0.6.5",
+        "ethereumjs-tx": "^1.3.3",
+        "ethereumjs-wallet": "^0.6.0",
+        "mobx": "^3.3.1",
+        "mobx-react": "^4.3.4",
+        "proptypes": "^1.1.0",
+        "react": "^16.2.0",
+        "react-dom": "^16.2.0",
+        "react-loadable": "^4.0.5",
+        "react-router": "^4.2.0",
+        "react-router-dom": "^4.2.2",
+        "web3": "^1.0.0-beta.27"
+    }
 }

@@ -2,3 +2,4 @@ node_modules
 wallet
 password
 package-lock.json
+.idea
