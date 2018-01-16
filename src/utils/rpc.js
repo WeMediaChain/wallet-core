@@ -1,12 +1,8 @@
 /* eslint-disable */
-const ethereumjsTx = require('ethereumjs-tx');
-// import ethereumjsTx from 'ethereumjs-tx';
-const ethereumjsWallet = require('ethereumjs-wallet');
-// import ethereumjsWallet from 'ethereumjs-wallet';
-const ethereumjsABI = require('ethereumjs-abi');
-const Web3 = require('web3');
-// import ethereumjsABI from 'ethereumjs-abi';
-// import Web3 from 'web3';
+import ethereumjsTx from 'ethereumjs-tx';
+import ethereumjsWallet from 'ethereumjs-wallet';
+import ethereumjsABI from 'ethereumjs-abi';
+import Web3 from 'web3';
 
 const URL = 'http://47.104.143.109:8545/',
     contractAddress = '0x71390Ad7724BC0c478C19531E389978F97cBB877',

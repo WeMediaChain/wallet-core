@@ -9,6 +9,7 @@ const path = require('path'),
     DashboardPlugin = require('webpack-dashboard/plugin'),
     { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer'),
     CleanWebpackPlugin = require('clean-webpack-plugin'),
+    UglifyJsPlugin = require('uglifyjs-webpack-plugin'),
     __DEV__ = (process.env.NODE_ENV || 'development') === 'development';
 
 exports.commonPlugins = [new webpack.DefinePlugin({
@@ -74,25 +75,7 @@ exports.prodPlugins = [
         },
     }),
     new ExtractTextPlugin({ filename: '[name].style.[contenthash].css', disable: false, allChunks: true }),
-    new webpack
-        .optimize
-        .UglifyJsPlugin({
-            sourceMap: true,
-            output: false,
-            compress: {
-                unused: true,
-                dead_code: true,
-                pure_getters: true,
-                warnings: false,
-                screw_ie8: true,
-                conditionals: true,
-                comparisons: true,
-                sequences: true,
-                evaluate: true,
-                join_vars: true,
-                if_return: true
-            }
-        }),
+    new UglifyJsPlugin(),
     new webpack
         .optimize
         .AggressiveMergingPlugin(),
