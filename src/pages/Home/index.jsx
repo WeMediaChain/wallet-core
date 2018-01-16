@@ -12,7 +12,7 @@ export default class Home extends Component {
         return (
             <Layout className="home-container">
                 <Header className="home-header">
-                    <span>MReader</span>
+                    <span>OTCWallet</span>
                 </Header>
                 <Content className="content">
                     <span>test</span>
