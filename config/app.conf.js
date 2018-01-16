@@ -18,7 +18,7 @@ module.exports = {
                 vendors: Object
                     .keys(pkg.dependencies)
                     .filter(val => !ignorePkg.includes(val)),
-            }
+            },
         },
         output: {
             path: path.join(__dirname, '../dist'),
@@ -30,11 +30,18 @@ module.exports = {
         devtool: {
             dev: 'eval-cheap-module-source-map',
             prod: 'hidden-source-map',
-        }
+        },
     },
     devServer: {
         host: HOST,
         port: PORT,
     },
-    proxy: {},
+    proxy: {
+        '*': {
+            target: 'http://47.104.143.109:8545/',
+            bypass() {
+                return '/index.html';
+            },
+        },
+    },
 };
