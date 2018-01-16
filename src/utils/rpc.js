@@ -292,7 +292,6 @@ export const rpc = {
     eth,
     contract,
     async balanceOf(address) {
-        console.log(address, '=======');
         const balance = await contract.methods.balanceOf(address).call();
         return web3.utils.fromWei(balance)
     },

@@ -36,12 +36,4 @@ module.exports = {
         host: HOST,
         port: PORT,
     },
-    proxy: {
-        '*': {
-            target: 'http://47.104.143.109:8545/',
-            bypass() {
-                return '/index.html';
-            },
-        },
-    },
 };
