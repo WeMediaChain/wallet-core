@@ -1,4 +1,4 @@
-import { observable } from 'mobx';
+import { observable, action } from 'mobx';
 
 class Accounts {
     @observable
@@ -28,6 +28,25 @@ class Accounts {
             key: '0x71390Ad7724BC0c478C19531E389978F97cBB877',
         },
     ];
+
+    @action('create account')
+    createAccount(param) {
+        console.log(param);
+        const lastAccountID = this.accounts[this.accounts.length - 1].id,
+            tempAccount = {
+                id: lastAccountID + 1,
+                name: `账户${lastAccountID + 1}`,
+                cions: 23,
+                key: '0x243F7F63bc673056D8d2a2c1e31776561Dd7f708',
+            };
+        this.accounts.push(tempAccount);
+    }
+
+    @action('delete account')
+    deleteAccount({ id }) {
+        const index = this.accounts.findIndex(account => account.id === id);
+        this.accounts.splice(index, 1);
+    }
 }
 
 export const accountStore = new Accounts();

@@ -11,13 +11,13 @@ import './style';
 export default class AccountPreview extends Component {
 
     @autobind
-    onConfirm(params) {
-        console.log(params, this.props);
+    createAccount(params) {
+        this.props.accountStore.createAccount(params);
     }
 
     @autobind
     deleteAccount(account) {
-        console.log(account, this.props);
+        this.props.accountStore.deleteAccount(account);
     }
 
     render() {
@@ -37,7 +37,7 @@ export default class AccountPreview extends Component {
                             ),
                         )
                     }
-                    <CreateAccountCard onConfirm={this.onConfirm} />
+                    <CreateAccountCard onConfirm={this.createAccount} />
                 </section>
             </div>
         );
