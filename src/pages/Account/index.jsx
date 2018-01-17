@@ -15,6 +15,10 @@ export default class Account extends Component {
         };
     }
 
+    componentWillMount() {
+        this.fetchList();
+    }
+
     componentWillReceiveProps(nextProps) {
         this.fetchList();
     }
@@ -24,7 +28,6 @@ export default class Account extends Component {
             balance = await rpc.balanceOf(address),
             transactions = await rpc.transactions(address);
         this.setState({ transactions, balance });
-        console.log(address, balance, transactions);
     }
 
     render() {
