@@ -20,6 +20,9 @@ export default class AccountHeader extends Component {
         onRefresh: PropTypes.func.isRequired,
         onEdit: PropTypes.func.isRequired,
         qrcode: PropTypes.string.isRequired,
+        balance: PropTypes.number.isRequired,
+        address: PropTypes.string.isRequired,
+        fee: PropTypes.number.isRequired,
     };
 
     static defaultProps = {
@@ -33,10 +36,24 @@ export default class AccountHeader extends Component {
         onRefresh: null,
         onEdit: null,
         qrcode: '',
+        balance: 0,
+        address: '',
+        fee: 0,
     };
 
     render() {
-        const { account, onRefresh, onTransfer, onEdit, qrcode, onTransferSubmit, modalStore } = this.props,
+        const {
+            account,
+            onRefresh,
+            onTransfer,
+            onEdit,
+            qrcode,
+            onTransferSubmit,
+            modalStore,
+            balance,
+            address,
+            fee,
+        } = this.props,
         { name, cions, key } = account;
 
         return (
@@ -64,7 +81,11 @@ export default class AccountHeader extends Component {
                         </div>
                     </div>
                 </header>
-            <TransferModal onConfirm={onTransferSubmit} />
+            <TransferModal
+                onConfirm={onTransferSubmit}
+                balance={balance}
+                address={address}
+                fee={fee} />
         </div>
         );
     }

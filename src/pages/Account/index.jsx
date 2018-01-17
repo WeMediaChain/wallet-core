@@ -92,7 +92,10 @@ export default class Account extends Component {
                     onTransfer={this.onTransfer}
                     onTransferSubmit={this.startTransfer}
                     onRefresh={() => this.fetchList(true)}
-                    onEdit={() => {}} />
+                    onEdit={() => {}}
+                    balance={balance}
+                    address={params.address}
+                    fee={0.01}/>
                 <section className="account-list_content">
                     <div className="account-list-table_header">
                         <span className="header-title">最近交易</span>

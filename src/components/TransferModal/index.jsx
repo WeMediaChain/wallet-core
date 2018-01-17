@@ -23,6 +23,9 @@ class TransferModal extends Component {
         modalStore: PropTypes.object,
         onConfirm: PropTypes.func.isRequired,
         onCancel: PropTypes.func,
+        balance: PropTypes.number.isRequired,
+        address: PropTypes.string.isRequired,
+        fee: PropTypes.number.isRequired,
     };
 
     static defaultProps = {
@@ -31,6 +34,9 @@ class TransferModal extends Component {
         modalStore: {},
         onConfirm: null,
         onCancel: null,
+        balance: 0,
+        address: '',
+        fee: 0,
     };
 
     @autobind
@@ -79,7 +85,7 @@ class TransferModal extends Component {
     }
 
     render() {
-        const { modalStore, form } = this.props,
+        const { modalStore, form, balance, address, fee } = this.props,
             { getFieldDecorator } = form;
 
         return (
@@ -89,6 +95,8 @@ class TransferModal extends Component {
                 onCancel={this.onCancel}
                 title={this.renderModalTitle()}
                 footer={this.renderModalFooter()}>
+                <p>账户余额：{balance}</p>
+                <p>转出账户：{address}</p>
                 <AntForm>
                     <AntForm.Item>
                         {getFieldDecorator('address', {
@@ -126,6 +134,7 @@ class TransferModal extends Component {
                                 placeholder="请输入转账金额" />)}
                     </AntForm.Item>
                 </AntForm>
+                <p>手  续  费：{fee}</p>
             </Modal>
         );
     }
