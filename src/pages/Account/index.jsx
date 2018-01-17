@@ -12,6 +12,7 @@ export default class Account extends Component {
         this.state = {
             transactions: [],
             balance: 0,
+            isRefresh: false,
         };
     }
 
@@ -23,16 +24,17 @@ export default class Account extends Component {
         setTimeout(() => this.fetchList(), 0);
     }
 
-    async fetchList() {
+    async fetchList(isRefresh = false) {
+        isRefresh && this.setState({ isRefresh });
         const { address } = this.props.match.params,
             balance = await rpc.balanceOf(address),
             transactions = await rpc.transactions(address);
-        this.setState({ transactions, balance });
+        this.setState({ transactions, balance, isRefresh: false });
     }
 
     render() {
         const { params } = this.props.match,
-            { transactions, balance } = this.state,
+            { transactions, balance, isRefresh } = this.state,
             account = {
                 name: '账户1',
                 cions: balance,
@@ -69,8 +71,9 @@ export default class Account extends Component {
                 <AccountHeader
                     account={account}
                     qrcode=""
+                    isRefresh={isRefresh}
                     onTransfer={() => {}}
-                    onRefresh={() => {}}
+                    onRefresh={() => this.fetchList(true)}
                     onEdit={() => {}} />
                 <section className="account-list_content">
                     <div className="account-list-table_header">
