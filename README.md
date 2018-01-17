@@ -15,8 +15,9 @@
 
 ### 开发
 
-`npm run start`
-`npm run electron:dev`
+`npm run start` # 启动react项目
+
+`npm run electron:dev` # 启动electron，务必的编译完成后在执行
 
 ### 本地预览
 
