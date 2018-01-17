@@ -4,6 +4,8 @@ import PropTypes from 'proptypes';
 import autobind from 'autobind-decorator';
 import './style';
 
+const AntForm = Form;
+
 /* eslint-disable no-unused-expressions */
 class CreateAccountCard extends Component {
     static propTypes = {
@@ -47,7 +49,7 @@ class CreateAccountCard extends Component {
         this.setState({ visible: false });
     }
 
-    hasErrors(fieldsError) {
+    hasErrors() {
         const { form, limit } = this.props,
             values = form.getFieldsValue();
 
@@ -82,10 +84,8 @@ class CreateAccountCard extends Component {
 
         return (
             <div className="create-account-container">
-                <div
-                    className="create-account-card"
-                    onClick={() => this.setState({ visible: true })}>
-                    <Icon type="plus" className="icon"/>
+                <div className="create-account-card" onClick={() => this.setState({ visible: true })}>
+                    <Icon type="plus" className="icon" />
                     <span>新建账户</span>
                 </div>
                 <Modal
@@ -95,8 +95,8 @@ class CreateAccountCard extends Component {
                     title={this.renderModalTitle()}
                     footer={this.renderModalFooter()}>
                     <p>为您的账户设置一个长度不小于8位的密码</p>
-                    <Form onSubmit={() => console.log('on submit')}>
-                        <Form.Item>
+                    <AntForm>
+                        <AntForm.Item>
                             {getFieldDecorator('password', {
                                 rules: [
                                     {
@@ -107,11 +107,11 @@ class CreateAccountCard extends Component {
                                 initialValue: '',
                             })(
                                 <Input
-                                    prefix={< Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }}/>}
+                                    prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
                                     type="password"
                                     placeholder="请输入您的账号密码" />)}
-                        </Form.Item>
-                        <Form.Item>
+                        </AntForm.Item>
+                        <AntForm.Item>
                             {getFieldDecorator('repassword', {
                                 rules: [
                                     {
@@ -122,11 +122,11 @@ class CreateAccountCard extends Component {
                                 initialValue: '',
                             })(
                                 <Input
-                                    prefix={< Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }}/>}
+                                    prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
                                     type="password"
                                     placeholder="请重新输入您的账号密码" />)}
-                        </Form.Item>
-                    </Form>
+                        </AntForm.Item>
+                    </AntForm>
                 </Modal>
             </div>
         );

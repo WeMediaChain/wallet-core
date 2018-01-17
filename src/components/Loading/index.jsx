@@ -10,7 +10,7 @@ export default class Loading extends Component {
         return (
             <Row className="loading-container">
                 <Col span={12} />
-                <Spin tip="Loading…" size="large" />
+                <Spin tip="加载中…" size="large" />
             </Row>
         );
     }

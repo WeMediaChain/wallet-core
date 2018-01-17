@@ -19,12 +19,12 @@ export default class Account extends Component {
         this.fetchList();
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.fetchList();
+    componentWillReceiveProps() {
+        setTimeout(() => this.fetchList(), 0);
     }
 
     async fetchList() {
-        const address = this.props.match.params.address,
+        const { address } = this.props.match.params,
             balance = await rpc.balanceOf(address),
             transactions = await rpc.transactions(address);
         this.setState({ transactions, balance });
