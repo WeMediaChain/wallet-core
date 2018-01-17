@@ -14,7 +14,8 @@ export default class Account extends Component {
             balance: 0,
         };
     }
-    componentWillMount() {
+
+    componentWillReceiveProps(nextProps) {
         this.fetchList();
     }
 
@@ -76,6 +77,7 @@ export default class Account extends Component {
                     <Table
                         dataSource={transactions}
                         columns={columns}
+                        locale={{emptyText: '暂无数据'}}
                         rowKey={record => record.id} />
                 </section>
             </div>
