@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Icon, Table } from 'antd';
+import { Icon, Table, message } from 'antd';
 import { observer, inject } from 'mobx-react';
 import autobind from 'autobind-decorator';
 import AccountHeader from '../../components/AccountHeader';
@@ -16,12 +16,7 @@ export default class Account extends Component {
         this.state = {
             transactions: [],
             balance: 0,
-            isRefresh: false,
         };
-    }
-
-    componentWillMount() {
-        this.fetchList();
     }
 
     componentWillReceiveProps() {
@@ -29,11 +24,18 @@ export default class Account extends Component {
     }
 
     async fetchList(isRefresh = false) {
-        isRefresh && this.setState({ isRefresh });
-        const { address } = this.props.match.params,
-            balance = await rpc.balanceOf(address),
-            transactions = await rpc.transactions(address);
-        this.setState({ transactions, balance, isRefresh: false });
+        try{
+            isRefresh && this.props.modalStore.toggleRefresh(true);
+            const { address } = this.props.match.params,
+                balance = await rpc.balanceOf(address),
+                transactions = await rpc.transactions(address);
+
+            this.props.modalStore.toggleRefresh();
+            this.setState({ transactions, balance });
+        } catch(err) {
+            this.props.modalStore.toggleRefresh(false);
+            message.error(`${isRefresh ? '刷新' : '获取'}账户信息失败`);
+        }
     }
 
     @autobind
@@ -87,7 +89,6 @@ export default class Account extends Component {
                 <AccountHeader
                     account={account}
                     qrcode=""
-                    isRefresh={isRefresh}
                     onTransfer={this.onTransfer}
                     onTransferSubmit={this.startTransfer}
                     onRefresh={() => this.fetchList(true)}

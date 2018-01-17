@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import { Icon } from 'antd';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 import TransferModal from '../TransferModal';
 import './style';
 
 /* eslint-disable */
+@inject('modalStore')
 @observer
 export default class AccountHeader extends Component {
     static propTypes = {
@@ -19,7 +20,6 @@ export default class AccountHeader extends Component {
         onRefresh: PropTypes.func.isRequired,
         onEdit: PropTypes.func.isRequired,
         qrcode: PropTypes.string.isRequired,
-        isRefresh: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -33,11 +33,10 @@ export default class AccountHeader extends Component {
         onRefresh: null,
         onEdit: null,
         qrcode: '',
-        isRefresh: false,
     };
 
     render() {
-        const { account, onRefresh, onTransfer, onEdit, qrcode, isRefresh, onTransferSubmit } = this.props,
+        const { account, onRefresh, onTransfer, onEdit, qrcode, onTransferSubmit, modalStore } = this.props,
         { name, cions, key } = account;
 
         return (
@@ -60,7 +59,7 @@ export default class AccountHeader extends Component {
                             <p>二维码{qrcode}</p>
                         </div>
                         <div className="item" onClick={onRefresh}>
-                            <Icon type={isRefresh ? 'loading' : 'reload'} className="icon" />
+                            <Icon type={modalStore.isRefresh ? 'loading' : 'reload'} className="icon" />
                             <p>刷新</p>
                         </div>
                     </div>
