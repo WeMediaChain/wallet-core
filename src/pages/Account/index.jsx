@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import { Icon, Table } from 'antd';
+import { observer, inject } from 'mobx-react';
+import autobind from 'autobind-decorator';
 import AccountHeader from '../../components/AccountHeader';
 import './style';
 import { rpc } from '../../utils/rpc';
 
 /* eslint-disable */
+@inject('modalStore')
+@observer
 export default class Account extends Component {
     constructor(props) {
         super(props);
@@ -30,6 +34,18 @@ export default class Account extends Component {
             balance = await rpc.balanceOf(address),
             transactions = await rpc.transactions(address);
         this.setState({ transactions, balance, isRefresh: false });
+    }
+
+    @autobind
+    onTransfer() {
+        const { modalStore } = this.props;
+        modalStore.toggleTransfer();
+    }
+
+    @autobind
+    startTransfer(params) {
+        console.log('transfer params', params);
+        console.log(this.state);
     }
 
     render() {
@@ -72,7 +88,8 @@ export default class Account extends Component {
                     account={account}
                     qrcode=""
                     isRefresh={isRefresh}
-                    onTransfer={() => {}}
+                    onTransfer={this.onTransfer}
+                    onTransferSubmit={this.startTransfer}
                     onRefresh={() => this.fetchList(true)}
                     onEdit={() => {}} />
                 <section className="account-list_content">

@@ -2,40 +2,45 @@ import React, { Component } from 'react';
 import { Modal, Button, Form, Input, Icon } from 'antd';
 import PropTypes from 'proptypes';
 import autobind from 'autobind-decorator';
+import { observer, inject } from 'mobx-react';
 import './style';
 
 const AntForm = Form;
 
-/* eslint-disable */
+/* eslint-disable no-unused-expressions */
+@inject('modalStore')
+@observer
 class TransferModal extends Component {
     static propTypes = {
         form: PropTypes.object.isRequired,
         title: PropTypes.string,
+        modalStore: PropTypes.object,
+        onConfirm: PropTypes.func.isRequired,
+        onCancel: PropTypes.func,
     };
 
     static defaultProps = {
         form: {},
         title: '发起转账',
+        modalStore: {},
+        onConfirm: null,
+        onCancel: null,
     };
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            visible: false,
-        };
-    }
 
     @autobind
     onConfirm() {
-        console.log('confirm', this.state);
-        this.setState({ visible: false });
+        const { onConfirm, modalStore, form } = this.props,
+            values = form.getFieldsValue();
+
+        onConfirm && onConfirm(values);
+        modalStore.toggleTransfer();
     }
 
     @autobind
     onCancel() {
-        console.log('cancel', this.state);
-        this.setState({ visible: false });
+        const { modalStore, onCancel } = this.props;
+        onCancel && onCancel();
+        modalStore.toggleTransfer();
     }
 
     hasErrors() {
@@ -45,10 +50,6 @@ class TransferModal extends Component {
         return Object
             .keys(values)
             .some(field => !values[field]);
-    }
-
-    showModal() {
-        this.setState({ visible: true });
     }
 
     renderModalTitle() {
@@ -72,12 +73,12 @@ class TransferModal extends Component {
     }
 
     render() {
-        const { visible } = this.state,
-            { getFieldDecorator } = this.props.form;
+        const { modalStore, form } = this.props,
+            { getFieldDecorator } = form;
 
         return (
             <Modal
-                visible={visible}
+                visible={modalStore.transferModal}
                 onOk={this.onConfirm}
                 onCancel={this.onCancel}
                 title={this.renderModalTitle()}
@@ -109,6 +110,7 @@ class TransferModal extends Component {
                         })(
                             <Input
                                 prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                                type="number"
                                 placeholder="请输入转账金额" />)}
                     </AntForm.Item>
                 </AntForm>
