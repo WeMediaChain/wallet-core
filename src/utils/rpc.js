@@ -313,7 +313,6 @@ export const rpc = {
             serializedTx = tx.serialize();
 
         tx.sign(w.getPrivateKey())
-        console.log(serializedTx.toString('hex'))
         return await eth.sendSignedTransaction('0x' + serializedTx.toString('hex'))
     }
 };
