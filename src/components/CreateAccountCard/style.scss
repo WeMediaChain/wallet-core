@@ -1,0 +1,34 @@
+.create-account-container {
+    .create-account-card {
+        position: relative;
+        width: 240px;
+        border-radius: 5px;
+        height: 160px;
+        background: #F9FAFD;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 50px;
+        border: 1px dashed #B5BEE4;
+        cursor: pointer;
+        .icon {
+            font-size: 30px;
+            color: #DBDCE6;
+        }
+        span {
+            position: absolute;
+            bottom: 25px;
+            color: #B5BEE4;
+        }
+    }
+}
+
+.modal-footer-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.modal-title-container {
+    text-align: center;
+}

@@ -2,9 +2,16 @@ import React, { Component } from 'react';
 import autobind from 'autobind-decorator';
 import PreviewHeader from '../../components/PreviewHeader';
 import AccountCard from '../../components/AccountCard';
+import CreateAccountCard from '../../components/CreateAccountCard';
 import './style';
 
 export default class AccountPreview extends Component {
+
+    @autobind
+    onConfirm(params) {
+        console.log(params, this.props);
+    }
+
     @autobind
     deleteAccount(account) {
         console.log(account, this.props);
@@ -43,8 +50,16 @@ export default class AccountPreview extends Component {
                 <PreviewHeader cions={9} />
                 <section className="account-list">
                     {
-                        accounts.map((account, index) => <AccountCard key={index} link="/account" onConfirm={this.deleteAccount} account={account} />)
+                        accounts.map((account, index) => (
+                                <AccountCard
+                                    key={index}
+                                    link="/account"
+                                    onConfirm={this.deleteAccount}
+                                    account={account} />
+                            ),
+                        )
                     }
+                    <CreateAccountCard onConfirm={this.onConfirm} />
                 </section>
             </div>
         );
