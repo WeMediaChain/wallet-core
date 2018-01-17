@@ -4,12 +4,14 @@
 import React, { Component } from 'react';
 import { Layout, Menu, Icon } from 'antd';
 import PropTypes from 'proptypes';
+import { observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
 import './style';
 
 const { Sider } = Layout,
     SideMenu = Menu;
 
+@observer
 export default class Home extends Component {
     static propTypes = {
         items: PropTypes.array.isRequired,

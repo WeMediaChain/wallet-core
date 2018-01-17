@@ -4,11 +4,14 @@ import { Icon } from 'antd';
 import TransferModal from '../TransferModal';
 import './style';
 
+/* eslint-disable */
 export default function AccountHeader(props) {
     const { account, onRefresh, onTransfer, onEdit, qrcode, isRefresh } = props,
         { name, cions, key } = account;
 
     let modalHandler = null;
+
+    console.log(modalHandler);
 
     return (
        <div className="account-list-header-container">

@@ -6,6 +6,7 @@ import './style';
 
 const AntForm = Form;
 
+/* eslint-disable */
 class TransferModal extends Component {
     static propTypes = {
         form: PropTypes.object.isRequired,
@@ -35,6 +36,15 @@ class TransferModal extends Component {
     onCancel() {
         console.log('cancel', this.state);
         this.setState({ visible: false });
+    }
+
+    hasErrors() {
+        const { form } = this.props,
+            values = form.getFieldsValue();
+
+        return Object
+            .keys(values)
+            .some(field => !values[field]);
     }
 
     showModal() {
