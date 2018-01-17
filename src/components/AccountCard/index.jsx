@@ -91,7 +91,10 @@ export default class AccountCard extends Component {
             <div className="account-card-container">
                 <Link className="account-block" to={`${link}/${key}`}>
                     <p className="account-id">{showID}</p>
-                    <Icon type="delete" className="account-remove" onClick={this.onDelete} />
+                    <Icon
+                        type="delete"
+                        className="account-remove"
+                        onClick={this.onDelete} />
                     <div className="account-content">
                         <p className="account-name">{name}</p>
                         <p className="account-cions">{cions}</p>

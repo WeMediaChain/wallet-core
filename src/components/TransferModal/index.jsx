@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
-import { Modal, Button, Form, Input, Icon } from 'antd';
+import {
+    Modal,
+    Button,
+    Form,
+    Input,
+    Icon,
+ } from 'antd';
 import PropTypes from 'proptypes';
 import autobind from 'autobind-decorator';
 import { observer, inject } from 'mobx-react';
@@ -95,7 +101,10 @@ class TransferModal extends Component {
                             initialValue: '',
                         })(
                             <Input
-                                prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                                prefix={
+                                    <Icon
+                                        type="lock"
+                                        style={{ color: 'rgba(0,0,0,.25)' }} />}
                                 placeholder="请输入对方账户" />)}
                     </AntForm.Item>
                     <AntForm.Item>
@@ -109,7 +118,10 @@ class TransferModal extends Component {
                             initialValue: '',
                         })(
                             <Input
-                                prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                                prefix={
+                                    <Icon
+                                        type="lock"
+                                        style={{ color: 'rgba(0,0,0,.25)' }} />}
                                 type="number"
                                 placeholder="请输入转账金额" />)}
                     </AntForm.Item>

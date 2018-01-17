@@ -1,4 +1,4 @@
-import { observable, action } from 'mobx';
+import { observable, action, computed } from 'mobx';
 
 class Accounts {
     @observable
@@ -29,9 +29,26 @@ class Accounts {
         },
     ];
 
+    @computed
+    get accountMenus() {
+        const previewMenu = {
+                path: '/',
+                text: '账户总览',
+                icon: 'wallet',
+            },
+            accountMenus = this.accounts.map(account => ({
+                id: account.id,
+                path: `/account/${account.key}`,
+                text: account.name,
+                icon: 'solution',
+            }));
+
+        return [previewMenu, ...accountMenus];
+    }
+
     @action('create account')
     createAccount(param) {
-        console.log(param);
+        console.log('input params', param);
         const lastAccountID = this.accounts[this.accounts.length - 1].id,
             tempAccount = {
                 id: lastAccountID + 1,

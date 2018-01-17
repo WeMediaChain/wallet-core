@@ -41,7 +41,8 @@ export default class Home extends Component {
 
     calculateCurrentMenu() {
         const { location } = this.context.router.history,
-            currentID = this.props.items.findIndex(item => item.path === location.pathname);
+            currentID = this.props.items.findIndex(
+                item => item.path === location.pathname);
         return [currentID.toString()];
     }
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Icon, Table, message } from 'antd';
+import { Table, message } from 'antd';
 import { observer, inject } from 'mobx-react';
 import autobind from 'autobind-decorator';
 import AccountHeader from '../../components/AccountHeader';

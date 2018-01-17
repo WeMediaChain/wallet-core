@@ -84,7 +84,11 @@ class CreateAccountCard extends Component {
 
         return (
             <div className="create-account-container">
-                <div className="create-account-card" onClick={() => this.setState({ visible: true })}>
+                <div
+                    role="button"
+                    tabIndex="0"
+                    className="create-account-card"
+                    onClick={() => this.setState({ visible: true })}>
                     <Icon type="plus" className="icon" />
                     <span>新建账户</span>
                 </div>
@@ -107,7 +111,10 @@ class CreateAccountCard extends Component {
                                 initialValue: '',
                             })(
                                 <Input
-                                    prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                                    prefix={
+                                        <Icon
+                                            type="lock"
+                                            style={{ color: 'rgba(0,0,0,.25)' }} />}
                                     type="password"
                                     placeholder="请输入您的账号密码" />)}
                         </AntForm.Item>
@@ -122,7 +129,10 @@ class CreateAccountCard extends Component {
                                 initialValue: '',
                             })(
                                 <Input
-                                    prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                                    prefix={
+                                        <Icon
+                                            type="lock"
+                                            style={{ color: 'rgba(0,0,0,.25)' }} />}
                                     type="password"
                                     placeholder="请重新输入您的账号密码" />)}
                         </AntForm.Item>
