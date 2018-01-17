@@ -48,11 +48,12 @@ export default class Home extends Component {
             { currentId } = this.state;
 
         return (
-            <Sider>
+            <Sider className="side-container">
                 <div className="logo">
                     {logo ? <img src={logo} alt="OTCWallet" /> : null}
                 </div>
                 <SideMenu
+                    className="side-item"
                     theme="dark"
                     mode="inline"
                     selectedKeys={currentId}
