@@ -19,6 +19,10 @@ export default class Account extends Component {
         };
     }
 
+    componentDidMount() {
+        this.fetchList();
+    }
+
     componentWillReceiveProps() {
         setTimeout(() => this.fetchList(), 0);
     }
@@ -30,7 +34,7 @@ export default class Account extends Component {
                 balance = await rpc.balanceOf(address),
                 transactions = await rpc.transactions(address);
 
-            this.props.modalStore.toggleRefresh();
+            this.props.modalStore.toggleRefresh(false);
             this.setState({ transactions, balance });
         } catch(err) {
             this.props.modalStore.toggleRefresh(false);

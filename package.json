@@ -1,16 +1,14 @@
 {
     "name": "OCTWallet",
     "version": "1.0.0",
-    "description": "a react webpack boilerplate project",
+    "description": "mengxiaozhu OCTWallet",
     "main": "main.js",
     "homepage": ".",
     "scripts": {
         "start": "npx better-npm-run start:dll && npx better-npm-run start:dev",
-        "build": "npx better-npm-run build",
-        "ele:rebuild": "npx electron-rebuild",
-        "ele:dev": "npx better-npm-run electron:dev",
-        "ele:run": "npx better-npm-run electron:run",
-        "ele:release": "npx better-npm-run build && npx better-npm-run electron:release"
+        "electron:dev": "npx better-npm-run electron:dev",
+        "preview": "npx better-npm-run build && npx better-npm-run electron:run",
+        "release": "npx better-npm-run build && npx better-npm-run electron:release"
     },
     "betterScripts": {
         "start:dll": {
