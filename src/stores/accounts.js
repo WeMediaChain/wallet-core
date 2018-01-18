@@ -71,12 +71,14 @@ class Accounts {
             // reset page data
             this.balance = 0;
             this.transactions = [];
+            statusStore.toggleAccountTableStatus();
             statusStore.toggleRefresh(isRefresh);
 
             this.balance = await rpc.balanceOf(address);
             this.transactions = await rpc.transactions(address);
 
             statusStore.toggleRefresh(false);
+            statusStore.toggleAccountTableStatus();
         } catch (err) {
             statusStore.toggleRefresh(false);
         }

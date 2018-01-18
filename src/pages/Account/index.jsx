@@ -47,7 +47,7 @@ export default class Account extends Component {
     }
 
     render() {
-        const { match, accountStore } = this.props,
+        const { match, accountStore, statusStore } = this.props,
             { transactions, balance } = accountStore,
             account = {
                 name: '账户1',
@@ -100,6 +100,7 @@ export default class Account extends Component {
                     <Table
                         dataSource={transactions}
                         columns={columns}
+                        loading={statusStore.isAccountTableLoading}
                         locale={{ emptyText: '暂无数据' }}
                         rowKey={record => record.id} />
                 </section>
