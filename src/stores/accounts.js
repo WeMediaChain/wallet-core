@@ -1,5 +1,5 @@
 import { observable, action, computed } from 'mobx';
-import { modalStore } from './modals';
+import { statusStore } from './status';
 import { rpc } from '../utils/rpc';
 
 class Accounts {
@@ -71,14 +71,14 @@ class Accounts {
             // reset page data
             this.balance = 0;
             this.transactions = [];
-            modalStore.toggleRefresh(isRefresh);
+            statusStore.toggleRefresh(isRefresh);
 
             this.balance = await rpc.balanceOf(address);
             this.transactions = await rpc.transactions(address);
 
-            modalStore.toggleRefresh(false);
+            statusStore.toggleRefresh(false);
         } catch (err) {
-            modalStore.toggleRefresh(false);
+            statusStore.toggleRefresh(false);
         }
     }
 }

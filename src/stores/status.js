@@ -1,6 +1,6 @@
 import { observable, action } from 'mobx';
 
-class ModalStore {
+class StatusStore {
     @observable transferModal = false;
     @observable isRefresh = false;
 
@@ -15,4 +15,4 @@ class ModalStore {
     }
 }
 
-export const modalStore = new ModalStore();
+export const statusStore = new StatusStore();

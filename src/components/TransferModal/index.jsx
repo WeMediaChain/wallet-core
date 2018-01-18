@@ -14,24 +14,27 @@ import './style';
 const AntForm = Form;
 
 /* eslint-disable no-unused-expressions */
-@inject('modalStore')
+@inject('statusStore')
 @observer
 class TransferModal extends Component {
     static propTypes = {
         form: PropTypes.object.isRequired,
         title: PropTypes.string,
-        modalStore: PropTypes.object,
         onConfirm: PropTypes.func.isRequired,
         onCancel: PropTypes.func,
         balance: PropTypes.number.isRequired,
         address: PropTypes.string.isRequired,
         fee: PropTypes.number.isRequired,
+        statusStore: PropTypes.shape({
+            toggleTransfer: PropTypes.func.isRequired,
+            transferModal: PropTypes.bool.isRequired,
+        }).isRequired,
     };
 
     static defaultProps = {
         form: {},
         title: '发起转账',
-        modalStore: {},
+        statusStore: {},
         onConfirm: null,
         onCancel: null,
         balance: 0,
@@ -41,18 +44,18 @@ class TransferModal extends Component {
 
     @autobind
     onConfirm() {
-        const { onConfirm, modalStore, form } = this.props,
+        const { onConfirm, statusStore, form } = this.props,
             values = form.getFieldsValue();
 
         onConfirm && onConfirm(values);
-        modalStore.toggleTransfer();
+        statusStore.toggleTransfer();
     }
 
     @autobind
     onCancel() {
-        const { modalStore, onCancel } = this.props;
+        const { statusStore, onCancel } = this.props;
         onCancel && onCancel();
-        modalStore.toggleTransfer();
+        statusStore.toggleTransfer();
     }
 
     hasErrors() {
@@ -85,12 +88,12 @@ class TransferModal extends Component {
     }
 
     render() {
-        const { modalStore, form, balance, address, fee } = this.props,
+        const { statusStore, form, balance, address, fee } = this.props,
             { getFieldDecorator } = form;
 
         return (
             <Modal
-                visible={modalStore.transferModal}
+                visible={statusStore.transferModal}
                 onOk={this.onConfirm}
                 onCancel={this.onCancel}
                 title={this.renderModalTitle()}

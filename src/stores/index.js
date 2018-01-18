@@ -1,7 +1,7 @@
 import { accountStore } from './accounts';
-import { modalStore } from './modals';
+import { statusStore } from './status';
 
 export const stores = {
     accountStore,
-    modalStore,
+    statusStore,
 };

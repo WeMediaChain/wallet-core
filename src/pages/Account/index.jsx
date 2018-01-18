@@ -10,14 +10,14 @@ import PropTypes from 'proptypes';
 import AccountHeader from '../../components/AccountHeader';
 import './style';
 
-@inject('modalStore', 'accountStore')
+@inject('statusStore', 'accountStore')
 @observer
 export default class Account extends Component {
     static propTypes = {
         match: PropTypes.shape({
             params: PropTypes.object.isRequired,
         }).isRequired,
-        modalStore: PropTypes.shape({
+        statusStore: PropTypes.shape({
             toggleTransfer: PropTypes.func.isRequired,
         }).isRequired,
         accountStore: PropTypes.shape({
@@ -37,8 +37,8 @@ export default class Account extends Component {
 
     @autobind
     onTransfer() {
-        const { modalStore } = this.props;
-        modalStore.toggleTransfer();
+        const { statusStore } = this.props;
+        statusStore.toggleTransfer();
     }
 
     @autobind

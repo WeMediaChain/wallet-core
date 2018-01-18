@@ -5,8 +5,7 @@ import { observer, inject } from 'mobx-react';
 import TransferModal from '../TransferModal';
 import './style';
 
-/* eslint-disable */
-@inject('modalStore')
+@inject('statusStore')
 @observer
 export default class AccountHeader extends Component {
     static propTypes = {
@@ -23,6 +22,9 @@ export default class AccountHeader extends Component {
         balance: PropTypes.number.isRequired,
         address: PropTypes.string.isRequired,
         fee: PropTypes.number.isRequired,
+        statusStore: PropTypes.shape({
+            isRefresh: PropTypes.bool.isRequired,
+        }).isRequired,
     };
 
     static defaultProps = {
@@ -49,12 +51,12 @@ export default class AccountHeader extends Component {
             onEdit,
             qrcode,
             onTransferSubmit,
-            modalStore,
+            statusStore,
             balance,
             address,
             fee,
         } = this.props,
-        { name, cions, key } = account;
+            { name, cions, key } = account;
 
         return (
         <div className="account-list-header-container">
@@ -76,7 +78,7 @@ export default class AccountHeader extends Component {
                             <p>二维码{qrcode}</p>
                         </div>
                         <div className="item" onClick={onRefresh}>
-                            <Icon type={modalStore.isRefresh ? 'loading' : 'reload'} className="icon" />
+                            <Icon type={statusStore.isRefresh ? 'loading' : 'reload'} className="icon" />
                             <p>刷新</p>
                         </div>
                     </div>
