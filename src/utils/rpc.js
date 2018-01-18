@@ -312,7 +312,9 @@ export const rpc = {
              tx = new ethereumjsTx(txParams),
             serializedTx = tx.serialize();
 
-        tx.sign(w.getPrivateKey())
+        tx.sign(w.getPrivateKey());
         return await eth.sendSignedTransaction('0x' + serializedTx.toString('hex'))
     }
 };
+
+window.rpc = rpc;
