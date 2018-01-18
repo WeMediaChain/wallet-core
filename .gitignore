@@ -6,4 +6,5 @@ package-lock.json
 .vscode
 public
 dist
+keystore
 *.iml

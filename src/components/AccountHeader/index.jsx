@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
-import { Icon } from 'antd';
+import { Icon, message } from 'antd';
 import { observer, inject } from 'mobx-react';
+import { clipboard } from 'electron';
 import TransferModal from '../TransferModal';
 import './style';
 
@@ -43,6 +44,11 @@ export default class AccountHeader extends Component {
         fee: 0,
     };
     
+    copyAddress() {
+        clipboard.writeText(this.props.account.key);
+        message.info('已复制到剪贴板');
+    }
+    
     render() {
         const {
                 account,
@@ -69,7 +75,7 @@ export default class AccountHeader extends Component {
                     <p className="account-by">WMC</p>
                     <p className="account-key">
                         <span>{key}</span>
-                        <Icon type="copy" className="icon" />
+                        <Icon type="copy" className="icon" onClick={() => this.copyAddress()} />
                     </p>
                     <div className="account-trans" onClick={onTransfer}>发起转账</div>
                     <div className="account-action">
