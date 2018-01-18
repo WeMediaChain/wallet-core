@@ -1,0 +1,46 @@
+.confirm-password-card {
+    position: relative;
+    width: 240px;
+    border-radius: 5px;
+    height: 160px;
+    background: #F9FAFD;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    border: 1px dashed #B5BEE4;
+    cursor: pointer;
+    outline: none;
+    .icon {
+        font-size: 30px;
+        color: #DBDCE6;
+    }
+    span {
+        position: absolute;
+        bottom: 25px;
+        color: #B5BEE4;
+    }
+}
+
+.confirm-password-modal {
+    margin-top: 20px;
+
+    .confirm-password-item {
+        margin: 10px auto;
+    }
+}
+
+.confirm-password-tip {
+    display: flex;
+    justify-content: space-around;
+}
+
+.modal-footer-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.modal-title-container {
+    text-align: center;
+}

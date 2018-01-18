@@ -275,9 +275,10 @@ const URL = 'http://47.104.143.109:8545/',
             stateMutability: "nonpayable",
             type: "function"
         }
-    ],
-    { eth } = web3,
-    contract = new web3.eth.Contract(wmcABI, contractAddress);
+    ], {eth} = web3,
+    contract = new web3
+        .eth
+        .Contract(wmcABI, contractAddress);
 
 eth.setProvider(URL);
 contract.setProvider(URL);
@@ -286,33 +287,47 @@ export const rpc = {
     wallet,
     web3: web3.utils,
     eth,
+    tx: ethereumjsTx,
     contract,
     async balanceOf(address) {
-        const balance = await contract.methods.balanceOf(address).call();
-        return web3.utils.fromWei(balance)
+        const balance = await contract
+            .methods
+            .balanceOf(address)
+            .call();
+        return web3
+            .utils
+            .fromWei(balance)
     },
     async transactions(address) {
-        return await rpc.contract.getPastEvents('Transfer',{
-            filter: {},
-            fromBlock: 0,
-            toBlock: 'latest'
-        });
+        return await rpc
+            .contract
+            .getPastEvents('Transfer', {
+                filter: {},
+                fromBlock: 0,
+                toBlock: 'latest'
+            });
     },
-    async transfer (w, to, value, gasPrice, gasLimit) {
-        const data = contract.methods.transfer(to, value).encodeABI(),
+    async transfer(w, to, value, gasPrice, gasLimit) {
+        const data = contract
+                .methods
+                .transfer(to, web3.utils.toWei(value.toString()))
+                .encodeABI(),
             nonce = await eth.getTransactionCount(w.getAddressString()),
             txParams = {
-                nonce: web3.utils.toHex(nonce),
+                nonce: web3
+                    .utils
+                    .toHex(nonce),
                 gasPrice: gasPrice || '0x4a817c800',
                 gasLimit: gasLimit || '0x1d8a8',
                 to: contractAddress,
                 value: '0x00',
-                data: data,
+                data: data
             },
-             tx = new ethereumjsTx(txParams),
-            serializedTx = tx.serialize();
+            tx = new ethereumjsTx(txParams);
 
         tx.sign(w.getPrivateKey());
+        const serializedTx = tx.serialize();
+
         return await eth.sendSignedTransaction('0x' + serializedTx.toString('hex'))
     }
 };

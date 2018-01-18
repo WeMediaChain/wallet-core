@@ -101,7 +101,7 @@ class CreateAccountCard extends Component {
                     onCancel={this.onCancel}
                     title={this.renderModalTitle()}
                     footer={this.renderModalFooter()}>
-                    <p>为您的账户设置一个长度不小于8位的密码</p>
+                    <p className="create-account-tip">为您的账户设置一个长度不小于8位的密码</p>
                     <AntForm>
                         <AntForm.Item>
                             {getFieldDecorator('password', {

@@ -8,6 +8,7 @@ import {
 import autobind from 'autobind-decorator';
 import PropTypes from 'proptypes';
 import AccountHeader from '../../components/AccountHeader';
+import ConfirmPasswordModal from '../../components/ConfirmPassword';
 import './style';
 
 @inject('statusStore', 'accountStore')
@@ -19,36 +20,68 @@ export default class Account extends Component {
         }).isRequired,
         statusStore: PropTypes.shape({
             toggleTransfer: PropTypes.func.isRequired,
+            toggleConfirmPasswordStatus: PropTypes.func.isRequired,
         }).isRequired,
         accountStore: PropTypes.shape({
             fetchTransferList: PropTypes.func.isRequired,
             balance: PropTypes.number.isRequired,
             transactions: MobxPropTypes.arrayOrObservableArray.isRequired,
+            transferInfo: PropTypes.object.isRequired,
         }).isRequired,
     };
-    
+
+    static defaultProps = {
+        match: {
+            params: {},
+        },
+        statusStore: {
+            toggleTransfer: null,
+            toggleConfirmPasswordStatus: null,
+        },
+        accountStore: {
+            fetchTransferList: null,
+            balance: 0,
+            transactions: [],
+            transferInfo: {},
+        },
+    };
+
     componentDidMount() {
         this.props.accountStore.fetchTransferList(this.props.match.params.address);
     }
-    
-    componentWillReceiveProps() {
-        setTimeout(() => this.props.accountStore.fetchTransferList(this.props.match.params.address), 0);
+
+    componentWillReceiveProps(nextProps) {
+        const { accountStore } = this.props,
+            { match } = nextProps;
+        accountStore.fetchTransferList(match.params.address);
     }
-    
+
     @autobind
     onTransfer() {
         const { statusStore } = this.props;
         statusStore.toggleTransfer();
     }
-    
+
+    @autobind
+    onConfirmPwd(param) {
+        const { accountStore } = this.props;
+        accountStore.setTransferInfo(param);
+        setTimeout(() => accountStore.startTransfer(), 0);
+    }
+
     @autobind
     startTransfer(params) {
-        console.log('transfer params', params, this.props);
+        const { statusStore, accountStore, match } = this.props;
+        accountStore.setTransferInfo({
+            ...params,
+            tranferAddress: match.params.address,
+        });
+        statusStore.toggleConfirmPasswordStatus();
     }
-    
+
     render() {
         const { match, accountStore, statusStore } = this.props,
-            { transactions, balance } = accountStore,
+            { transactions, balance, transferInfo } = accountStore,
             account = {
                 name: '账户1',
                 cions: balance,
@@ -79,7 +112,7 @@ export default class Account extends Component {
                     key: '4',
                 },
             ];
-        
+
         return (
             <div className="account-list-container">
                 <AccountHeader
@@ -92,7 +125,7 @@ export default class Account extends Component {
                     }}
                     balance={balance}
                     address={match.params.address}
-                    fee={0.01} />
+                    fee={transferInfo.fee} />
                 <section className="account-list_content">
                     <div className="account-list-table_header">
                         <span className="header-title">最近交易</span>
@@ -105,6 +138,13 @@ export default class Account extends Component {
                         locale={{ emptyText: '暂无数据' }}
                         rowKey={record => record.id} />
                 </section>
+                <ConfirmPasswordModal
+                    onConfirm={this.onConfirmPwd}
+                    transferMoney={transferInfo.money}
+                    fee={transferInfo.fee}
+                    transferAccount={transferInfo.tranferAddress}
+                    intoAccount={transferInfo.address}
+                 />
             </div>
         );
     }

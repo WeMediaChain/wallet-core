@@ -27,7 +27,7 @@ export default class AccountHeader extends Component {
             isRefresh: PropTypes.bool.isRequired,
         }).isRequired,
     };
-    
+
     static defaultProps = {
         account: {
             name: '',
@@ -43,12 +43,12 @@ export default class AccountHeader extends Component {
         address: '',
         fee: 0,
     };
-    
+
     copyAddress() {
         clipboard.writeText(this.props.account.key);
         message.info('已复制到剪贴板');
     }
-    
+
     render() {
         const {
                 account,
@@ -63,7 +63,7 @@ export default class AccountHeader extends Component {
                 fee,
             } = this.props,
             { name, cions, key } = account;
-        
+
         return (
             <div className="account-list-header-container">
                 <header className="account-list-header">

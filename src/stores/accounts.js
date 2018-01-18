@@ -1,5 +1,6 @@
 import { observable, action, computed } from 'mobx';
 import { remote } from 'electron';
+import { message } from 'antd';
 import { statusStore } from './status';
 import { rpc } from '../utils/rpc';
 
@@ -27,36 +28,44 @@ function removeWalletFile(address) {
 }
 
 class Accounts {
+    @observable.shallow
+    walletsMap = {};
     @observable
     wallets = [];
     @observable
     balance = 0;
     @observable
     transactions = [];
-    
+    @observable
+    transferInfo = { fee: 0.01 };
+
     constructor() {
         this.loadAccountConfig();
     }
-    
+
     loadAccountConfig() {
+        const walletsMap = {};
         this.wallets = fs.readdirSync(WALLETS_PATH).map((file, index) => {
             try {
-                const v3 = JSON.parse(fs.readFileSync(`${WALLETS_PATH}/${file}`, 'utf-8'));
-                
+                const v3 = JSON.parse(fs.readFileSync(`${WALLETS_PATH}/${file}`, 'utf-8')),
+                    wallet = JSON.parse(JSON.stringify(v3));
+
+                walletsMap[`0x${v3.address}`] = v3;
+
                 // todo 先这样，之后调整
-                v3.name = v3.address.slice(-4);
-                v3.cions = 0;
-                v3.index = index + 1;
-                v3.address = `0x${v3.address}`;
-                
-                return v3;
+                wallet.name = wallet.address.slice(-4);
+                wallet.cions = 0;
+                wallet.index = index + 1;
+                wallet.address = `0x${wallet.address}`;
+
+                return wallet;
             } catch (err) {
-                console.error(err);
                 return {};
             }
         });
+        this.walletsMap = walletsMap;
     }
-    
+
     @computed
     get accountMenus() {
         const previewMenu = {
@@ -69,10 +78,10 @@ class Accounts {
                 text: wallet.name,
                 icon: 'solution',
             }));
-        
+
         return [previewMenu, ...accountMenus];
     }
-    
+
     @action('create account')
     async createAccount(param) {
         try {
@@ -83,7 +92,7 @@ class Accounts {
             console.error(err);
         }
     }
-    
+
     @action('delete account')
     async deleteAccount({ address }) {
         try {
@@ -93,7 +102,7 @@ class Accounts {
             console.error(err);
         }
     }
-    
+
     @action('fetch transfer list')
     async fetchTransferList(address, isRefresh = false) {
         try {
@@ -102,19 +111,39 @@ class Accounts {
                 this.balance = 0;
                 this.transactions = [];
             }
-            
+
             // toggle status
             statusStore.toggleAccountTableStatus();
             statusStore.toggleRefresh(isRefresh);
-            
+
             this.balance = await rpc.balanceOf(address);
             this.transactions = await rpc.transactions(address);
-            
+
             statusStore.toggleRefresh(false);
             statusStore.toggleAccountTableStatus();
         } catch (err) {
             statusStore.toggleRefresh(false);
             statusStore.toggleAccountTableStatus();
+        }
+    }
+
+    @action('set transfer info')
+    setTransferInfo(info) {
+        this.transferInfo = { ...this.transferInfo, ...info };
+    }
+
+    @action('start transfer money')
+    async startTransfer() {
+        try {
+            const { tranferAddress, password, address, money } = this.transferInfo,
+                obj = this.walletsMap[tranferAddress],
+                w = rpc.wallet(obj, password);
+
+            await rpc.transfer(w, address, parseFloat(money));
+            this.fetchTransferList(tranferAddress);
+            message.success('转账成功');
+        } catch (err) {
+            message.error('转账失败');
         }
     }
 }
