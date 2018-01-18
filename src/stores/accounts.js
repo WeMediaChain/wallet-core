@@ -23,12 +23,6 @@ class Accounts {
             cions: 20,
             key: '0x243F7F63bc673056D8d2a2c1e31776561Dd7f708',
         },
-        {
-            id: 4,
-            name: '账户4',
-            cions: 32,
-            key: '0x71390Ad7724BC0c478C19531E389978F97cBB877',
-        },
     ];
     @observable
     balance = 0;
