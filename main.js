@@ -6,7 +6,7 @@ let win;
 
 function createWindow() {
     const DEV = process.env.NODE_ENV === 'development';
-    win = new BrowserWindow({ width: 1000, height: 600, titleBarStyle: 'hidden', resizable: DEV });
+    win = new BrowserWindow({ width: 930, height: 600, titleBarStyle: 'hidden', resizable: DEV });
     win.show();
 
     if (DEV) {

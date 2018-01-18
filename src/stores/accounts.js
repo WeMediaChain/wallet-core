@@ -4,7 +4,27 @@ import { statusStore } from './status';
 import { rpc } from '../utils/rpc';
 
 /* eslint-disable one-var */
-const fs = remote.require('fs');
+const fs = remote.require('fs'),
+    WALLETS_PATH = './keystore';
+
+function createWalletFile(fileName, context) {
+    return new Promise((rs, rj) =>
+        fs.writeFile(
+            `${WALLETS_PATH}/${fileName}.json`,
+            JSON.stringify(context),
+            { flag: 'w+', encoding: 'utf8' },
+            (err) => (err ? rj(err) : rs()),
+        ),
+    );
+}
+
+function removeWalletFile(address) {
+    return new Promise((rs, rj) =>
+        fs.unlink(
+            `${WALLETS_PATH}/${address}.json`,
+            (err) => (err ? rj(err) : rs())),
+    );
+}
 
 class Accounts {
     @observable
@@ -19,16 +39,21 @@ class Accounts {
     }
     
     loadAccountConfig() {
-        this.wallets = fs.readdirSync('./keystore').map((file, index) => {
-            const v3 = JSON.parse(fs.readFileSync(`./keystore/${file}`, 'utf-8'));
-            
-            // todo 先这样，之后调整
-            v3.name = v3.address.slice(-4);
-            v3.cions = 0;
-            v3.index = index + 1;
-            v3.address = `0x${v3.address}`;
-            
-            return v3;
+        this.wallets = fs.readdirSync(WALLETS_PATH).map((file, index) => {
+            try {
+                const v3 = JSON.parse(fs.readFileSync(`${WALLETS_PATH}/${file}`, 'utf-8'));
+                
+                // todo 先这样，之后调整
+                v3.name = v3.address.slice(-4);
+                v3.cions = 0;
+                v3.index = index + 1;
+                v3.address = `0x${v3.address}`;
+                
+                return v3;
+            } catch (err) {
+                console.error(err);
+                return {};
+            }
         });
     }
     
@@ -44,28 +69,29 @@ class Accounts {
                 text: wallet.name,
                 icon: 'solution',
             }));
-
+        
         return [previewMenu, ...accountMenus];
     }
     
     @action('create account')
-    createAccount(param) {
-        console.log('input params', param, this.wallets);
-        // const lastAccountID = this.accounts[this.accounts.length - 1].id,
-        //     tempAccount = {
-        //         id: lastAccountID + 1,
-        //         name: `账户${lastAccountID + 1}`,
-        //         cions: 23,
-        //         key: '0x243F7F63bc673056D8d2a2c1e31776561Dd7f708',
-        //     };
-        // this.accounts.push(tempAccount);
+    async createAccount(param) {
+        try {
+            const account = rpc.eth.accounts.create().encrypt(param.password);
+            await createWalletFile(`0x${account.address}`, account);
+            this.loadAccountConfig();
+        } catch (err) {
+            console.error(err);
+        }
     }
     
     @action('delete account')
-    deleteAccount({ id }) {
-        console.log('delete', id, this.wallets);
-        // const index = this.accounts.findIndex(account => account.id === id);
-        // this.accounts.splice(index, 1);
+    async deleteAccount({ address }) {
+        try {
+            await removeWalletFile(address);
+            this.loadAccountConfig();
+        } catch (err) {
+            console.error(err);
+        }
     }
     
     @action('fetch transfer list')

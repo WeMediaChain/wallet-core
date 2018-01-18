@@ -54,9 +54,11 @@ class CreateAccountCard extends Component {
         const { form, limit } = this.props,
             values = form.getFieldsValue();
         
-        return Object
-            .keys(values)
-            .some(field => !values[field] || values[field].length < limit);
+        return values.password !== values.repassword
+            || (!values.password ||
+                !values.repassword ||
+                values.password.length < limit
+                || values.repassword.length < limit);
     }
     
     renderModalTitle() {
