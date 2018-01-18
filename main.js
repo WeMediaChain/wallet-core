@@ -5,7 +5,8 @@ const { app, BrowserWindow } = require('electron'),
 let win;
 
 function createWindow() {
-    win = new BrowserWindow({ width: 1000, height: 600 });
+    win = new BrowserWindow({ width: 1000, height: 600, titleBarStyle: 'hidden', resizable: false });
+    win.show();
 
     if (process.env.NODE_ENV === 'development') {
         const port = process.argv[2] || 4040;

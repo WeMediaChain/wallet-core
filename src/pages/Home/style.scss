@@ -19,3 +19,12 @@
         background: #fff;
     }
 }
+
+button {
+    -webkit-app-region: no-drag;
+}
+
+.titlebar {
+    -webkit-user-select: none;
+    -webkit-app-region: drag;
+}

@@ -1,45 +1,38 @@
 import React, { Component } from 'react';
-import { Table, message } from 'antd';
-import { observer, inject } from 'mobx-react';
+import { Table } from 'antd';
+import {
+    observer,
+    inject,
+    PropTypes as MobxPropTypes,
+} from 'mobx-react';
 import autobind from 'autobind-decorator';
+import PropTypes from 'proptypes';
 import AccountHeader from '../../components/AccountHeader';
 import './style';
-import { rpc } from '../../utils/rpc';
 
-/* eslint-disable */
-@inject('modalStore')
+@inject('modalStore', 'accountStore')
 @observer
 export default class Account extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            transactions: [],
-            balance: 0,
-        };
-    }
+    static propTypes = {
+        match: PropTypes.shape({
+            params: PropTypes.object.isRequired,
+        }).isRequired,
+        modalStore: PropTypes.shape({
+            toggleTransfer: PropTypes.func.isRequired,
+        }).isRequired,
+        accountStore: PropTypes.shape({
+            fetchTransferList: PropTypes.func.isRequired,
+            balance: PropTypes.number.isRequired,
+            transactions: MobxPropTypes.arrayOrObservableArray.isRequired,
+        }).isRequired,
+    };
 
     componentDidMount() {
-        this.fetchList();
+        this.props.accountStore.fetchTransferList(this.props.match.params.address);
     }
 
     componentWillReceiveProps() {
-        setTimeout(() => this.fetchList(), 0);
-    }
-
-    async fetchList(isRefresh = false) {
-        try{
-            isRefresh && this.props.modalStore.toggleRefresh(true);
-            const { address } = this.props.match.params,
-                balance = await rpc.balanceOf(address),
-                transactions = await rpc.transactions(address);
-
-            this.props.modalStore.toggleRefresh(false);
-            this.setState({ transactions, balance });
-        } catch(err) {
-            this.props.modalStore.toggleRefresh(false);
-            message.error(`${isRefresh ? '刷新' : '获取'}账户信息失败`);
-        }
+        setTimeout(() => this.props.accountStore.fetchTransferList(this.props.match.params.address), 0);
     }
 
     @autobind
@@ -50,17 +43,16 @@ export default class Account extends Component {
 
     @autobind
     startTransfer(params) {
-        console.log('transfer params', params);
-        console.log(this.state);
+        console.log('transfer params', params, this.props);
     }
 
     render() {
-        const { params } = this.props.match,
-            { transactions, balance, isRefresh } = this.state,
+        const { match, accountStore } = this.props,
+            { transactions, balance } = accountStore,
             account = {
                 name: '账户1',
                 cions: balance,
-                key: params.address,
+                key: match.params.address,
             },
             columns = [
                 {
@@ -95,10 +87,10 @@ export default class Account extends Component {
                     qrcode=""
                     onTransfer={this.onTransfer}
                     onTransferSubmit={this.startTransfer}
-                    onRefresh={() => this.fetchList(true)}
+                    onRefresh={() => accountStore.fetchTransferList(match.params.address, true)}
                     onEdit={() => {}}
                     balance={balance}
-                    address={params.address}
+                    address={match.params.address}
                     fee={0.01}/>
                 <section className="account-list_content">
                     <div className="account-list-table_header">
@@ -108,7 +100,7 @@ export default class Account extends Component {
                     <Table
                         dataSource={transactions}
                         columns={columns}
-                        locale={{emptyText: '暂无数据'}}
+                        locale={{ emptyText: '暂无数据' }}
                         rowKey={record => record.id} />
                 </section>
             </div>

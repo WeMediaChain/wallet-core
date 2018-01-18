@@ -1,4 +1,6 @@
 import { observable, action, computed } from 'mobx';
+import { modalStore } from './modals';
+import { rpc } from '../utils/rpc';
 
 class Accounts {
     @observable
@@ -28,6 +30,10 @@ class Accounts {
             key: '0x71390Ad7724BC0c478C19531E389978F97cBB877',
         },
     ];
+    @observable
+    balance = 0;
+    @observable
+    transactions = [];
 
     @computed
     get accountMenus() {
@@ -63,6 +69,23 @@ class Accounts {
     deleteAccount({ id }) {
         const index = this.accounts.findIndex(account => account.id === id);
         this.accounts.splice(index, 1);
+    }
+
+    @action('fetch transfer list')
+    async fetchTransferList(address, isRefresh = false) {
+        try {
+            // reset page data
+            this.balance = 0;
+            this.transactions = [];
+            modalStore.toggleRefresh(isRefresh);
+
+            this.balance = await rpc.balanceOf(address);
+            this.transactions = await rpc.transactions(address);
+
+            modalStore.toggleRefresh(false);
+        } catch (err) {
+            modalStore.toggleRefresh(false);
+        }
     }
 }
 
