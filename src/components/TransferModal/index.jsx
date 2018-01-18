@@ -5,7 +5,7 @@ import {
     Form,
     Input,
     Icon,
- } from 'antd';
+} from 'antd';
 import PropTypes from 'proptypes';
 import autobind from 'autobind-decorator';
 import { observer, inject } from 'mobx-react';
@@ -30,7 +30,7 @@ class TransferModal extends Component {
             transferModal: PropTypes.bool.isRequired,
         }).isRequired,
     };
-
+    
     static defaultProps = {
         form: {},
         title: '发起转账',
@@ -41,32 +41,32 @@ class TransferModal extends Component {
         address: '',
         fee: 0,
     };
-
+    
     @autobind
     onConfirm() {
         const { onConfirm, statusStore, form } = this.props,
             values = form.getFieldsValue();
-
+        
         onConfirm && onConfirm(values);
         statusStore.toggleTransfer();
     }
-
+    
     @autobind
     onCancel() {
         const { statusStore, onCancel } = this.props;
         onCancel && onCancel();
         statusStore.toggleTransfer();
     }
-
+    
     hasErrors() {
         const { form } = this.props,
             values = form.getFieldsValue();
-
+        
         return Object
             .keys(values)
             .some(field => !values[field]);
     }
-
+    
     renderModalTitle() {
         return (
             <div className="modal-title-container">
@@ -74,7 +74,7 @@ class TransferModal extends Component {
             </div>
         );
     }
-
+    
     renderModalFooter() {
         return (
             <div className="modal-footer-container">
@@ -86,11 +86,11 @@ class TransferModal extends Component {
             </div>
         );
     }
-
+    
     render() {
         const { statusStore, form, balance, address, fee } = this.props,
             { getFieldDecorator } = form;
-
+        
         return (
             <Modal
                 visible={statusStore.transferModal}
@@ -137,7 +137,7 @@ class TransferModal extends Component {
                                 placeholder="请输入转账金额" />)}
                     </AntForm.Item>
                 </AntForm>
-                <p>手  续  费：{fee}</p>
+                <p>手 续 费：{fee}</p>
             </Modal>
         );
     }

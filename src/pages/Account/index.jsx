@@ -26,26 +26,26 @@ export default class Account extends Component {
             transactions: MobxPropTypes.arrayOrObservableArray.isRequired,
         }).isRequired,
     };
-
+    
     componentDidMount() {
         this.props.accountStore.fetchTransferList(this.props.match.params.address);
     }
-
+    
     componentWillReceiveProps() {
         setTimeout(() => this.props.accountStore.fetchTransferList(this.props.match.params.address), 0);
     }
-
+    
     @autobind
     onTransfer() {
         const { statusStore } = this.props;
         statusStore.toggleTransfer();
     }
-
+    
     @autobind
     startTransfer(params) {
         console.log('transfer params', params, this.props);
     }
-
+    
     render() {
         const { match, accountStore, statusStore } = this.props,
             { transactions, balance } = accountStore,
@@ -79,7 +79,7 @@ export default class Account extends Component {
                     key: '4',
                 },
             ];
-
+        
         return (
             <div className="account-list-container">
                 <AccountHeader
@@ -88,10 +88,11 @@ export default class Account extends Component {
                     onTransfer={this.onTransfer}
                     onTransferSubmit={this.startTransfer}
                     onRefresh={() => accountStore.fetchTransferList(match.params.address, true)}
-                    onEdit={() => {}}
+                    onEdit={() => {
+                    }}
                     balance={balance}
                     address={match.params.address}
-                    fee={0.01}/>
+                    fee={0.01} />
                 <section className="account-list_content">
                     <div className="account-list-table_header">
                         <span className="header-title">最近交易</span>

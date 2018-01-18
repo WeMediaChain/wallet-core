@@ -22,7 +22,7 @@ export default class AccountCard extends Component {
         onCancel: PropTypes.func,
         title: PropTypes.string,
     };
-
+    
     static defaultProps = {
         account: {
             id: 1,
@@ -35,35 +35,35 @@ export default class AccountCard extends Component {
         onCancel: null,
         title: '确认删除账户',
     };
-
+    
     constructor(props) {
         super(props);
-
+        
         this.state = {
             modalStatus: false,
         };
     }
-
+    
     @autobind
     onConfirm() {
         const { onConfirm, account } = this.props;
         onConfirm && onConfirm(account);
         this.setState({ modalStatus: false });
     }
-
+    
     @autobind
     onCancel() {
         const { onCancel } = this.props;
         onCancel && onCancel();
         this.setState({ modalStatus: false });
     }
-
+    
     @autobind
     onDelete(e) {
         e.preventDefault();
         this.setState({ modalStatus: true });
     }
-
+    
     renderModalFooter() {
         return (
             <div className="modal-footer-container">
@@ -72,7 +72,7 @@ export default class AccountCard extends Component {
             </div>
         );
     }
-
+    
     renderModalTitle() {
         return (
             <div className="modal-title-container">
@@ -80,13 +80,13 @@ export default class AccountCard extends Component {
             </div>
         );
     }
-
+    
     render() {
         const { modalStatus } = this.state,
             { account, link } = this.props,
             { id, name, cions, key } = account,
             showID = id > 9 ? id : `0${id}`;
-
+        
         return (
             <div className="account-card-container">
                 <Link className="account-block" to={`${link}/${key}`}>

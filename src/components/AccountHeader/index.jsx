@@ -26,7 +26,7 @@ export default class AccountHeader extends Component {
             isRefresh: PropTypes.bool.isRequired,
         }).isRequired,
     };
-
+    
     static defaultProps = {
         account: {
             name: '',
@@ -42,24 +42,24 @@ export default class AccountHeader extends Component {
         address: '',
         fee: 0,
     };
-
+    
     render() {
         const {
-            account,
-            onRefresh,
-            onTransfer,
-            onEdit,
-            qrcode,
-            onTransferSubmit,
-            statusStore,
-            balance,
-            address,
-            fee,
-        } = this.props,
+                account,
+                onRefresh,
+                onTransfer,
+                onEdit,
+                qrcode,
+                onTransferSubmit,
+                statusStore,
+                balance,
+                address,
+                fee,
+            } = this.props,
             { name, cions, key } = account;
-
+        
         return (
-        <div className="account-list-header-container">
+            <div className="account-list-header-container">
                 <header className="account-list-header">
                     <p className="account-name">
                         <span>{name}</span>
@@ -83,12 +83,12 @@ export default class AccountHeader extends Component {
                         </div>
                     </div>
                 </header>
-            <TransferModal
-                onConfirm={onTransferSubmit}
-                balance={balance}
-                address={address}
-                fee={fee} />
-        </div>
+                <TransferModal
+                    onConfirm={onTransferSubmit}
+                    balance={balance}
+                    address={address}
+                    fee={fee} />
+            </div>
         );
     }
 }

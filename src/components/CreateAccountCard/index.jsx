@@ -15,49 +15,50 @@ class CreateAccountCard extends Component {
         onCancel: PropTypes.func,
         limit: PropTypes.number,
     };
-
+    
     static defaultProps = {
         title: '创建您的账号',
         form: {},
-        onConfirm: () => {},
+        onConfirm: () => {
+        },
         onCancel: null,
         limit: 8,
     };
-
+    
     constructor(props) {
         super(props);
-
+        
         this.state = {
             visible: false,
         };
     }
-
+    
     @autobind
     onConfirm() {
         const { form, onConfirm } = this.props,
             values = form.getFieldsValue();
-
+        
         onConfirm && onConfirm(values);
         this.setState({ visible: false });
     }
-
+    
     @autobind
     onCancel() {
         const { onCancel } = this.props;
-
+        
         onCancel && onCancel();
         this.setState({ visible: false });
     }
-
+    
     hasErrors() {
         const { form, limit } = this.props,
             values = form.getFieldsValue();
-
+        
         return Object
             .keys(values)
             .some(field => !values[field] || values[field].length < limit);
     }
-
+    
     renderModalTitle() {
         return (
             <div className="modal-title-container">
@@ -65,7 +66,7 @@ class CreateAccountCard extends Component {
             </div>
         );
     }
-
+    
     renderModalFooter() {
         return (
             <div className="modal-footer-container">
@@ -77,11 +78,11 @@ class CreateAccountCard extends Component {
             </div>
         );
     }
-
+    
     render() {
         const { visible } = this.state,
             { getFieldDecorator } = this.props.form;
-
+        
         return (
             <div className="create-account-container">
                 <div

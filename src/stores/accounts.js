@@ -28,7 +28,7 @@ class Accounts {
     balance = 0;
     @observable
     transactions = [];
-
+    
     @computed
     get accountMenus() {
         const previewMenu = {
@@ -42,10 +42,10 @@ class Accounts {
                 text: account.name,
                 icon: 'solution',
             }));
-
+        
         return [previewMenu, ...accountMenus];
     }
-
+    
     @action('create account')
     createAccount(param) {
         console.log('input params', param);
@@ -58,13 +58,13 @@ class Accounts {
             };
         this.accounts.push(tempAccount);
     }
-
+    
     @action('delete account')
     deleteAccount({ id }) {
         const index = this.accounts.findIndex(account => account.id === id);
         this.accounts.splice(index, 1);
     }
-
+    
     @action('fetch transfer list')
     async fetchTransferList(address, isRefresh = false) {
         try {
@@ -73,14 +73,14 @@ class Accounts {
                 this.balance = 0;
                 this.transactions = [];
             }
-
+            
             // toggle status
             statusStore.toggleAccountTableStatus();
             statusStore.toggleRefresh(isRefresh);
-
+            
             this.balance = await rpc.balanceOf(address);
             this.transactions = await rpc.transactions(address);
-
+            
             statusStore.toggleRefresh(false);
             statusStore.toggleAccountTableStatus();
         } catch (err) {
