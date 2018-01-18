@@ -68,9 +68,13 @@ class Accounts {
     @action('fetch transfer list')
     async fetchTransferList(address, isRefresh = false) {
         try {
-            // reset page data
-            this.balance = 0;
-            this.transactions = [];
+            // reset page data while fetch
+            if (!isRefresh) {
+                this.balance = 0;
+                this.transactions = [];
+            }
+
+            // toggle status
             statusStore.toggleAccountTableStatus();
             statusStore.toggleRefresh(isRefresh);
 
@@ -81,6 +85,7 @@ class Accounts {
             statusStore.toggleAccountTableStatus();
         } catch (err) {
             statusStore.toggleRefresh(false);
+            statusStore.toggleAccountTableStatus();
         }
     }
 }
