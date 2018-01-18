@@ -5,10 +5,11 @@ const { app, BrowserWindow } = require('electron'),
 let win;
 
 function createWindow() {
-    win = new BrowserWindow({ width: 1000, height: 600, titleBarStyle: 'hidden', resizable: false });
+    const DEV = process.env.NODE_ENV === 'development';
+    win = new BrowserWindow({ width: 1000, height: 600, titleBarStyle: 'hidden', resizable: DEV });
     win.show();
 
-    if (process.env.NODE_ENV === 'development') {
+    if (DEV) {
         const port = process.argv[2] || 4040;
         win.loadURL(`http://127.0.0.1:${port}/`);
         win.webContents.openDevTools();

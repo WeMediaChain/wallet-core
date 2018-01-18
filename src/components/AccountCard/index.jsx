@@ -9,13 +9,10 @@ import './style';
 export default class AccountCard extends Component {
     static propTypes = {
         account: PropTypes.shape({
-            id: PropTypes.oneOfType([
-                PropTypes.string.isRequired,
-                PropTypes.number.isRequired,
-            ]),
+            index: PropTypes.number.isRequired,
             name: PropTypes.string.isRequired,
             cions: PropTypes.number.isRequired,
-            key: PropTypes.string.isRequired,
+            address: PropTypes.string.isRequired,
         }).isRequired,
         link: PropTypes.string.isRequired,
         onConfirm: PropTypes.func,
@@ -25,10 +22,10 @@ export default class AccountCard extends Component {
     
     static defaultProps = {
         account: {
-            id: 1,
+            index: 1,
             name: '',
             cions: 0,
-            key: '',
+            address: '',
         },
         link: '',
         onConfirm: null,
@@ -84,12 +81,12 @@ export default class AccountCard extends Component {
     render() {
         const { modalStatus } = this.state,
             { account, link } = this.props,
-            { id, name, cions, key } = account,
-            showID = id > 9 ? id : `0${id}`;
+            { index, name, cions, address } = account,
+            showID = index > 9 ? index : `0${index}`;
         
         return (
             <div className="account-card-container">
-                <Link className="account-block" to={`${link}/${key}`}>
+                <Link className="account-block" to={`${link}/${address}`}>
                     <p className="account-id">{showID}</p>
                     <Icon
                         type="delete"
@@ -98,8 +95,8 @@ export default class AccountCard extends Component {
                     <div className="account-content">
                         <p className="account-name">{name}</p>
                         <p className="account-cions">{cions}</p>
-                        <p className="account-by">币</p>
-                        <p className="account-key">{key}</p>
+                        <p className="account-by">WMC</p>
+                        <p className="account-key">{address}</p>
                     </div>
                 </Link>
                 <Modal

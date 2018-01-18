@@ -14,7 +14,7 @@ export default class AccountPreview extends Component {
         accountStore: PropTypes.shape({
             createAccount: PropTypes.func.isRequired,
             deleteAccount: PropTypes.func.isRequired,
-            accounts: PropTypes.object.isRequired,
+            wallets: PropTypes.object.isRequired,
         }).isRequired,
     };
 
@@ -22,7 +22,7 @@ export default class AccountPreview extends Component {
         accountStore: {
             createAccount: null,
             deleteAccount: null,
-            accounts: [],
+            wallets: [],
         },
     }
 
@@ -37,14 +37,14 @@ export default class AccountPreview extends Component {
     }
 
     render() {
-        const { accounts } = this.props.accountStore;
+        const { wallets } = this.props.accountStore;
 
         return (
             <div className="account-container">
                 <PreviewHeader cions={9} />
                 <section className="account-list">
                     {
-                        accounts.map((account, index) => (
+                        wallets.map((account, index) => (
                             <AccountCard
                                 key={index}
                                 link="/account"
