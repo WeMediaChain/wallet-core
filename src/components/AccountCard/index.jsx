@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import { Icon, Modal, Button } from 'antd';
 import autobind from 'autobind-decorator';
+import { observer } from 'mobx-react';
 import PropTypes from 'proptypes';
 import { Link } from 'react-router-dom';
 import './style';
 
 /* eslint-disable no-unused-expressions */
+@observer
 export default class AccountCard extends Component {
     static propTypes = {
         account: PropTypes.shape({
             index: PropTypes.number.isRequired,
             name: PropTypes.string.isRequired,
-            cions: PropTypes.number.isRequired,
+            balance: PropTypes.number.isRequired,
             address: PropTypes.string.isRequired,
         }).isRequired,
         link: PropTypes.string.isRequired,
@@ -19,12 +21,12 @@ export default class AccountCard extends Component {
         onCancel: PropTypes.func,
         title: PropTypes.string,
     };
-    
+
     static defaultProps = {
         account: {
             index: 1,
             name: '',
-            cions: 0,
+            balance: 0,
             address: '',
         },
         link: '',
@@ -32,35 +34,35 @@ export default class AccountCard extends Component {
         onCancel: null,
         title: '确认删除账户',
     };
-    
+
     constructor(props) {
         super(props);
-        
+
         this.state = {
             modalStatus: false,
         };
     }
-    
+
     @autobind
     onConfirm() {
         const { onConfirm, account } = this.props;
         onConfirm && onConfirm(account);
         this.setState({ modalStatus: false });
     }
-    
+
     @autobind
     onCancel() {
         const { onCancel } = this.props;
         onCancel && onCancel();
         this.setState({ modalStatus: false });
     }
-    
+
     @autobind
     onDelete(e) {
         e.preventDefault();
         this.setState({ modalStatus: true });
     }
-    
+
     renderModalFooter() {
         return (
             <div className="modal-footer-container">
@@ -69,7 +71,7 @@ export default class AccountCard extends Component {
             </div>
         );
     }
-    
+
     renderModalTitle() {
         return (
             <div className="modal-title-container">
@@ -77,13 +79,13 @@ export default class AccountCard extends Component {
             </div>
         );
     }
-    
+
     render() {
         const { modalStatus } = this.state,
             { account, link } = this.props,
-            { index, name, cions, address } = account,
+            { index, name, balance, address } = account,
             showID = index > 9 ? index : `0${index}`;
-        
+
         return (
             <div className="account-card-container">
                 <Link className="account-block" to={`${link}/${address}`}>
@@ -94,7 +96,7 @@ export default class AccountCard extends Component {
                         onClick={this.onDelete} />
                     <div className="account-content">
                         <p className="account-name">{name}</p>
-                        <p className="account-cions">{cions}</p>
+                        <p className="account-cions">{balance}</p>
                         <p className="account-by">WMC</p>
                         <p className="account-key">{address}</p>
                     </div>

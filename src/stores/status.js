@@ -12,8 +12,8 @@ class StatusStore {
     }
 
     @action('toggle refresh')
-    toggleRefresh(status) {
-        this.isRefresh = status === undefined ? !this.isRefresh : status;
+    toggleRefresh() {
+        this.isRefresh = !this.isRefresh;
     }
 
     @action('toggle account table status')

@@ -24,12 +24,12 @@ export default class Account extends Component {
         }).isRequired,
         accountStore: PropTypes.shape({
             fetchTransferList: PropTypes.func.isRequired,
-            accountInfo: PropTypes.shape({
-                balance: PropTypes.number.isRequired,
+            currentShowAccount: PropTypes.shape({
                 name: PropTypes.string.isRequired,
+                balance: PropTypes.number.isRequired,
+                transactions: MobxPropTypes.arrayOrObservableArray.isRequired,
             }).isRequired,
-            transactions: MobxPropTypes.arrayOrObservableArray.isRequired,
-            transferInfo: PropTypes.object.isRequired,
+            setCurrentShowAccount: PropTypes.func.isRequired,
         }).isRequired,
     };
 
@@ -43,23 +43,23 @@ export default class Account extends Component {
         },
         accountStore: {
             fetchTransferList: null,
-            accountInfo: {
+            setCurrentShowAccount: null,
+            currentShowAccount: {
+                name: '--',
                 balance: 0,
-                name: '',
+                transactions: [],
             },
-            transactions: [],
-            transferInfo: {},
         },
     };
 
     componentDidMount() {
-        this.props.accountStore.fetchTransferList(this.props.match.params.address);
+        this.props.accountStore.setCurrentShowAccount(this.props.match.params.address);
     }
 
     componentWillReceiveProps(nextProps) {
         const { accountStore } = this.props,
             { match } = nextProps;
-        accountStore.fetchTransferList(match.params.address);
+        accountStore.setCurrentShowAccount(match.params.address);
     }
 
     @autobind
@@ -87,12 +87,7 @@ export default class Account extends Component {
 
     render() {
         const { match, accountStore, statusStore } = this.props,
-            { transactions, accountInfo, transferInfo } = accountStore,
-            account = {
-                name: accountInfo.name,
-                cions: accountInfo.balance,
-                key: match.params.address,
-            },
+            { currentShowAccount, transferInfo } = accountStore,
             columns = [
                 {
                     title: 'Address',
@@ -122,14 +117,14 @@ export default class Account extends Component {
         return (
             <div className="account-list-container">
                 <AccountHeader
-                    account={account}
+                    account={currentShowAccount}
                     qrcode=""
                     onTransfer={this.onTransfer}
                     onTransferSubmit={this.startTransfer}
-                    onRefresh={() => accountStore.fetchTransferList(match.params.address, true)}
+                    onRefresh={() => accountStore.fetchTransferList(match.params.address)}
                     onEdit={() => {
                     }}
-                    balance={accountInfo.balance}
+                    balance={currentShowAccount.balance}
                     address={match.params.address}
                     fee={transferInfo.fee} />
                 <section className="account-list_content">
@@ -138,7 +133,7 @@ export default class Account extends Component {
                         <span className="header-desc">账户无法显示正在进行的交易，但是可以显示余额和已确认的转账记录。</span>
                     </div>
                     <Table
-                        dataSource={transactions}
+                        dataSource={currentShowAccount.transactions}
                         columns={columns}
                         loading={statusStore.isAccountTableLoading}
                         locale={{ emptyText: '暂无数据' }}

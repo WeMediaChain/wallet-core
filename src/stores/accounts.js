@@ -1,4 +1,4 @@
-import { observable, action, computed } from 'mobx';
+import { observable, action } from 'mobx';
 import { remote } from 'electron';
 import { message } from 'antd';
 import { statusStore } from './status';
@@ -28,71 +28,97 @@ function removeWalletFile(address) {
 }
 
 class Accounts {
-    @observable.shallow
-    walletsMap = {};
-    @observable
-    wallets = [];
-    @observable
-    accountInfo = {
+    @observable walletsMap = {};
+    @observable currentShowAccount = {
+        name: '-',
         balance: 0,
-        name: '',
+        transactions: [],
     };
-    @observable
-    transactions = [];
-    @observable
-    transferInfo = { fee: 0.01 };
-    @observable
-    isTransferProgress = false;
+    @observable accountMenus = [
+        {
+            path: '/',
+            text: '账户总览',
+            icon: 'wallet',
+        },
+    ];
+    @observable transferInfo = { fee: 0.01 };
+    @observable isTransferProgress = false;
 
     constructor() {
         this.loadAccountConfig();
     }
 
+    @action('set page params')
     loadAccountConfig() {
-        const walletsMap = {};
-        this.wallets = fs.readdirSync(WALLETS_PATH).map((file, index) => {
+        const walletsMap = {},
+            accountMenus = [
+                {
+                    path: '/',
+                    text: '账户总览',
+                    icon: 'wallet',
+                },
+            ];
+        fs.readdirSync(WALLETS_PATH).forEach(async (file, index) => {
             try {
                 const v3 = JSON.parse(fs.readFileSync(`${WALLETS_PATH}/${file}`, 'utf-8')),
-                    wallet = JSON.parse(JSON.stringify(v3));
+                    address = `0x${v3.address}`;
 
-                walletsMap[`0x${v3.address}`] = v3;
-
-                // todo 先这样，之后调整
-                wallet.name = wallet.address.slice(-4);
-                wallet.cions = 0;
-                wallet.index = index + 1;
-                wallet.address = `0x${wallet.address}`;
-
-                return wallet;
+                walletsMap[address] = {
+                    w: JSON.parse(JSON.stringify(v3)),
+                    address,
+                    name: address.slice(-4),
+                    balance: 0,
+                    index: index + 1,
+                    transactions: [],
+                };
+                accountMenus.push(
+                    {
+                        path: `/account/${address}`,
+                        text: address.slice(-4),
+                        icon: 'solution',
+                    },
+                );
             } catch (err) {
-                return {};
+                console.error(err);
             }
         });
         this.walletsMap = walletsMap;
+        this.accountMenus = accountMenus;
+        this.fetchAsyncData();
     }
 
-    @computed
-    get accountMenus() {
-        const previewMenu = {
-                path: '/',
-                text: '账户总览',
-                icon: 'wallet',
-            },
-            accountMenus = this.wallets.map(wallet => ({
-                path: `/account/${wallet.address}`,
-                text: wallet.name,
-                icon: 'solution',
-            }));
+    @action('update wallet asynchronous data')
+    fetchAsyncData() {
+        Object.keys(this.walletsMap).forEach(async (address) => {
+            this.walletsMap[address] = {
+                ...this.walletsMap[address],
+                balance: await rpc.balanceOf(address),
+                transactions: await rpc.transactions(address),
+            };
+        });
+    }
 
-        return [previewMenu, ...accountMenus];
+    @action('set current show account')
+    setCurrentShowAccount(address) {
+        this.currentShowAccount = this.walletsMap[address];
     }
 
     @action('create account')
     async createAccount(param) {
         try {
-            const account = rpc.eth.accounts.create().encrypt(param.password);
-            await createWalletFile(`0x${account.address}`, account);
-            this.loadAccountConfig();
+            const account = rpc.eth.accounts.create().encrypt(param.password),
+                address = `0x${account.address}`,
+                totoalAccount = this.walletsMap.length;
+            await createWalletFile(address, account);
+
+            this.walletsMap[address] = {
+                w: account,
+                address,
+                name: address.slice(-4),
+                balance: await rpc.balanceOf(address),
+                index: totoalAccount + 1,
+                transactions: await rpc.transactions(address),
+            };
         } catch (err) {
             console.error(err);
         }
@@ -102,40 +128,30 @@ class Accounts {
     async deleteAccount({ address }) {
         try {
             await removeWalletFile(address);
-            this.loadAccountConfig();
+            delete this.walletsMap[address];
         } catch (err) {
             console.error(err);
         }
     }
 
     @action('fetch transfer list')
-    async fetchTransferList(address, isRefresh = false) {
+    async fetchTransferList(address) {
         try {
-            // reset page data while fetch
-            if (!isRefresh) {
-                this.accountInfo = {
-                    balance: 0,
-                    name: '',
-                };
-                this.transactions = [];
-            }
-
             // toggle status
             statusStore.toggleAccountTableStatus();
-            statusStore.toggleRefresh(isRefresh);
+            statusStore.toggleRefresh();
 
-            // set page data
-            this.accountInfo = {
+            // update account data
+            this.walletsMap[address] = {
+                ...this.walletsMap[address],
                 balance: await rpc.balanceOf(address),
-                name: this.wallets.filter(wallet => wallet.address === address)[0].name,
+                transactions: await rpc.transactions(address),
             };
-            this.transactions = await rpc.transactions(address);
 
-
-            statusStore.toggleRefresh(false);
+            statusStore.toggleRefresh();
             statusStore.toggleAccountTableStatus();
         } catch (err) {
-            statusStore.toggleRefresh(false);
+            statusStore.toggleRefresh();
             statusStore.toggleAccountTableStatus();
         }
     }
@@ -155,7 +171,7 @@ class Accounts {
         try {
             this.isTransferProgress = true;
             const { tranferAddress, password, address, money } = this.transferInfo,
-                obj = this.walletsMap[tranferAddress],
+                obj = this.walletsMap[tranferAddress].w,
                 w = rpc.wallet(obj, password);
 
             await rpc.transfer(w, address, parseFloat(money));

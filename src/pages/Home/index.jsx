@@ -21,15 +21,16 @@ export default class Home extends Component {
             accountMenus: PropTypes.array.isRequired,
         }).isRequired,
     };
-    
+
     static defaultProps = {
         accountStore: {
             accountMenus: [],
         },
     };
-    
+
     render() {
         const { accountStore } = this.props;
+
         return (
             <Layout className="home-container">
                 <SideBar items={accountStore.accountMenus} />

@@ -12,8 +12,8 @@ export default class AccountHeader extends Component {
     static propTypes = {
         account: PropTypes.shape({
             name: PropTypes.string.isRequired,
-            cions: PropTypes.number.isRequired,
-            key: PropTypes.string.isRequired,
+            balance: PropTypes.number.isRequired,
+            address: PropTypes.string.isRequired,
         }).isRequired,
         onTransfer: PropTypes.func.isRequired,
         onTransferSubmit: PropTypes.func.isRequired,
@@ -31,8 +31,8 @@ export default class AccountHeader extends Component {
     static defaultProps = {
         account: {
             name: '',
-            cions: 0,
-            key: '',
+            balance: 0,
+            address: '',
         },
         onTransfer: null,
         onTransferSubmit: null,
@@ -45,7 +45,7 @@ export default class AccountHeader extends Component {
     };
 
     copyAddress() {
-        clipboard.writeText(this.props.account.key);
+        clipboard.writeText(this.props.account.address);
         message.info('已复制到剪贴板');
     }
 
@@ -61,20 +61,19 @@ export default class AccountHeader extends Component {
                 balance,
                 address,
                 fee,
-            } = this.props,
-            { name, cions, key } = account;
+            } = this.props;
 
         return (
             <div className="account-list-header-container">
                 <header className="account-list-header">
                     <p className="account-name">
-                        <span>{name || '--'}</span>
+                        <span>{account.name || '--'}</span>
                         {/* <Icon type="edit" onClick={onEdit} /> */}
                     </p>
-                    <p className="account-cions">{cions}</p>
+                    <p className="account-cions">{account.balance}</p>
                     <p className="account-by">WMC</p>
                     <p className="account-key">
-                        <span>{key}</span>
+                        <span>{account.address}</span>
                         <Icon type="copy" className="icon" onClick={() => this.copyAddress()} />
                     </p>
                     <div className="account-trans" onClick={onTransfer}>发起转账</div>
