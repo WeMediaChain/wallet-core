@@ -49,7 +49,9 @@ exports.devPlugins = [
 
 exports.prodPlugins = [
     new CleanWebpackPlugin([
-        'dist', 'public',
+        'dist',
+        'public',
+        'release',
     ], {
         root: path.join(__dirname, '../../'),
     }),
