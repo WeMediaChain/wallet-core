@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import autobind from 'autobind-decorator';
 import PropTypes from 'proptypes';
-import { observer, inject } from 'mobx-react';
+import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
 import PreviewHeader from '../../components/PreviewHeader';
 import AccountCard from '../../components/AccountCard';
 import CreateAccountCard from '../../components/CreateAccountCard';
@@ -14,7 +14,7 @@ export default class AccountPreview extends Component {
         accountStore: PropTypes.shape({
             createAccount: PropTypes.func.isRequired,
             deleteAccount: PropTypes.func.isRequired,
-            walletsMap: PropTypes.object.isRequired,
+            walletsMap: MobxPropTypes.arrayOrObservableArray.isRequired,
         }).isRequired,
     };
 
@@ -22,7 +22,7 @@ export default class AccountPreview extends Component {
         accountStore: {
             createAccount: null,
             deleteAccount: null,
-            walletsMap: {},
+            walletsMap: [],
         },
     }
 
@@ -44,7 +44,7 @@ export default class AccountPreview extends Component {
                 <PreviewHeader cions={9} />
                 <section className="account-list">
                     {
-                        Object.values(walletsMap).map((account, index) => (
+                        walletsMap.map((account, index) => (
                             <AccountCard
                                 key={index}
                                 link="/account"

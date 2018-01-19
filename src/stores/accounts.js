@@ -1,4 +1,4 @@
-import { observable, action } from 'mobx';
+import { observable, action, computed } from 'mobx';
 import { remote } from 'electron';
 import { message } from 'antd';
 import { statusStore } from './status';
@@ -28,19 +28,12 @@ function removeWalletFile(address) {
 }
 
 class Accounts {
-    @observable walletsMap = {};
+    @observable walletsMap = [];
     @observable currentShowAccount = {
         name: '-',
         balance: 0,
         transactions: [],
     };
-    @observable accountMenus = [
-        {
-            path: '/',
-            text: '账户总览',
-            icon: 'wallet',
-        },
-    ];
     @observable transferInfo = { fee: 0.01 };
     @observable isTransferProgress = false;
 
@@ -50,57 +43,58 @@ class Accounts {
 
     @action('set page params')
     loadAccountConfig() {
-        const walletsMap = {},
-            accountMenus = [
-                {
-                    path: '/',
-                    text: '账户总览',
-                    icon: 'wallet',
-                },
-            ];
+        const walletsMap = [];
         fs.readdirSync(WALLETS_PATH).forEach(async (file, index) => {
             try {
                 const v3 = JSON.parse(fs.readFileSync(`${WALLETS_PATH}/${file}`, 'utf-8')),
                     address = `0x${v3.address}`;
 
-                walletsMap[address] = {
+                walletsMap.push({
                     w: JSON.parse(JSON.stringify(v3)),
                     address,
                     name: address.slice(-4),
                     balance: 0,
                     index: index + 1,
                     transactions: [],
-                };
-                accountMenus.push(
-                    {
-                        path: `/account/${address}`,
-                        text: address.slice(-4),
-                        icon: 'solution',
-                    },
-                );
+                });
             } catch (err) {
                 console.error(err);
             }
         });
         this.walletsMap = walletsMap;
-        this.accountMenus = accountMenus;
         this.fetchAsyncData();
+    }
+
+    @computed
+    get accountMenus() {
+        const defaultMenu = {
+                path: '/',
+                text: '账户总览',
+                icon: 'wallet',
+            },
+            menus = this.walletsMap.map(({ address }) => ({
+                path: `/account/${address}`,
+                text: address.slice(-4),
+                icon: 'solution',
+            }));
+
+        return [...defaultMenu, ...menus];
     }
 
     @action('update wallet asynchronous data')
     fetchAsyncData() {
-        Object.keys(this.walletsMap).forEach(async (address) => {
-            this.walletsMap[address] = {
-                ...this.walletsMap[address],
-                balance: await rpc.balanceOf(address),
-                transactions: await rpc.transactions(address),
+        this.walletsMap.forEach(async (wallet, index) => {
+            this.walletsMap[index] = {
+                ...wallet,
+                balance: await rpc.balanceOf(wallet.address),
+                transactions: await rpc.transactions(wallet.address),
             };
         });
     }
 
     @action('set current show account')
     setCurrentShowAccount(address) {
-        this.currentShowAccount = this.walletsMap[address];
+        this.currentShowAccount = this.walletsMap.filter(wallet => wallet.address === address)[0];
     }
 
     @action('create account')
@@ -111,14 +105,14 @@ class Accounts {
                 totoalAccount = this.walletsMap.length;
             await createWalletFile(address, account);
 
-            this.walletsMap[address] = {
+            this.walletsMap.push({
                 w: account,
                 address,
                 name: address.slice(-4),
                 balance: await rpc.balanceOf(address),
                 index: totoalAccount + 1,
                 transactions: await rpc.transactions(address),
-            };
+            });
         } catch (err) {
             console.error(err);
         }
@@ -128,7 +122,8 @@ class Accounts {
     async deleteAccount({ address }) {
         try {
             await removeWalletFile(address);
-            delete this.walletsMap[address];
+            const index = this.walletsMap.findIndex(wallet => wallet.address === address);
+            this.walletsMap.splice(index, 1);
         } catch (err) {
             console.error(err);
         }
@@ -141,9 +136,12 @@ class Accounts {
             statusStore.toggleAccountTableStatus();
             statusStore.toggleRefresh();
 
+            // find wallet index
+            const index = this.walletsMap.findIndex(wallet => wallet.address === address);
+
             // update account data
-            this.walletsMap[address] = {
-                ...this.walletsMap[address],
+            this.walletsMap[index] = {
+                ...this.walletsMap[index],
                 balance: await rpc.balanceOf(address),
                 transactions: await rpc.transactions(address),
             };
@@ -171,7 +169,7 @@ class Accounts {
         try {
             this.isTransferProgress = true;
             const { tranferAddress, password, address, money } = this.transferInfo,
-                obj = this.walletsMap[tranferAddress].w,
+                obj = this.walletsMap.filter(wallet => wallet.address === tranferAddress)[0].w,
                 w = rpc.wallet(obj, password);
 
             await rpc.transfer(w, address, parseFloat(money));
