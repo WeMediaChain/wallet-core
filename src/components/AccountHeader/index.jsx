@@ -18,7 +18,7 @@ export default class AccountHeader extends Component {
         onTransfer: PropTypes.func.isRequired,
         onTransferSubmit: PropTypes.func.isRequired,
         onRefresh: PropTypes.func.isRequired,
-        onEdit: PropTypes.func.isRequired,
+        // onEdit: PropTypes.func.isRequired,
         qrcode: PropTypes.string.isRequired,
         balance: PropTypes.number.isRequired,
         address: PropTypes.string.isRequired,
@@ -37,7 +37,7 @@ export default class AccountHeader extends Component {
         onTransfer: null,
         onTransferSubmit: null,
         onRefresh: null,
-        onEdit: null,
+        // onEdit: null,
         qrcode: '',
         balance: 0,
         address: '',
@@ -54,7 +54,7 @@ export default class AccountHeader extends Component {
                 account,
                 onRefresh,
                 onTransfer,
-                onEdit,
+                // onEdit,
                 qrcode,
                 onTransferSubmit,
                 statusStore,
@@ -68,8 +68,8 @@ export default class AccountHeader extends Component {
             <div className="account-list-header-container">
                 <header className="account-list-header">
                     <p className="account-name">
-                        <span>{name}</span>
-                        <Icon type="edit" onClick={onEdit} />
+                        <span>{name || '--'}</span>
+                        {/* <Icon type="edit" onClick={onEdit} /> */}
                     </p>
                     <p className="account-cions">{cions}</p>
                     <p className="account-by">WMC</p>

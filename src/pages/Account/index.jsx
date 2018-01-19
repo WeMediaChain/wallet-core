@@ -24,7 +24,10 @@ export default class Account extends Component {
         }).isRequired,
         accountStore: PropTypes.shape({
             fetchTransferList: PropTypes.func.isRequired,
-            balance: PropTypes.number.isRequired,
+            accountInfo: PropTypes.shape({
+                balance: PropTypes.number.isRequired,
+                name: PropTypes.string.isRequired,
+            }).isRequired,
             transactions: MobxPropTypes.arrayOrObservableArray.isRequired,
             transferInfo: PropTypes.object.isRequired,
         }).isRequired,
@@ -40,7 +43,10 @@ export default class Account extends Component {
         },
         accountStore: {
             fetchTransferList: null,
-            balance: 0,
+            accountInfo: {
+                balance: 0,
+                name: '',
+            },
             transactions: [],
             transferInfo: {},
         },
@@ -81,10 +87,10 @@ export default class Account extends Component {
 
     render() {
         const { match, accountStore, statusStore } = this.props,
-            { transactions, balance, transferInfo } = accountStore,
+            { transactions, accountInfo, transferInfo } = accountStore,
             account = {
-                name: '账户1',
-                cions: balance,
+                name: accountInfo.name,
+                cions: accountInfo.balance,
                 key: match.params.address,
             },
             columns = [
@@ -123,7 +129,7 @@ export default class Account extends Component {
                     onRefresh={() => accountStore.fetchTransferList(match.params.address, true)}
                     onEdit={() => {
                     }}
-                    balance={balance}
+                    balance={accountInfo.balance}
                     address={match.params.address}
                     fee={transferInfo.fee} />
                 <section className="account-list_content">

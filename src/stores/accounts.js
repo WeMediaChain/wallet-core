@@ -33,7 +33,10 @@ class Accounts {
     @observable
     wallets = [];
     @observable
-    balance = 0;
+    accountInfo = {
+        balance: 0,
+        name: '',
+    };
     @observable
     transactions = [];
     @observable
@@ -110,7 +113,10 @@ class Accounts {
         try {
             // reset page data while fetch
             if (!isRefresh) {
-                this.balance = 0;
+                this.accountInfo = {
+                    balance: 0,
+                    name: '',
+                };
                 this.transactions = [];
             }
 
@@ -118,8 +124,13 @@ class Accounts {
             statusStore.toggleAccountTableStatus();
             statusStore.toggleRefresh(isRefresh);
 
-            this.balance = await rpc.balanceOf(address);
+            // set page data
+            this.accountInfo = {
+                balance: await rpc.balanceOf(address),
+                name: this.wallets.filter(wallet => wallet.address === address)[0].name,
+            };
             this.transactions = await rpc.transactions(address);
+
 
             statusStore.toggleRefresh(false);
             statusStore.toggleAccountTableStatus();
