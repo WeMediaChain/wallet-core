@@ -78,7 +78,16 @@ class Accounts {
                 icon: 'solution',
             }));
 
-        return [...defaultMenu, ...menus];
+        return [defaultMenu, ...menus];
+    }
+
+    @computed
+    get totalAccount() {
+        let total = 0;
+        this.walletsMap.forEach(({ balance }) => {
+            total += parseFloat(balance);
+        });
+        return total;
     }
 
     @action('update wallet asynchronous data')

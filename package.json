@@ -42,7 +42,7 @@
             }
         },
         "electron:release": {
-            "command": "npx electron-packager ./ --platform=darwin --arch=all --version=1.0.0 --out=release/ --overwrite --ignore=node_modules/electron-* --ignore=node_modules/.bin --ignore=.git --ignore=release --prune=true",
+            "command": "npx electron-packager ./ --platform=darwin --arch=all --icon=./icons/icon.icns --version=1.0.0 --out=release/ --overwrite --ignore=node_modules/electron-* --ignore=node_modules/.bin --ignore=.git --ignore=release --prune=true",
             "env": {
                 "NODE_ENV": "production"
             }
@@ -106,7 +106,6 @@
     "dependencies": {
         "antd": "^3.1.1",
         "autobind-decorator": "^2.1.0",
-        "classname": "^0.0.0",
         "classnames": "^2.2.5",
         "electron": "^1.7.10",
         "ethereumjs-abi": "^0.6.5",

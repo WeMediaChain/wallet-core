@@ -15,6 +15,7 @@ export default class AccountPreview extends Component {
             createAccount: PropTypes.func.isRequired,
             deleteAccount: PropTypes.func.isRequired,
             walletsMap: MobxPropTypes.arrayOrObservableArray.isRequired,
+            totalAccount: PropTypes.number.isRequired,
         }).isRequired,
     };
 
@@ -23,6 +24,7 @@ export default class AccountPreview extends Component {
             createAccount: null,
             deleteAccount: null,
             walletsMap: [],
+            totalAccount: 0,
         },
     }
 
@@ -37,11 +39,11 @@ export default class AccountPreview extends Component {
     }
 
     render() {
-        const { walletsMap } = this.props.accountStore;
+        const { walletsMap, totalAccount } = this.props.accountStore;
 
         return (
             <div className="account-container">
-                <PreviewHeader cions={9} />
+                <PreviewHeader cions={totalAccount} />
                 <section className="account-list">
                     {
                         walletsMap.map((account, index) => (
