@@ -1,0 +1,19 @@
+.qrcode-modal-container {
+    width: 350px !important;
+    justify-content: center;
+    align-items: center;
+
+    .ant-modal-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        p {
+            margin: 10px 0 0;
+            font-family: PingFangTC-Medium;
+            font-size: 16px;
+            color: #000000;
+        }
+    }
+}

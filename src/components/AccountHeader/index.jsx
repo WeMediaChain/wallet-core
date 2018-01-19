@@ -4,6 +4,7 @@ import { Icon, message } from 'antd';
 import { observer, inject } from 'mobx-react';
 import { clipboard } from 'electron';
 import TransferModal from '../TransferModal';
+import QRcodeModal from '../QRcodeModal';
 import './style';
 
 @inject('statusStore')
@@ -25,6 +26,7 @@ export default class AccountHeader extends Component {
         fee: PropTypes.number.isRequired,
         statusStore: PropTypes.shape({
             isRefresh: PropTypes.bool.isRequired,
+            toggleQrcodeModal: PropTypes.func.isRequired,
         }).isRequired,
     };
 
@@ -42,6 +44,10 @@ export default class AccountHeader extends Component {
         balance: 0,
         address: '',
         fee: 0,
+        statusStore: {
+            isRefresh: false,
+            toggleQrcodeModal: null,
+        },
     };
 
     copyAddress() {
@@ -62,7 +68,7 @@ export default class AccountHeader extends Component {
                 address,
                 fee,
             } = this.props;
-
+        console.log(qrcode, '~~~~~');
         return (
             <div className="account-list-header-container">
                 <header className="account-list-header">
@@ -78,9 +84,9 @@ export default class AccountHeader extends Component {
                     </p>
                     <div className="account-trans" onClick={onTransfer}>发起转账</div>
                     <div className="account-action">
-                        <div className="item">
+                        <div className="item" onClick={statusStore.toggleQrcodeModal}>
                             <Icon type="qrcode" className="icon" />
-                            <p>二维码{qrcode}</p>
+                            <p>二维码</p>
                         </div>
                         <div className="item" onClick={onRefresh}>
                             <Icon type={statusStore.isRefresh ? 'loading' : 'reload'} className="icon" />
@@ -93,6 +99,7 @@ export default class AccountHeader extends Component {
                     balance={balance}
                     address={address}
                     fee={fee} />
+                <QRcodeModal value={qrcode} />
             </div>
         );
     }

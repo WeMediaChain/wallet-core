@@ -106,6 +106,7 @@
     "dependencies": {
         "antd": "^3.1.1",
         "autobind-decorator": "^2.1.0",
+        "classname": "^0.0.0",
         "classnames": "^2.2.5",
         "electron": "^1.7.10",
         "ethereumjs-abi": "^0.6.5",
@@ -114,6 +115,7 @@
         "mobx": "^3.4.1",
         "mobx-react": "^4.3.5",
         "proptypes": "^1.1.0",
+        "qrcode.react": "^0.7.2",
         "react": "^16.2.0",
         "react-dom": "^16.2.0",
         "react-loadable": "^4.0.5",

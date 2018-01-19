@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Icon, Modal, Button } from 'antd';
 import autobind from 'autobind-decorator';
+import classname from 'classname';
 import { observer } from 'mobx-react';
 import PropTypes from 'proptypes';
 import { Link } from 'react-router-dom';
@@ -88,7 +89,12 @@ export default class AccountCard extends Component {
 
         return (
             <div className="account-card-container">
-                <Link className="account-block" to={`${link}/${address}`}>
+                <Link
+                    className={classname({
+                        'account-block': true,
+                        breaker: index % 3 === 0,
+                    })}
+                    to={`${link}/${address}`}>
                     <p className="account-id">{showID}</p>
                     <Icon
                         type="delete"

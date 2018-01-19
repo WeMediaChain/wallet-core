@@ -9,6 +9,7 @@ import autobind from 'autobind-decorator';
 import PropTypes from 'proptypes';
 import AccountHeader from '../../components/AccountHeader';
 import ConfirmPasswordModal from '../../components/ConfirmPassword';
+import { rpc } from '../../utils/rpc';
 import './style';
 
 @inject('statusStore', 'accountStore')
@@ -90,40 +91,33 @@ export default class Account extends Component {
             { currentShowAccount, transferInfo } = accountStore,
             columns = [
                 {
-                    title: 'Address',
-                    dataIndex: 'address',
-                    key: '1',
-                },
-                {
-                    title: 'Form',
+                    title: 'From',
                     dataIndex: 'returnValues',
                     render: (text) => text.from,
-                    key: '2',
+                    key: '1',
                 },
                 {
                     title: 'To',
                     dataIndex: 'returnValues',
                     render: (text) => text.to,
-                    key: '3',
+                    key: '2',
                 },
                 {
-                    title: 'Value',
+                    title: '金额',
                     dataIndex: 'returnValues',
-                    render: (text) => text.value,
-                    key: '4',
+                    render: (text) => rpc.web3.fromWei(text.value),
+                    key: '3',
                 },
             ];
-
+        console.log(match.params.address, 'fffff');
         return (
             <div className="account-list-container">
                 <AccountHeader
                     account={currentShowAccount}
-                    qrcode=""
+                    qrcode={match.params.address}
                     onTransfer={this.onTransfer}
                     onTransferSubmit={this.startTransfer}
                     onRefresh={() => accountStore.fetchTransferList(match.params.address)}
-                    onEdit={() => {
-                    }}
                     balance={currentShowAccount.balance}
                     address={match.params.address}
                     fee={transferInfo.fee} />

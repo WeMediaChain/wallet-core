@@ -9,21 +9,17 @@ function createWindow() {
     win = new BrowserWindow({ width: 1000, height: 600, titleBarStyle: 'hidden', resizable: DEV });
     win.show();
 
-    // if (DEV) {
-    //     const port = process.argv[2] || 4040;
-    //     win.loadURL(`http://127.0.0.1:${port}/`);
-    //     win.webContents.openDevTools();
-    // } else {
     if (DEV) {
+        const port = process.argv[2] || 4040;
+        win.loadURL(`http://127.0.0.1:${port}/`);
         win.webContents.openDevTools();
+    } else {
+        win.loadURL(url.format({
+            pathname: path.join(__dirname, 'dist', 'index.html'),
+            protocol: 'file:',
+            slashes: true,
+        }));
     }
-
-    win.loadURL(url.format({
-        pathname: path.join(__dirname, 'dist', 'index.html'),
-        protocol: 'file:',
-        slashes: true,
-    }));
-    // }
 
     win.on('closed', () => {
         win = null;

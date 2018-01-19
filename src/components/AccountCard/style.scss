@@ -8,6 +8,12 @@
     display: flex;
     justify-content: center;
     margin-top: 50px;
+    margin-right: 16px;
+
+    &.breaker {
+        margin-right: 0;
+    }
+
     &:hover {
         color: #FFFFFF;
     }
