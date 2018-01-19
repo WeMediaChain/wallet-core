@@ -299,13 +299,11 @@ export const rpc = {
             .fromWei(balance)
     },
     async transactions(address) {
-        return await rpc
-            .contract
-            .getPastEvents('Transfer', {
-                filter: {},
-                fromBlock: 0,
-                toBlock: 'latest'
-            });
+        const from = await rpc.contract.getPastEvents('Transfer', {filter: {from: address}, fromBlock: 0,toBlock: 'latest'}),
+            to = await rpc.contract.getPastEvents('Transfer', {filter: {to: address}, fromBlock: 0,toBlock: 'latest'}),
+            result = [...from, ...to];
+
+        return result.sort((prev, next) => next.blockNumber - prev.blockNumber || next.logIndex - prev.logIndex);
     },
     async transfer(w, to, value, gasPrice, gasLimit) {
         const data = contract

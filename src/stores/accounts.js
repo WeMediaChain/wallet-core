@@ -38,6 +38,8 @@ class Accounts {
     transactions = [];
     @observable
     transferInfo = { fee: 0.01 };
+    @observable
+    isTransferProgress = false;
 
     constructor() {
         this.loadAccountConfig();
@@ -134,13 +136,20 @@ class Accounts {
 
     @action('start transfer money')
     async startTransfer() {
+        if (this.isTransferProgress) {
+            message.success('上次转帐尚未完成，请完成后再进行转账');
+            return;
+        }
+
         try {
+            this.isTransferProgress = true;
             const { tranferAddress, password, address, money } = this.transferInfo,
                 obj = this.walletsMap[tranferAddress],
                 w = rpc.wallet(obj, password);
 
             await rpc.transfer(w, address, parseFloat(money));
             this.fetchTransferList(tranferAddress);
+            this.isTransferProgress = false;
             message.success('转账成功');
         } catch (err) {
             message.error('转账失败');
