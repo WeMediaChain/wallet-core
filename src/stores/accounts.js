@@ -43,26 +43,35 @@ class Accounts {
 
     @action('set page params')
     loadAccountConfig() {
-        const walletsMap = [];
-        fs.readdirSync(WALLETS_PATH).forEach(async (file, index) => {
-            try {
-                const v3 = JSON.parse(fs.readFileSync(`${WALLETS_PATH}/${file}`, 'utf-8')),
-                    address = `0x${v3.address}`;
-
-                walletsMap.push({
-                    w: JSON.parse(JSON.stringify(v3)),
-                    address,
-                    name: address.slice(-4),
-                    balance: 0,
-                    index: index + 1,
-                    transactions: [],
-                });
-            } catch (err) {
-                console.error(err);
+        try {
+            // check keystore dir is exist
+            if (!fs.existsSync(WALLETS_PATH)) {
+                fs.mkdirSync(WALLETS_PATH);
             }
-        });
-        this.walletsMap = walletsMap;
-        this.fetchAsyncData();
+
+            const walletsMap = [];
+            fs.readdirSync(WALLETS_PATH).forEach(async (file, index) => {
+                try {
+                    const v3 = JSON.parse(fs.readFileSync(`${WALLETS_PATH}/${file}`, 'utf-8')),
+                        address = `0x${v3.address}`;
+
+                    walletsMap.push({
+                        w: JSON.parse(JSON.stringify(v3)),
+                        address,
+                        name: address.slice(-4),
+                        balance: 0,
+                        index: index + 1,
+                        transactions: [],
+                    });
+                } catch (err) {
+                    console.error(err);
+                }
+            });
+            this.walletsMap = walletsMap;
+            this.fetchAsyncData();
+        } catch (err) {
+            console.error(err);
+        }
     }
 
     @computed

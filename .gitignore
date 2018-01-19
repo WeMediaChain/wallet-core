@@ -7,4 +7,5 @@ package-lock.json
 public
 dist
 keystore
+release
 *.iml
