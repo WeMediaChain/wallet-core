@@ -129,9 +129,9 @@ class Accounts {
                 w: account,
                 address,
                 name: address.slice(-4),
-                balance: await rpc.balanceOf(address),
+                balance: 0,
                 index: totoalAccount + 1,
-                transactions: await rpc.transactions(address),
+                transactions: [],
             });
         } catch (err) {
             console.error(err);
@@ -198,6 +198,7 @@ class Accounts {
             message.success('转账成功');
         } catch (err) {
             message.error('转账失败');
+            this.isTransferProgress = false;
         }
     }
 }
