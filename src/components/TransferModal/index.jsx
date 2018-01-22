@@ -30,7 +30,7 @@ class TransferModal extends Component {
             transferModal: PropTypes.bool.isRequired,
         }).isRequired,
     };
-    
+
     static defaultProps = {
         form: {},
         title: '发起转账',
@@ -41,32 +41,34 @@ class TransferModal extends Component {
         address: '',
         fee: 0,
     };
-    
+
     @autobind
     onConfirm() {
         const { onConfirm, statusStore, form } = this.props,
             values = form.getFieldsValue();
-        
+
         onConfirm && onConfirm(values);
+        form.resetFields();
         statusStore.toggleTransfer();
     }
-    
+
     @autobind
     onCancel() {
-        const { statusStore, onCancel } = this.props;
+        const { statusStore, onCancel, form } = this.props;
         onCancel && onCancel();
+        form.resetFields();
         statusStore.toggleTransfer();
     }
-    
+
     hasErrors() {
         const { form } = this.props,
             values = form.getFieldsValue();
-        
+
         return Object
             .keys(values)
             .some(field => !values[field]);
     }
-    
+
     renderModalTitle() {
         return (
             <div className="modal-title-container">
@@ -74,7 +76,7 @@ class TransferModal extends Component {
             </div>
         );
     }
-    
+
     renderModalFooter() {
         return (
             <div className="modal-footer-container">
@@ -86,11 +88,11 @@ class TransferModal extends Component {
             </div>
         );
     }
-    
+
     render() {
         const { statusStore, form, balance, address, fee } = this.props,
             { getFieldDecorator } = form;
-        
+
         return (
             <Modal
                 visible={statusStore.transferModal}

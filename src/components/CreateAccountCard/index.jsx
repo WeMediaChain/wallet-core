@@ -15,7 +15,7 @@ class CreateAccountCard extends Component {
         onCancel: PropTypes.func,
         limit: PropTypes.number,
     };
-    
+
     static defaultProps = {
         title: '创建您的账号',
         form: {},
@@ -24,43 +24,45 @@ class CreateAccountCard extends Component {
         onCancel: null,
         limit: 8,
     };
-    
+
     constructor(props) {
         super(props);
-        
+
         this.state = {
             visible: false,
         };
     }
-    
+
     @autobind
     onConfirm() {
         const { form, onConfirm } = this.props,
             values = form.getFieldsValue();
-        
+
         onConfirm && onConfirm(values);
+        form.resetFields();
         this.setState({ visible: false });
     }
-    
+
     @autobind
     onCancel() {
-        const { onCancel } = this.props;
-        
+        const { onCancel, form } = this.props;
+
         onCancel && onCancel();
+        form.resetFields();
         this.setState({ visible: false });
     }
-    
+
     hasErrors() {
         const { form, limit } = this.props,
             values = form.getFieldsValue();
-        
+
         return values.password !== values.repassword
             || (!values.password ||
                 !values.repassword ||
                 values.password.length < limit
                 || values.repassword.length < limit);
     }
-    
+
     renderModalTitle() {
         return (
             <div className="modal-title-container">
@@ -68,7 +70,7 @@ class CreateAccountCard extends Component {
             </div>
         );
     }
-    
+
     renderModalFooter() {
         return (
             <div className="modal-footer-container">
@@ -80,11 +82,11 @@ class CreateAccountCard extends Component {
             </div>
         );
     }
-    
+
     render() {
         const { visible } = this.state,
             { getFieldDecorator } = this.props.form;
-        
+
         return (
             <div className="create-account-container">
                 <div

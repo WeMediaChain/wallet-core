@@ -51,14 +51,16 @@ class ConfirmPassword extends Component {
             values = form.getFieldsValue();
 
         onConfirm && onConfirm(values);
+        form.resetFields();
         statusStore.toggleConfirmPasswordStatus();
     }
 
     @autobind
     onCancel() {
-        const { onCancel, statusStore } = this.props;
+        const { onCancel, statusStore, form } = this.props;
 
         onCancel && onCancel();
+        form.resetFields();
         statusStore.toggleConfirmPasswordStatus();
     }
 
