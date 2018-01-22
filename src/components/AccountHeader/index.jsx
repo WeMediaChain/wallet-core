@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import { Icon, message } from 'antd';
 import { observer, inject } from 'mobx-react';
-import { clipboard } from 'electron';
 import TransferModal from '../TransferModal';
 import QRcodeModal from '../QRcodeModal';
 import './style';
+
+const { clipboard } = window.require('electron');
 
 @inject('statusStore')
 @observer
@@ -68,7 +69,7 @@ export default class AccountHeader extends Component {
                 address,
                 fee,
             } = this.props;
-        console.log(qrcode, '~~~~~');
+
         return (
             <div className="account-list-header-container">
                 <header className="account-list-header">

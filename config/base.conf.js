@@ -21,9 +21,8 @@ module.exports = {
             .concat(plugins.commonPlugins)
             .concat(plugins.prodPlugins),
     resolve: resolver.resolve,
-    externals: resolver.externals,
     resolveLoader: resolver.resolveLoader,
     module: {
-        rules
+        rules,
     },
 };

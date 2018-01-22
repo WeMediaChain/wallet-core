@@ -109,7 +109,7 @@ export default class Account extends Component {
                     key: '3',
                 },
             ];
-        console.log(match.params.address, 'fffff');
+
         return (
             <div className="account-list-container">
                 <AccountHeader

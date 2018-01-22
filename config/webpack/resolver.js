@@ -8,9 +8,4 @@ module.exports = {
     resolveLoader: {
         moduleExtensions: ['-loader'],
     },
-    externals: [
-        ((context, request, callback) =>
-            (context, request, callback) =>
-                ['electron'].indexOf(request) >= 0 ? callback(null, "require('" + request + "')") : callback())()
-    ]
 };

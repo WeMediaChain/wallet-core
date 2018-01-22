@@ -1,11 +1,10 @@
+/* eslint-disable one-var */
 import { observable, action, computed } from 'mobx';
-import { remote } from 'electron';
 import { message } from 'antd';
 import { statusStore } from './status';
 import { rpc } from '../utils/rpc';
 
-/* eslint-disable one-var */
-const fs = remote.require('fs'),
+const fs = window.require('fs'),
     WALLETS_PATH = './keystore';
 
 function createWalletFile(fileName, context) {

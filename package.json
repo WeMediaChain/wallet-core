@@ -42,7 +42,7 @@
             }
         },
         "electron:release": {
-            "command": "npx electron-packager ./ --platform=darwin --arch=all --icon=./icons/icon.icns --version=1.0.0 --out=release/ --overwrite --ignore=node_modules/electron-* --ignore=node_modules/.bin --ignore=.git --ignore=release --ignore=keystore --prune=true",
+            "command": "npx electron-packager ./ --platform=darwin --arch=all --icon=./icons/icon.icns --version=1.0.0 --out=release/ --overwrite --ignore=node_modules --ignore=src --ignore=.git --ignore=release --ignore=keystore --ignore=config --ignore=.idea --prune=true",
             "env": {
                 "NODE_ENV": "production"
             }
