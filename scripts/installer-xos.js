@@ -9,6 +9,7 @@ const xosOptions = {
     out: OUT_PUT,
     icon: 'assets/icons/icon.icns',
     overwrite: true,
+    version: pkg.version,
 };
 
 

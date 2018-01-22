@@ -4,7 +4,12 @@ const { createWindowsInstaller } = require('electron-winstaller'),
     OUT_PUT = './release';
 
 const winOptions = {
+    name: pkg.name,
+    version: pkg.version,
+    description: pkg.description,
     appDirectory: '',
+    iconUrl: 'assets/icons/icon_circle.ico',
+    setupIcon: 'assets/icons/icon.ico',
     outputDirectory: OUT_PUT,
     authors: 'MiRinZhang',
     exe: `${pkg.name}.exe`,
