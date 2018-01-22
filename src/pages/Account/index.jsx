@@ -94,18 +94,21 @@ export default class Account extends Component {
                     title: 'From',
                     dataIndex: 'returnValues',
                     render: (text) => text.from,
+                    width: 400,
                     key: '1',
                 },
                 {
                     title: 'To',
                     dataIndex: 'returnValues',
                     render: (text) => text.to,
+                    width: 400,
                     key: '2',
                 },
                 {
                     title: '金额',
                     dataIndex: 'returnValues',
                     render: (text) => rpc.web3.fromWei(text.value),
+                    width: 100,
                     key: '3',
                 },
             ];
