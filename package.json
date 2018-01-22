@@ -8,7 +8,10 @@
         "start": "npx better-npm-run start:dll && npx better-npm-run start:dev",
         "electron:dev": "npx better-npm-run electron:dev",
         "preview": "npx better-npm-run build && npx better-npm-run electron:run",
-        "release": "npx better-npm-run build && npx better-npm-run electron:release"
+        "release:mac": "npx better-npm-run build && npx better-npm-run release:mac",
+        "release:win": "npx better-npm-run build && npx better-npm-run release:win",
+        "release:linux": "npx better-npm-run build && npx better-npm-run release:linux",
+        "release": "npx better-npm-run build && npx better-npm-run release:mac && better-npm-run release:win && better-npm-run release:linux"
     },
     "betterScripts": {
         "start:dll": {
@@ -41,8 +44,20 @@
                 "NODE_ENV": "production"
             }
         },
-        "electron:release": {
+        "release:mac": {
             "command": "npx electron-packager ./ --platform=darwin --arch=all --icon=./icons/icon.icns --version=1.0.0 --out=release/ --overwrite --ignore=node_modules --ignore=src --ignore=.git --ignore=release --ignore=keystore --ignore=config --ignore=.idea --ignore=dist/report.html --prune=true",
+            "env": {
+                "NODE_ENV": "production"
+            }
+        },
+        "release:win": {
+            "command": "npx electron-packager ./ --platform=win32 --arch=all --icon=./icons/icon.ico --version=1.0.0 --out=release/ --overwrite --ignore=node_modules --ignore=src --ignore=.git --ignore=release --ignore=keystore --ignore=config --ignore=.idea --ignore=dist/report.html --prune=true",
+            "env": {
+                "NODE_ENV": "production"
+            }
+        },
+        "release:linux": {
+            "command": "npx electron-packager ./ --platform=linux --arch=all --icon=./icons/icon.png --version=1.0.0 --out=release/ --overwrite --ignore=node_modules --ignore=src --ignore=.git --ignore=release --ignore=keystore --ignore=config --ignore=.idea --ignore=dist/report.html --prune=true",
             "env": {
                 "NODE_ENV": "production"
             }
