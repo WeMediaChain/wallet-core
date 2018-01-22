@@ -4,8 +4,11 @@ import { message } from 'antd';
 import { statusStore } from './status';
 import { rpc } from '../utils/rpc';
 
+const { remote } = window.require('electron');
 const fs = window.require('fs'),
-    WALLETS_PATH = './keystore';
+    path = window.require('path'),
+    APP_PATH = path.normalize(remote.app.getAppPath()),
+    WALLETS_PATH = `${APP_PATH}/keystore`;
 
 function createWalletFile(fileName, context) {
     return new Promise((rs, rj) =>
