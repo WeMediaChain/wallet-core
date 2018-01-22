@@ -10,7 +10,8 @@
         "preview": "npx better-npm-run build && npx better-npm-run electron:run",
         "build:mac": "npx better-npm-run build && npx better-npm-run build:mac",
         "build:win": "npx better-npm-run build && npx better-npm-run build:win",
-        "release:mac": "node scripts/installer.js"
+        "release:mac": "node scripts/installer-xos.js",
+        "release:win": "node scripts/installer-win.js"
     },
     "betterScripts": {
         "start:dll": {
