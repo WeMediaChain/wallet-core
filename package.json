@@ -45,19 +45,19 @@
             }
         },
         "release:mac": {
-            "command": "npx electron-packager ./ --platform=darwin --arch=all --icon=./icons/icon.icns --version=1.0.0 --out=release/ --overwrite --ignore=node_modules --ignore=src --ignore=.git --ignore=release --ignore=keystore --ignore=config --ignore=.idea --ignore=dist/report.html --prune=true",
+            "command": "npx electron-packager ./ --platform=darwin --arch=all --icon=./icons/icon.icns --version=1.0.0 --out=release/ --overwrite --ignore=node_modules --ignore=src --ignore=.git --ignore=package.json --ignore=package-lock.json --ignore=yarn.lock --ignore=release --ignore=keystore --ignore=config --ignore=.idea --ignore=dist/report.html --prune=true",
             "env": {
                 "NODE_ENV": "production"
             }
         },
         "release:win": {
-            "command": "npx electron-packager ./ --platform=win32 --arch=all --icon=./icons/icon.ico --version=1.0.0 --out=release/ --overwrite --ignore=node_modules --ignore=src --ignore=.git --ignore=release --ignore=keystore --ignore=config --ignore=.idea --ignore=dist/report.html --prune=true",
+            "command": "npx electron-packager ./ --platform=win32 --arch=all --icon=./icons/icon.ico --version=1.0.0 --out=release/ --overwrite --ignore=node_modules --ignore=src --ignore=.git --ignore=package.json --ignore=package-lock.json --ignore=yarn.lock --ignore=release --ignore=keystore --ignore=config --ignore=.idea --ignore=dist/report.html --prune=true",
             "env": {
                 "NODE_ENV": "production"
             }
         },
         "release:linux": {
-            "command": "npx electron-packager ./ --platform=linux --arch=all --icon=./icons/icon.png --version=1.0.0 --out=release/ --overwrite --ignore=node_modules --ignore=src --ignore=.git --ignore=release --ignore=keystore --ignore=config --ignore=.idea --ignore=dist/report.html --prune=true",
+            "command": "npx electron-packager ./ --platform=linux --arch=all --icon=./icons/icon.png --version=1.0.0 --out=release/ --overwrite --ignore=node_modules --ignore=src --ignore=.git --ignore=package.json --ignore=package-lock.json --ignore=yarn.lock --ignore=release --ignore=keystore --ignore=config --ignore=.idea --ignore=dist/report.html --prune=true",
             "env": {
                 "NODE_ENV": "production"
             }
