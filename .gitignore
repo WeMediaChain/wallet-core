@@ -8,4 +8,7 @@ public
 dist
 keystore
 release
+build
 *.iml
+*.dmg
+*.exe
