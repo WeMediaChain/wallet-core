@@ -71,6 +71,7 @@ function createWindow() {
     });
 }
 
+// Handling Squirrel Events
 if (handleSquirrelEvent()) {
     return;
 }
@@ -118,9 +119,9 @@ function handleSquirrelEvent() {
 }
 
 app.on('ready', () => {
+    createWindow();
     const menu = Menu.buildFromTemplate(template);
     Menu.setApplicationMenu(menu);
-    createWindow();
 });
 
 app.on('window-all-closed', () => {
