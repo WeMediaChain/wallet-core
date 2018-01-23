@@ -14,7 +14,6 @@ const winOptions = {
     setupExe: 'WeMediaChain Wallet.exe',
 };
 
-
 if (!fs.existsSync(OUT_PUT)) {
     fs.mkdirSync(OUT_PUT);
 }
