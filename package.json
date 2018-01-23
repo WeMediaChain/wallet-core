@@ -1,17 +1,17 @@
 {
-    "name": "OCTWallet",
+    "name": "WMCWallet",
     "version": "1.0.0",
-    "description": "mengxiaozhu OCTWallet",
+    "description": "WMC Wallet",
     "main": "main.js",
     "homepage": ".",
     "scripts": {
         "start": "npx better-npm-run start:dll && npx better-npm-run start:dev",
         "electron:dev": "npx better-npm-run electron:dev",
         "preview": "npx better-npm-run build && npx better-npm-run electron:run",
-        "release:mac": "npx better-npm-run build && npx better-npm-run release:mac",
-        "release:win": "npx better-npm-run build && npx better-npm-run release:win",
-        "release:linux": "npx better-npm-run build && npx better-npm-run release:linux",
-        "release": "npx better-npm-run build && npx better-npm-run release:mac && better-npm-run release:win && better-npm-run release:linux"
+        "build:mac": "npx better-npm-run build && npx better-npm-run build:mac",
+        "build:win": "npx better-npm-run build && npx better-npm-run build:win",
+        "release:mac": "node scripts/installer-xos.js",
+        "release:win": "node scripts/installer-win.js"
     },
     "betterScripts": {
         "start:dll": {
@@ -44,20 +44,14 @@
                 "NODE_ENV": "production"
             }
         },
-        "release:mac": {
-            "command": "npx electron-packager ./ --platform=darwin --arch=all --icon=./icons/icon.icns --version=1.0.0 --out=release/ --overwrite --ignore=node_modules --ignore=src --ignore=.git --ignore=package.json --ignore=package-lock.json --ignore=yarn.lock --ignore=release --ignore=keystore --ignore=config --ignore=.idea --ignore=dist/report.html --prune=true",
+        "build:mac": {
+            "command": "npx electron-packager ./ WMCWallet --platform=darwin --arch=all --icon=./resources/icons/icon.icns --version=1.0.0 --out=build/ --overwrite --ignore=node_modules --ignore=src --ignore=.git --ignore=package-lock.json --ignore=yarn.lock --ignore=build --ignore=scripts --ignore=keystore --ignore=config --ignore=.idea --ignore=dist/report.html --prune=true",
             "env": {
                 "NODE_ENV": "production"
             }
         },
-        "release:win": {
-            "command": "npx electron-packager ./ --platform=win32 --arch=all --icon=./icons/icon.ico --version=1.0.0 --out=release/ --overwrite --ignore=node_modules --ignore=src --ignore=.git --ignore=package.json --ignore=package-lock.json --ignore=yarn.lock --ignore=release --ignore=keystore --ignore=config --ignore=.idea --ignore=dist/report.html --prune=true",
-            "env": {
-                "NODE_ENV": "production"
-            }
-        },
-        "release:linux": {
-            "command": "npx electron-packager ./ --platform=linux --arch=all --icon=./icons/icon.png --version=1.0.0 --out=release/ --overwrite --ignore=node_modules --ignore=src --ignore=.git --ignore=package.json --ignore=package-lock.json --ignore=yarn.lock --ignore=release --ignore=keystore --ignore=config --ignore=.idea --ignore=dist/report.html --prune=true",
+        "build:win": {
+            "command": "npx electron-packager ./ WMCWallet --platform=win32 --arch=x64 --icon=./resources/icons/icon.ico --version=1.0.0 --out=build/ --overwrite --ignore=node_modules --ignore=src --ignore=.git --ignore=package-lock.json --ignore=yarn.lock --ignore=build --ignore=scripts --ignore=keystore --ignore=config --ignore=.idea --ignore=dist/report.html --prune=true",
             "env": {
                 "NODE_ENV": "production"
             }
@@ -70,7 +64,7 @@
         "extends": "./config/tools/.babelrc"
     },
     "repository": "git@github.com:MiRinZhang/react-boilerplate.git",
-    "author": "MiRinZhang <noodles@yabing.me>",
+    "author": "MiRinZhang",
     "license": "MIT",
     "devDependencies": {
         "babel-core": "^6.26.0",
@@ -93,7 +87,9 @@
         "clean-webpack-plugin": "^0.1.17",
         "css-loader": "^0.28.7",
         "electron": "^1.7.10",
+        "electron-installer-dmg": "^0.2.1",
         "electron-packager": "^10.1.1",
+        "electron-winstaller": "^2.6.4",
         "eslint": "3.19.0",
         "eslint-config-airbnb": "^15.0.1",
         "eslint-loader": "^1.8.0",

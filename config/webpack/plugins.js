@@ -52,6 +52,7 @@ exports.prodPlugins = [
         'dist',
         'public',
         'release',
+        'build',
     ], {
         root: path.join(__dirname, '../../'),
     }),
