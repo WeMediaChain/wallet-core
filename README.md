@@ -23,7 +23,9 @@
 
 `npm run preview`
 
-### 打包
+## 打包
+
+### 生成可执行文件
 
 #### Mac
 `npm run build:mac`
