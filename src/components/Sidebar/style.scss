@@ -1,8 +1,14 @@
 .logo {
     height: 32px;
-    background: #333;
     border-radius: 6px;
     margin: 16px;
+    text-align: center;
+    line-height: 32px;
+
+    img {
+        height: 20px;
+        margin-top: 15px;
+    }
 }
 
 .ant-menu-item>a {
@@ -12,7 +18,7 @@
 
 .side-container,
 .side-container .ant-menu-dark {
-    background: #262A33 !important;
+    background: #1F1F1F !important;
 }
 
 .ant-menu.ant-menu-dark .ant-menu-item-selected {

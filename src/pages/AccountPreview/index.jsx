@@ -40,7 +40,7 @@ export default class AccountPreview extends Component {
 
     render() {
         const { walletsMap, totalAccount } = this.props.accountStore;
-
+        
         return (
             <div className="account-container">
                 <PreviewHeader cions={totalAccount} />

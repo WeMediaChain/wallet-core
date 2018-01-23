@@ -53,7 +53,7 @@ export default class Home extends Component {
         return (
             <Sider className="side-container">
                 <div className="logo">
-                    {logo ? <img src={logo} alt="OTCWallet" /> : null}
+                    <img src={!logo ? 'http://p2dflfpg4.bkt.clouddn.com/wmc-04@3x.png' : ''} alt="OTCWallet" />
                 </div>
                 <SideMenu
                     className="side-item"

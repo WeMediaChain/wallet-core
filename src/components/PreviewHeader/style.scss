@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: #22252D;
+    background: #1f1f1f;
     color: #FFFFFF;
     height: 220px;
     border-radius: 5px;
@@ -12,13 +12,16 @@
         margin: 0;
 
         &.number {
-            color: #FFCA00;
+            background-image: -webkit-gradient(linear, 0 12, 0 bottom, from(#FF62F5), to(#376FFF));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             font-size: 50px;
             font-family: PingFangTC-Medium;
         }
 
         &.text {
-            color: #ADADB3;
+            color: #FFFFFF;
+            font-weight: 200;
         }
     }
 }
