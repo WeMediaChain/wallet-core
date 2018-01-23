@@ -1,16 +1,31 @@
 const createDMG = require('electron-installer-dmg'),
     fs = require('fs'),
+    path = require('path'),
     pkg = require('../package.json'),
     OUT_PUT = './release';
 
 const xosOptions = {
-    appPath: 'build/WMCWallet-darwin-x64/WMCWallet.app',
+    appPath: `build/WMCWallet-darwin-x64/${pkg.name}.app`,
     name: pkg.name,
     out: OUT_PUT,
     icon: 'resources/icons/icon.icns',
     background: 'resources/background.png',
     overwrite: true,
     version: pkg.version,
+    contents: [
+        {
+            x: 140,
+            y: 240,
+            type: 'file',
+            path: path.join(__dirname, '../', `build/WMCWallet-darwin-x64/${pkg.name}.app`),
+        },
+        {
+            x: 500,
+            y: 240,
+            type: 'link',
+            path: '/Applications',
+        },
+    ]
 };
 
 

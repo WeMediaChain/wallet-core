@@ -1,7 +1,7 @@
 {
     "name": "WMCWallet",
     "version": "1.0.0",
-    "description": "WMC Wallet",
+    "description": "WeMediaChain Wallet",
     "main": "main.js",
     "homepage": ".",
     "scripts": {
