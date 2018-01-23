@@ -51,7 +51,7 @@
             }
         },
         "build:win": {
-            "command": "npx electron-packager ./ WMCWallet --platform=win32 --arch=all --icon=./icons/icon.ico --version=1.0.0 --out=build/ --overwrite --ignore=node_modules --ignore=src --ignore=.git --ignore=package-lock.json --ignore=yarn.lock --ignore=build --ignore=scripts --ignore=keystore --ignore=config --ignore=.idea --ignore=dist/report.html --prune=true",
+            "command": "npx electron-packager ./ WMCWallet --platform=win32 --arch=x64 --icon=./icons/icon.ico --version=1.0.0 --out=build/ --overwrite --ignore=node_modules --ignore=src --ignore=.git --ignore=package-lock.json --ignore=yarn.lock --ignore=build --ignore=scripts --ignore=keystore --ignore=config --ignore=.idea --ignore=dist/report.html --prune=true",
             "env": {
                 "NODE_ENV": "production"
             }
@@ -90,6 +90,7 @@
         "electron-installer-dmg": "^0.2.1",
         "electron-packager": "^10.1.1",
         "electron-winstaller": "^2.6.4",
+        "electron-wix-msi": "^1.2.3",
         "eslint": "3.19.0",
         "eslint-config-airbnb": "^15.0.1",
         "eslint-loader": "^1.8.0",
