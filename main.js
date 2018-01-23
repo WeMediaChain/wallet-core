@@ -71,6 +71,52 @@ function createWindow() {
     });
 }
 
+if (handleSquirrelEvent()) {
+    return;
+}
+
+function handleSquirrelEvent() {
+    if (process.argv.length === 1) {
+        return false;
+    }
+    
+    const ChildProcess = require('child_process'),
+        appFolder = path.resolve(process.execPath, '..'),
+        rootAtomFolder = path.resolve(appFolder, '..'),
+        updateDotExe = path.resolve(path.join(rootAtomFolder, 'Update.exe')),
+        exeName = path.basename(process.execPath);
+    
+    const spawn = (command, args) => {
+        let spawnedProcess;
+        
+        try {
+            spawnedProcess = ChildProcess.spawn(command, args, { detached: true });
+        } catch (error) {
+            console.log(error);
+        }
+        
+        return spawnedProcess;
+    };
+    
+    const spawnUpdate = (args) => spawn(updateDotExe, args),
+        squirrelEvent = process.argv[1];
+    
+    switch (squirrelEvent) {
+        case '--squirrel-install':
+        case '--squirrel-updated':
+            spawnUpdate(['--createShortcut'], exeName);
+            setTimeout(app.quit, 1000);
+            return true;
+        case '--squirrel-uninstall':
+            spawnUpdate(['--removeShortcut'], exeName);
+            setTimeout(app.quit, 1000);
+            return true;
+        case '--squirrel-obsolete':
+            app.quit();
+            return true;
+    }
+}
+
 app.on('ready', () => {
     const menu = Menu.buildFromTemplate(template);
     Menu.setApplicationMenu(menu);
