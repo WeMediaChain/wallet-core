@@ -275,7 +275,7 @@ const URL = 'http://47.104.143.109:8545/',
             stateMutability: "nonpayable",
             type: "function"
         }
-    ], {eth} = web3,
+    ], { eth } = web3,
     contract = new web3
         .eth
         .Contract(wmcABI, contractAddress);
@@ -299,34 +299,52 @@ export const rpc = {
             .fromWei(balance)
     },
     async transactions(address) {
-        const from = await rpc.contract.getPastEvents('Transfer', {filter: {from: address}, fromBlock: 0,toBlock: 'latest'}),
-            to = await rpc.contract.getPastEvents('Transfer', {filter: {to: address}, fromBlock: 0,toBlock: 'latest'}),
-            result = [...from, ...to];
-
-        return result.sort((prev, next) => next.blockNumber - prev.blockNumber || next.logIndex - prev.logIndex);
+        try {
+            const from = await rpc.contract.getPastEvents('Transfer', {
+                    filter: { from: address },
+                    fromBlock: 0,
+                    toBlock: 'latest'
+                }),
+                to = await rpc.contract.getPastEvents('Transfer', {
+                    filter: { to: address },
+                    fromBlock: 0,
+                    toBlock: 'latest'
+                }),
+                result = [...from, ...to];
+            
+            return result.sort((prev, next) => next.blockNumber - prev.blockNumber || next.logIndex - prev.logIndex);
+        } catch (err) {
+            console.error(err);
+            return [];
+        }
+        
     },
     async transfer(w, to, value, gasPrice, gasLimit) {
-        const data = contract
+        try {
+            const data = contract
                 .methods
                 .transfer(to, web3.utils.toWei(value.toString()))
                 .encodeABI(),
-            nonce = await eth.getTransactionCount(w.getAddressString()),
-            txParams = {
-                nonce: web3
-                    .utils
-                    .toHex(nonce),
-                gasPrice: gasPrice || '0x4a817c800',
-                gasLimit: gasLimit || '0x1d8a8',
-                to: contractAddress,
-                value: '0x00',
-                data: data
-            },
-            tx = new ethereumjsTx(txParams);
-
-        tx.sign(w.getPrivateKey());
-        const serializedTx = tx.serialize();
-
-        return await eth.sendSignedTransaction('0x' + serializedTx.toString('hex'))
+                nonce = await eth.getTransactionCount(w.getAddressString()),
+                txParams = {
+                    nonce: web3
+                        .utils
+                        .toHex(nonce),
+                    gasPrice: gasPrice || '0x4a817c800',
+                    gasLimit: gasLimit || '0x1d8a8',
+                    to: contractAddress,
+                    value: '0x00',
+                    data: data
+                },
+                tx = new ethereumjsTx(txParams);
+            
+            tx.sign(w.getPrivateKey());
+            const serializedTx = tx.serialize();
+            
+            return await eth.sendSignedTransaction('0x' + serializedTx.toString('hex'));
+        } catch (err) {
+            return err;
+        }
     }
 };
 
