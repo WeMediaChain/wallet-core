@@ -1,6 +1,4 @@
 node_modules
-wallet
-password
 package-lock.json
 .idea
 .vscode
@@ -12,3 +10,4 @@ build
 *.iml
 *.dmg
 *.exe
+*.log

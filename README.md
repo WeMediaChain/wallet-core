@@ -11,7 +11,7 @@
 
 `npm install --save-dev`
 
-## 启动
+### 启动
 
 ### 开发
 
@@ -23,11 +23,26 @@
 
 `npm run preview`
 
-## 打包
+### 打包
 
-`npm run release`
+#### Mac
+`npm run build:mac`
+
+#### Windows
+`brew install wine mono`
+
+`npm run build:win`
 
 
+### 生成安装包
+
+#### Mac
+
+`npm run release:mac`
+
+#### Windows
+
+`npm run release:win`
 
 
 
