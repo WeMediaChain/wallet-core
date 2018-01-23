@@ -7,7 +7,8 @@ const xosOptions = {
     appPath: 'build/WMCWallet-darwin-x64/WMCWallet.app',
     name: pkg.name,
     out: OUT_PUT,
-    icon: 'icons/icon.icns',
+    icon: 'resources/icons/icon.icns',
+    background: 'resources/background.png',
     overwrite: true,
     version: pkg.version,
 };

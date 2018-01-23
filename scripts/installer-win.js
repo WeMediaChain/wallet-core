@@ -7,7 +7,7 @@ const { createWindowsInstaller } = require('electron-winstaller'),
 const winOptions = {
         appDirectory: 'build/WMCWallet-win32-x64',
         iconUrl: 'https://nzsjtzs2b.qnssl.com/icon.ico',
-        setupIcon: 'icons/icon.ico',
+        setupIcon: 'resources/icons/icon.ico',
         outputDirectory: OUT_PUT,
         exe: 'WMCWallet.exe',
     },
