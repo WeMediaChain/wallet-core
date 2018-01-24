@@ -6,6 +6,7 @@ import { Layout, Menu, Icon } from 'antd';
 import PropTypes from 'proptypes';
 import { observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
+import Logo from '../../assets/logo.png';
 import './style';
 
 const { Sider } = Layout,
@@ -53,7 +54,7 @@ export default class Home extends Component {
         return (
             <Sider className="side-container">
                 <div className="logo">
-                    <img src={!logo ? './src/assets/logo.png' : ''} alt="OTCWallet" />
+                    <img src={logo || Logo} alt="OTCWallet" />
                 </div>
                 <SideMenu
                     className="side-item"

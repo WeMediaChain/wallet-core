@@ -139,7 +139,7 @@ class TransferModal extends Component {
                                 placeholder="请输入转账金额" />)}
                     </AntForm.Item>
                 </AntForm>
-                <p>手 续 费：{fee}</p>
+                <p className="fee">手 续 费：{fee}</p>
             </Modal>
         );
     }

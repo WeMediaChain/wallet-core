@@ -50,23 +50,24 @@ function createWindow() {
         fullscreen: false,
         backgroundColor: '#F9F9F9',
     });
-    
+
     if (DEV) {
         const port = process.argv[2] || 4040;
         win.loadURL(`http://127.0.0.1:${port}/`);
         win.webContents.openDevTools();
     } else {
+        win.webContents.openDevTools();
         win.loadURL(url.format({
             pathname: path.join(__dirname, 'dist', 'index.html'),
             protocol: 'file:',
             slashes: true,
         }));
     }
-    
+
     win.on('ready-to-show', () => {
         win.show();
     });
-    
+
     win.on('closed', () => {
         win = null;
     });
@@ -81,28 +82,28 @@ function handleSquirrelEvent() {
     if (process.argv.length === 1) {
         return false;
     }
-    
+
     const ChildProcess = require('child_process'),
         appFolder = path.resolve(process.execPath, '..'),
         rootAtomFolder = path.resolve(appFolder, '..'),
         updateDotExe = path.resolve(path.join(rootAtomFolder, 'Update.exe')),
         exeName = path.basename(process.execPath);
-    
+
     const spawn = (command, args) => {
         let spawnedProcess;
-        
+
         try {
             spawnedProcess = ChildProcess.spawn(command, args, { detached: true });
         } catch (error) {
             console.log(error);
         }
-        
+
         return spawnedProcess;
     };
-    
+
     const spawnUpdate = (args) => spawn(updateDotExe, args),
         squirrelEvent = process.argv[1];
-    
+
     switch (squirrelEvent) {
         case '--squirrel-install':
         case '--squirrel-updated':

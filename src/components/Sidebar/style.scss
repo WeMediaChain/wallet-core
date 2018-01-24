@@ -34,7 +34,7 @@
 }
 
 .side-item.ant-menu-inline .ant-menu-item {
-    margin: 0;
+    margin: 0 !important;
     font-family: PingFangTC-Regular;
     &:hover {
         background: #2f3033 !important;

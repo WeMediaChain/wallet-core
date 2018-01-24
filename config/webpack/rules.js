@@ -34,7 +34,7 @@ module.exports = [
             ? ['style', moduleCSSLoader, postCSSLoader, 'sass']
             : ExtractTextPlugin.extract({
                 fallback: 'style',
-                use: [moduleCSSLoader, postCSSLoader, 'sass']
+                use: [moduleCSSLoader, postCSSLoader, 'sass'],
             }),
         exclude: /node_modules/,
     }, {
