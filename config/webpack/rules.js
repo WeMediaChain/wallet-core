@@ -25,9 +25,9 @@ module.exports = [
     {
         test: /\.(js|jsx)$/,
         use: [
-            'babel', 'eslint'
+            'babel', 'eslint',
         ],
-        exclude: /node_modules/
+        exclude: /node_modules/,
     }, {
         test: /\.(scss|sass)$/,
         use: __DEV__
@@ -36,9 +36,20 @@ module.exports = [
                 fallback: 'style',
                 use: [moduleCSSLoader, postCSSLoader, 'sass']
             }),
-        exclude: /node_modules/
+        exclude: /node_modules/,
     }, {
         test: /\.css$/,
-        use: ['style', 'css']
-    }
+        use: ['style', 'css'],
+    },
+    {
+        test: /\.(png|jpg|gif|svg)$/,
+        use: [
+            {
+                loader: 'url',
+                options: {
+                    limit: 8192,
+                },
+            },
+        ],
+    },
 ];

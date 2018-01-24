@@ -40,7 +40,7 @@ export default class AccountPreview extends Component {
 
     render() {
         const { walletsMap, totalAccount } = this.props.accountStore;
-
+        
         return (
             <div className="account-container">
                 <PreviewHeader cions={totalAccount} />
@@ -51,7 +51,7 @@ export default class AccountPreview extends Component {
                                 key={index}
                                 link="/account"
                                 onConfirm={this.deleteAccount}
-                                account={account} />
+                                account={{ ...account, index }} />
                             ),
                         )
                     }

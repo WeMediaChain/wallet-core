@@ -47,6 +47,7 @@ function createWindow() {
         titleBarStyle: 'hidden',
         show: false,
         resizable: DEV,
+        fullscreen: false,
         backgroundColor: '#F9F9F9',
     });
     

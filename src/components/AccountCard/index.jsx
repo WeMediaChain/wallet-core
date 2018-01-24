@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Icon, Modal, Button } from 'antd';
 import autobind from 'autobind-decorator';
+import classname from 'classnames';
 import { observer } from 'mobx-react';
 import PropTypes from 'proptypes';
 import { Link } from 'react-router-dom';
@@ -83,13 +84,17 @@ export default class AccountCard extends Component {
     render() {
         const { modalStatus } = this.state,
             { account, link } = this.props,
-            { index, name, balance, address } = account,
+            { name, balance, address } = account,
+            index = account.index + 1,
             showID = index > 9 ? index : `0${index}`;
 
         return (
             <div className="account-card-container">
                 <Link
-                    className="account-block"
+                    className={classname({
+                        'account-block': true,
+                        breaker: index % 3 === 0,
+                    })}
                     to={`${link}/${address}`}>
                     <p className="account-id">{showID}</p>
                     <Icon
@@ -99,7 +104,6 @@ export default class AccountCard extends Component {
                     <div className="account-content">
                         <p className="account-name">{name}</p>
                         <p className="account-cions">{balance}</p>
-                        <p className="account-by">WMC</p>
                         <p className="account-key">{address}</p>
                     </div>
                 </Link>

@@ -25,6 +25,7 @@
         "import/prefer-default-export": [1],
         "import/extensions": 0,
         "no-param-reassign": 0,
+        "linebreak-style": 0,
         "no-return-await": "off",
         "no-trailing-spaces": "off",
         "react/jsx-indent": [1, 4],

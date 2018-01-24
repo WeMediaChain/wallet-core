@@ -1,5 +1,4 @@
 .home-container {
-    -webkit-app-region: no-drag;
     height: 100vh;
 
     .home-header {
@@ -16,8 +15,9 @@
     }
 
     .content {
+        position: relative;
         padding: 24px;
-        background: #fff;
+        background: #2f3033;
     }
 }
 

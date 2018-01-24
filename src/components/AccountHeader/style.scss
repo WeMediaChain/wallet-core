@@ -1,6 +1,6 @@
 .account-list-header {
     position: relative;
-    background: #3290FF;
+    background: #1B1B1B;
     height: 220px;
     border-radius: 5px;
     display: flex;
@@ -8,28 +8,38 @@
     justify-content: center;
     align-items: center;
     color: #FFFFFF;
+    -webkit-app-region: no-drag;
+    -webkit-user-select: none;
 
     p {
         margin: 0;
 
         &.account-name {
             font-size: 14px;
+            font-family: PingFangTC-Regular;
+            color: #8c8c8e;
         }
 
         &.account-cions {
             font-size: 50px;
             font-family: PingFangTC-Medium;
+            background-image: radial-gradient(circle farthest-side at 0% 40%, #376FFF, #FF62F5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         &.account-by {
             font-size: 14px;
-            color: #A7D1FF;
+            color: #FFFFFF;
+            font-family: PingFangTC-Regular;
+            color: #8c8c8e;
         }
 
         &.account-key {
             font-size: 12px;
-            color: #2D4994;
+            color: #8c8c8e;
             margin-top: 10px;
+            font-family: PingFangTC-Regular;
 
             .icon {
                 color: #FFFFFF;
@@ -43,14 +53,15 @@
     .account-trans {
         position: absolute;
         bottom: -17.5px;
-        background: #DDAF00;
-        box-shadow: #DDAF00 0px 0px 10px;
+        background: #376FFF;
+        box-shadow: #376FFF 0 0 10px;
         width: 150px;
         height: 35px;
         border-radius: 25px;
         text-align: center;
         line-height: 35px;
         cursor: pointer;
+        font-family: PingFangTC-Regular;
     }
 
     .account-action {
@@ -69,13 +80,14 @@
             }
 
             .icon {
-                font-size: 30px;
+                font-size: 22px;
                 margin-bottom: 5px;
             }
 
             p {
-                font-size: 12px;
-                color: #A1CDFF;
+                font-size: 11px;
+                color: #8c8c8e;
+                font-family: PingFangTC-Regular;
             }
         }
     }

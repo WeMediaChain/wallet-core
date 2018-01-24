@@ -3,22 +3,27 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: #22252D;
+    background: #1B1B1B;
     color: #FFFFFF;
     height: 220px;
     border-radius: 5px;
+    -webkit-app-region: no-drag;
+    -webkit-user-select: none;
 
     p {
         margin: 0;
 
         &.number {
-            color: #FFCA00;
+            background-image: radial-gradient(circle farthest-side at 0% 40%, #376FFF, #FF62F5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             font-size: 50px;
             font-family: PingFangTC-Medium;
         }
 
         &.text {
-            color: #ADADB3;
+            color: #8c8c8e;
+            font-weight: 200;
         }
     }
 }

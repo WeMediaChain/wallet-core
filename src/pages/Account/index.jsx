@@ -127,7 +127,7 @@ export default class Account extends Component {
                 <section className="account-list_content">
                     <div className="account-list-table_header">
                         <span className="header-title">最近交易</span>
-                        <span className="header-desc">账户无法显示正在进行的交易，但是可以显示余额和已确认的转账记录。</span>
+                        <span className="header-desc">账户无法显示正在进行的交易，但是可以显示余额和已确认的转账记录</span>
                     </div>
                     <Table
                         dataSource={currentShowAccount.transactions}
