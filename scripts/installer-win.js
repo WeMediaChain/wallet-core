@@ -10,8 +10,9 @@ const winOptions = {
     setupIcon: path.normalize(path.join('./resources/icons/icon.ico')),
     outputDirectory: OUT_PUT,
     exe: `${pkg.name}.exe`,
-    noMsi: true,
+    noMsi: false,
     setupExe: 'WeMediaChain Wallet.exe',
+    setupMsi: 'WeMediaChain Wallet.msi',
 };
 
 if (!fs.existsSync(OUT_PUT)) {
