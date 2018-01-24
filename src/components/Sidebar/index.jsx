@@ -17,43 +17,43 @@ export default class Home extends Component {
         items: PropTypes.array.isRequired,
         logo: PropTypes.string.isRequired,
     };
-    
+
     static defaultProps = {
         items: [],
         logo: '',
     };
-    
+
     static contextTypes = {
         router: PropTypes.object,
     };
-    
+
     constructor(props) {
         super(props);
         this.state = {
             currentId: ['0'],
         };
     }
-    
+
     componentWillReceiveProps() {
         const currentId = this.calculateCurrentMenu();
         this.setState({ currentId });
     }
-    
+
     calculateCurrentMenu() {
         const { location } = this.context.router.history,
             currentID = this.props.items.findIndex(
                 item => item.path === location.pathname);
         return [currentID.toString()];
     }
-    
+
     render() {
         const { items, logo } = this.props,
             { currentId } = this.state;
-        
+
         return (
             <Sider className="side-container">
                 <div className="logo">
-                    <img src={!logo ? 'http://p2dflfpg4.bkt.clouddn.com/wmc-04@3x.png' : ''} alt="OTCWallet" />
+                    <img src={!logo ? './src/assets/logo.png' : ''} alt="OTCWallet" />
                 </div>
                 <SideMenu
                     className="side-item"
