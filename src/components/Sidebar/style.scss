@@ -1,36 +1,55 @@
 .logo {
     height: 32px;
     border-radius: 6px;
-    margin: 16px;
+    margin: 16px 16px 22px 16px;
     text-align: center;
     line-height: 32px;
 
     img {
-        height: 20px;
+        height: 16px;
         margin-top: 15px;
     }
 }
 
 .ant-menu-item {
+    display: flex;
+    align-items: center;
     -webkit-app-region: no-drag;
+
+    i {
+        font-size: 17px;
+        color: #FFFFFF;
+        transition: all .5s;
+    }
 }
 
-.ant-menu-item>a {
+.ant-menu-item > a {
     display: inline-block !important;
-    color: #ffffff;
     -webkit-user-select: none;
     -webkit-app-region: no-drag;
+    color: #FFFFFF !important;
 }
 
 .side-container,
 .side-container .ant-menu-dark {
-    background: #1F1F1F !important;
+    background: #1b1b1b !important;
 }
 
 .ant-menu.ant-menu-dark .ant-menu-item-selected {
-    background: #15171C !important;
+    background: #2f3033 !important;
+
+    i {
+        background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(#FF62F5), to(#376FFF));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
 }
 
 .side-item.ant-menu-inline .ant-menu-item {
     margin: 0;
+    font-family: PingFangTC-Regular;
+
+    &:hover {
+        background: #2f3033 !important;
+    }
 }

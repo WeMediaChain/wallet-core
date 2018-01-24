@@ -1,15 +1,19 @@
 .account-block {
     position: relative;
-    background: #376FFF;
-    color: #FFFFFF;
+    background: #FFFFFF;
+    color: #000000;
     width: 240px;
     border-radius: 5px;
     height: 160px;
     display: flex;
     justify-content: center;
     margin-top: 50px;
-    margin-right: 10px;
+    margin-right: 16.5px;
     -webkit-app-region: no-drag;
+
+    &.breaker {
+        margin-right: 0;
+    }
 
     &:hover {
         color: #FFFFFF;
@@ -50,19 +54,27 @@
             text-align: center;
             &.account-name {
                 font-size: 12px;
+                position: absolute;
+                top: 30px;
             }
             &.account-cions {
-                font-size: 20px;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size: 22px;
                 line-height: 1.2;
                 font-family: PingFangTC-Regular;
             }
             &.account-by {
-                font-size: 15px;
+                font-size: 13px;
             }
             &.account-key {
                 color: #3D6BAB;
                 font-size: 12px;
-                margin-top: 10px;
+                position: absolute;
+                bottom: 15px;
+                padding: 0 15px;
             }
         }
     }

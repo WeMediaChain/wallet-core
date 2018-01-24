@@ -89,7 +89,7 @@ export default class AccountCard extends Component {
         return (
             <div className="account-card-container">
                 <Link
-                    className="account-block"
+                    className={index % 3 ? 'account-block' : 'account-block breaker'}
                     to={`${link}/${address}`}>
                     <p className="account-id">{showID}</p>
                     <Icon
@@ -97,9 +97,8 @@ export default class AccountCard extends Component {
                         className="account-remove"
                         onClick={this.onDelete} />
                     <div className="account-content">
-                        <p className="account-name">{name}</p>
-                        <p className="account-cions">{balance}</p>
-                        <p className="account-by">WMC</p>
+                        <p className="account-name">哈哈哈好</p>
+                        <p className="account-cions">{balance || '123.45'}</p>
                         <p className="account-key">{address}</p>
                     </div>
                 </Link>
