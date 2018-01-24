@@ -11,9 +11,15 @@
     }
 }
 
+.ant-menu-item {
+    -webkit-app-region: no-drag;
+}
+
 .ant-menu-item>a {
     display: inline-block !important;
     color: #ffffff;
+    -webkit-user-select: none;
+    -webkit-app-region: no-drag;
 }
 
 .side-container,

@@ -7,6 +7,8 @@
     color: #FFFFFF;
     height: 220px;
     border-radius: 5px;
+    -webkit-app-region: no-drag;
+    -webkit-user-select: none;
 
     p {
         margin: 0;
