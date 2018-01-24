@@ -98,8 +98,8 @@ export default class AccountCard extends Component {
                         className="account-remove"
                         onClick={this.onDelete} />
                     <div className="account-content">
-                        <p className="account-name">哈哈哈好</p>
-                        <p className="account-cions">{balance || '123.45'}</p>
+                        <p className="account-name">{name}</p>
+                        <p className="account-cions">{balance}</p>
                         <p className="account-key">{address}</p>
                     </div>
                 </Link>

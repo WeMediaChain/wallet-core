@@ -38,11 +38,11 @@ class Accounts {
     };
     @observable transferInfo = { fee: 0.01 };
     @observable isTransferProgress = false;
-
+    
     constructor() {
         this.loadAccountConfig();
     }
-
+    
     @action('set page params')
     loadAccountConfig() {
         try {
@@ -50,13 +50,13 @@ class Accounts {
             if (!fs.existsSync(WALLETS_PATH)) {
                 fs.mkdirSync(WALLETS_PATH);
             }
-
+            
             const walletsMap = [];
             fs.readdirSync(WALLETS_PATH).forEach(async (file, index) => {
                 try {
                     const v3 = JSON.parse(fs.readFileSync(`${WALLETS_PATH}/${file}`, 'utf-8')),
                         address = `0x${v3.address}`;
-
+                    
                     walletsMap.push({
                         w: JSON.parse(JSON.stringify(v3)),
                         address,
@@ -75,7 +75,7 @@ class Accounts {
             console.error(err);
         }
     }
-
+    
     @computed
     get accountMenus() {
         const defaultMenu = {
@@ -88,10 +88,10 @@ class Accounts {
                 text: address.slice(-4),
                 icon: 'solution',
             }));
-
+        
         return [defaultMenu, ...menus];
     }
-
+    
     @computed
     get totalAccount() {
         let total = 0;
@@ -100,7 +100,7 @@ class Accounts {
         });
         return total;
     }
-
+    
     @action('update wallet asynchronous data')
     fetchAsyncData() {
         this.walletsMap.forEach(async (wallet, index) => {
@@ -111,12 +111,12 @@ class Accounts {
             };
         });
     }
-
+    
     @action('set current show account')
     setCurrentShowAccount(address) {
         this.currentShowAccount = this.walletsMap.filter(wallet => wallet.address === address)[0];
     }
-
+    
     @action('create account')
     async createAccount(param) {
         try {
@@ -124,7 +124,7 @@ class Accounts {
                 address = `0x${account.address}`,
                 totoalAccount = this.walletsMap.length;
             await createWalletFile(address, account);
-
+            
             this.walletsMap.push({
                 w: account,
                 address,
@@ -137,7 +137,7 @@ class Accounts {
             console.error(err);
         }
     }
-
+    
     @action('delete account')
     async deleteAccount({ address }) {
         try {
@@ -148,24 +148,24 @@ class Accounts {
             console.error(err);
         }
     }
-
+    
     @action('fetch transfer list')
     async fetchTransferList(address) {
         try {
             // toggle status
             statusStore.toggleAccountTableStatus();
             statusStore.toggleRefresh();
-
+            
             // find wallet index
             const index = this.walletsMap.findIndex(wallet => wallet.address === address);
-
+            
             // update account data
             this.walletsMap[index] = {
                 ...this.walletsMap[index],
                 balance: await rpc.balanceOf(address),
                 transactions: await rpc.transactions(address),
             };
-
+            
             statusStore.toggleRefresh();
             statusStore.toggleAccountTableStatus();
         } catch (err) {
@@ -173,25 +173,25 @@ class Accounts {
             statusStore.toggleAccountTableStatus();
         }
     }
-
+    
     @action('set transfer info')
     setTransferInfo(info) {
         this.transferInfo = { ...this.transferInfo, ...info };
     }
-
+    
     @action('start transfer money')
     async startTransfer() {
         if (this.isTransferProgress) {
             message.success('上次转帐尚未完成，请完成后再进行转账');
             return;
         }
-
+        
         try {
             this.isTransferProgress = true;
             const { tranferAddress, password, address, money } = this.transferInfo,
                 obj = this.walletsMap.filter(wallet => wallet.address === tranferAddress)[0].w,
                 w = rpc.wallet(obj, password);
-
+            
             await rpc.transfer(w, address, parseFloat(money));
             this.fetchTransferList(tranferAddress);
             this.isTransferProgress = false;

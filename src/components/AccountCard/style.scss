@@ -16,7 +16,7 @@
     }
 
     &:hover {
-        color: #FFFFFF;
+        color: #000000;
     }
     &:focus {
         text-decoration: none;
@@ -28,7 +28,7 @@
         width: 50px;
         line-height: 50px;
         border-radius: 50%;
-        color: #3290FF;
+        color: #376FFF;
         text-align: center;
         background: #FFFFFF;
         font-family: PingFangTC-Regular;
@@ -70,7 +70,7 @@
                 font-size: 13px;
             }
             &.account-key {
-                color: #3D6BAB;
+                color: #8c8c8e;
                 font-size: 12px;
                 position: absolute;
                 bottom: 15px;

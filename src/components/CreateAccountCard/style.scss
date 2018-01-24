@@ -6,24 +6,25 @@
         width: 240px;
         border-radius: 5px;
         height: 160px;
-        background: #F9FAFD;
+        background: transparent;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         margin-top: 50px;
-        border: 1px dashed #B5BEE4;
+        border: 1px dashed #FFFFFF;
         cursor: pointer;
         outline: none;
 
         .icon {
             font-size: 30px;
-            color: #DBDCE6;
+            color: #FFFFFF;
+            margin-bottom: 20px;
         }
         span {
             position: absolute;
-            bottom: 25px;
-            color: #B5BEE4;
+            bottom: 50px;
+            color: #ffffff;
         }
     }
 }

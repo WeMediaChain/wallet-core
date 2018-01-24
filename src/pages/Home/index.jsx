@@ -7,6 +7,7 @@ import PropTypes from 'proptypes';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
 import SideBar from '../../components/Sidebar';
+import Toast from '../../components/Toast';
 import { routes } from '../../router';
 import './style';
 
@@ -38,6 +39,7 @@ export default class Home extends Component {
                     <Switch>
                         {routes.map(route => <Route {...route} />)}
                     </Switch>
+                    <Toast />
                 </Content>
             </Layout>
         );

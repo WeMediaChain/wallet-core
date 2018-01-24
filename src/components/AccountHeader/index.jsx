@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'proptypes';
-import { Icon, message } from 'antd';
+import { Icon } from 'antd';
 import { observer, inject } from 'mobx-react';
 import TransferModal from '../TransferModal';
 import QRcodeModal from '../QRcodeModal';
@@ -28,6 +28,7 @@ export default class AccountHeader extends Component {
         statusStore: PropTypes.shape({
             isRefresh: PropTypes.bool.isRequired,
             toggleQrcodeModal: PropTypes.func.isRequired,
+            showToast: PropTypes.func.isRequired,
         }).isRequired,
     };
 
@@ -48,12 +49,13 @@ export default class AccountHeader extends Component {
         statusStore: {
             isRefresh: false,
             toggleQrcodeModal: null,
+            showToast: null,
         },
     };
 
     copyAddress() {
         clipboard.writeText(this.props.account.address);
-        message.info('已复制到剪贴板');
+        this.props.statusStore.showToast('已复制到剪贴板');
     }
 
     render() {

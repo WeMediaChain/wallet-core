@@ -6,15 +6,38 @@
         .account-list-table_header {
             margin-bottom: 10px;
             .header-title {
-                font-family: PingFangTC-Medium;
-                font-size: 18px;
+                font-family: PingFangTC-Regular;
+                font-size: 14px;
+                color: #FFFFFF;
             }
 
             .header-desc {
                 font-family: PingFangTC-Regular;
                 font-size: 13px;
                 margin-left: 20px;
-                color: #BEC6E6;
+                color: #8c8c8e;
+            }
+        }
+
+        table {
+            background: #FFFFFF;
+
+            tr {
+                height: 60px;
+                &:hover {
+                    td {
+                        background: rgba(55, 111, 255, 0.07) !important;
+                    }
+                }
+
+                td {
+                    font-size: 12px;
+                    border-bottom: 1px solid #F9F9F9;
+                }
+
+                th {
+                    border-bottom: 1px solid #F9F9F9;
+                }
             }
         }
     }

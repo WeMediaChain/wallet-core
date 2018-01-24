@@ -7,7 +7,7 @@ export default function PreviewHeader(props) {
     return (
         <header className="preview-header-container">
             <p className="text">目前总共获取</p>
-            <p className="number">{cions || '21324.4352343231224312'}</p>
+            <p className="number">{cions}</p>
             <p className="text">WMC</p>
         </header>
     );

@@ -14,7 +14,7 @@
         margin: 0;
 
         &.number {
-            background-image: -webkit-gradient(linear, 0 12, 0 bottom, from(#FF62F5), to(#376FFF));
+            background-image: radial-gradient(circle farthest-side at 0% 40%, #376FFF, #FF62F5);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-size: 50px;
@@ -22,7 +22,7 @@
         }
 
         &.text {
-            color: #FFFFFF;
+            color: #8c8c8e;
             font-weight: 200;
         }
     }

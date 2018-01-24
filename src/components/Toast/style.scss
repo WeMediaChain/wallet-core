@@ -1,0 +1,19 @@
+.toast-container {
+    position: absolute;
+    top: -30px;
+    z-index: 999;
+    background: #FFFFFF;
+    width: 150px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    left: 50%;
+    font-size: 12px;
+    transform: translateX(-50%);
+    font-family: PingFangTC-Regular;
+    transition: all 0.3s;
+
+    &.show {
+        top: 15px;
+    }
+}
