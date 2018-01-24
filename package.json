@@ -45,13 +45,13 @@
             }
         },
         "build:mac": {
-            "command": "npx electron-packager ./ WMCWallet --platform=darwin --arch=all --icon=./resources/icons/icon.icns --version=1.0.0 --out=build/ --overwrite --ignore=node_modules --ignore=src --ignore=.git --ignore=package-lock.json --ignore=yarn.lock --ignore=build/ --ignore=scripts --ignore=keystore --ignore=config --ignore=.idea --ignore=dist/report.html --prune=true",
+            "command": "npx electron-packager ./ WMCWallet --platform=darwin --arch=all --icon=./resources/icons/icon.icns --version=1.0.0 --out=build/ --overwrite --ignore=node_modules --ignore=src --ignore=.git --ignore=package-lock.json --ignore=yarn.lock --ignore=build/ --ignore=release --ignore=scripts --ignore=keystore --ignore=config --ignore=.idea --ignore=dist/report.html --prune=true",
             "env": {
                 "NODE_ENV": "production"
             }
         },
         "build:win": {
-            "command": "npx electron-packager ./ WMCWallet --platform=win32 --arch=x64 --icon=./resources/icons/icon.ico --version=1.0.0 --out=build/ --overwrite --ignore=node_modules --ignore=src --ignore=.git --ignore=package-lock.json --ignore=yarn.lock --ignore=build/ --ignore=scripts --ignore=keystore --ignore=config --ignore=.idea --ignore=dist/report.html --prune=true",
+            "command": "npx electron-packager ./ WMCWallet --platform=win32 --arch=x64 --icon=./resources/icons/icon.ico --version=1.0.0 --out=build/ --overwrite --ignore=node_modules --ignore=src --ignore=.git --ignore=package-lock.json --ignore=yarn.lock --ignore=build/ --ignore=release --ignore=scripts --ignore=keystore --ignore=config --ignore=.idea --ignore=dist/report.html --prune=true",
             "env": {
                 "NODE_ENV": "production"
             }
