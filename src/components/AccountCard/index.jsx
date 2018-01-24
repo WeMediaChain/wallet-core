@@ -83,7 +83,8 @@ export default class AccountCard extends Component {
     render() {
         const { modalStatus } = this.state,
             { account, link } = this.props,
-            { index, name, balance, address } = account,
+            { name, balance, address } = account,
+            index = account.index + 1,
             showID = index > 9 ? index : `0${index}`;
 
         return (

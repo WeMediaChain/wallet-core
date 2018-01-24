@@ -51,7 +51,7 @@ export default class AccountPreview extends Component {
                                 key={index}
                                 link="/account"
                                 onConfirm={this.deleteAccount}
-                                account={{...account, index}} />
+                                account={{ ...account, index }} />
                             ),
                         )
                     }
