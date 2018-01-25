@@ -56,7 +56,6 @@ function createWindow() {
         win.loadURL(`http://127.0.0.1:${port}/`);
         win.webContents.openDevTools();
     } else {
-        win.webContents.openDevTools();
         win.loadURL(url.format({
             pathname: path.join(__dirname, 'dist', 'index.html'),
             protocol: 'file:',
