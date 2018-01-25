@@ -155,12 +155,11 @@ class Accounts {
             statusStore.toggleAccountTableStatus();
             statusStore.toggleRefresh();
             
-            // find wallet index
-            const index = this.walletsMap.findIndex(wallet => wallet.address === address);
+            const currentWallet = this.walletsMap.get(address);
             
             // update account data
             this.walletsMap.set(address, {
-                ...this.walletsMap[index],
+                ...currentWallet,
                 balance: await rpc.balanceOf(address),
                 transactions: await rpc.transactions(address),
             });
@@ -188,7 +187,7 @@ class Accounts {
         try {
             this.isTransferProgress = true;
             const { tranferAddress, password, address, money } = this.transferInfo,
-                obj = this.walletsMap.filter(wallet => wallet.address === tranferAddress)[0].w,
+                obj = this.walletsMap.get(tranferAddress).w,
                 w = rpc.wallet(obj, password);
             
             await rpc.transfer(w, address, parseFloat(money));
