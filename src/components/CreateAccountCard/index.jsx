@@ -39,8 +39,8 @@ class CreateAccountCard extends Component {
             values = form.getFieldsValue();
 
         onConfirm && onConfirm(values);
-        form.resetFields();
         this.setState({ visible: false });
+        form.resetFields();
     }
 
     @autobind
@@ -48,8 +48,8 @@ class CreateAccountCard extends Component {
         const { onCancel, form } = this.props;
 
         onCancel && onCancel();
-        form.resetFields();
         this.setState({ visible: false });
+        form.resetFields();
     }
 
     hasErrors() {
@@ -74,8 +74,9 @@ class CreateAccountCard extends Component {
     renderModalFooter() {
         return (
             <div className="modal-footer-container">
-                <Button onClick={this.onCancel} type="danger">取消</Button>
+                <Button onClick={this.onCancel} className="cancel">取消</Button>
                 <Button
+                    className="ok"
                     onClick={this.onConfirm}
                     type="primary"
                     disabled={this.hasErrors()}>确定</Button>
@@ -98,19 +99,19 @@ class CreateAccountCard extends Component {
                     <span>新建账户</span>
                 </div>
                 <Modal
+                    className="create-account-modal"
                     visible={visible}
                     onOk={this.onConfirm}
                     onCancel={this.onCancel}
                     title={this.renderModalTitle()}
                     footer={this.renderModalFooter()}>
-                    <p className="create-account-tip">为您的账户设置一个长度不小于8位的密码</p>
                     <AntForm>
                         <AntForm.Item>
                             {getFieldDecorator('password', {
                                 rules: [
                                     {
                                         required: true,
-                                        message: '请输入您的账户密码',
+                                        message: '请输入长度不小于8位的密码',
                                     },
                                 ],
                                 initialValue: '',
@@ -121,14 +122,14 @@ class CreateAccountCard extends Component {
                                             type="lock"
                                             style={{ color: 'rgba(0,0,0,.25)' }} />}
                                     type="password"
-                                    placeholder="请输入您的账号密码" />)}
+                                    placeholder="请输入长度不小于8位的密码" />)}
                         </AntForm.Item>
                         <AntForm.Item>
                             {getFieldDecorator('repassword', {
                                 rules: [
                                     {
                                         required: true,
-                                        message: '请重新输入您的账户密码',
+                                        message: '请重复输入您的账户密码',
                                     },
                                 ],
                                 initialValue: '',
@@ -139,7 +140,7 @@ class CreateAccountCard extends Component {
                                             type="lock"
                                             style={{ color: 'rgba(0,0,0,.25)' }} />}
                                     type="password"
-                                    placeholder="请重新输入您的账号密码" />)}
+                                    placeholder="请重复输入您的账号密码" />)}
                         </AntForm.Item>
                     </AntForm>
                 </Modal>

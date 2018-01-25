@@ -67,8 +67,8 @@ export default class AccountCard extends Component {
     renderModalFooter() {
         return (
             <div className="modal-footer-container">
-                <Button onClick={this.onCancel} type="danger">取消</Button>
-                <Button onClick={this.onConfirm} type="primary">确定</Button>
+                <Button onClick={this.onCancel} className="cancel">取消</Button>
+                <Button onClick={this.onConfirm} className="ok">确定</Button>
             </div>
         );
     }
@@ -108,12 +108,13 @@ export default class AccountCard extends Component {
                     </div>
                 </Link>
                 <Modal
+                    className="delete-account-modal"
                     visible={modalStatus}
                     title={this.renderModalTitle()}
                     onOk={this.onConfirm}
                     onCancel={this.onCancel}
                     footer={this.renderModalFooter()}>
-                    <p>删除的账户地址将不在口袋内显示，请备份后再操作。是否确认删除该账户地址？</p>
+                    <p className="delete-tip">删除的账户地址将不显示，是否确认删除该账户地址？</p>
                 </Modal>
             </div>
         );

@@ -51,8 +51,8 @@ class ConfirmPassword extends Component {
             values = form.getFieldsValue();
 
         onConfirm && onConfirm(values);
-        form.resetFields();
         statusStore.toggleConfirmPasswordStatus();
+        form.resetFields();
     }
 
     @autobind
@@ -60,8 +60,8 @@ class ConfirmPassword extends Component {
         const { onCancel, statusStore, form } = this.props;
 
         onCancel && onCancel();
-        form.resetFields();
         statusStore.toggleConfirmPasswordStatus();
+        form.resetFields();
     }
 
     hasErrors() {
@@ -82,10 +82,10 @@ class ConfirmPassword extends Component {
     renderModalFooter() {
         return (
             <div className="modal-footer-container">
-                <Button onClick={this.onCancel} type="danger">取消</Button>
+                <Button onClick={this.onCancel} className="cancel">取消</Button>
                 <Button
                     onClick={this.onConfirm}
-                    type="primary"
+                    className="ok"
                     disabled={this.hasErrors()}>确定</Button>
             </div>
         );
@@ -107,6 +107,7 @@ class ConfirmPassword extends Component {
 
         return (
             <Modal
+                className="confirm-password-modal-container"
                 visible={statusStore.confirmPwdModal}
                 onOk={this.onConfirm}
                 onCancel={this.onCancel}
@@ -114,7 +115,7 @@ class ConfirmPassword extends Component {
                 footer={this.renderModalFooter()}>
                 <div className="confirm-password-tip">
                     <p><b>转账金额：</b><span>{transferMoney}</span></p>
-                    <p><b>手续费：</b><span>{fee}</span></p>
+                    {/* <p><b>手续费：</b><span>{fee}</span></p> */}
                 </div>
                 <AntForm className="confirm-password-modal">
                     <AntForm.Item className="confirm-password-item" {...formItemLayout} label="转出账户">

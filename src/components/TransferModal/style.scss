@@ -1,14 +1,62 @@
 
-.modal-footer-container {
-    display: flex;
-    justify-content: space-around;
-}
+.transfer-modal {
+    .ant-modal-header,
+    .ant-modal-footer {
+        border: 0 !important;
+    }
+    .ant-modal-header {
+        padding: 24px 16px 0;
+        font-family: PingFangTC-Regular;
+    }
+    .ant-modal-footer {
+        padding: 10px 16px 35px !important;
+    }
+    .ant-modal-body {
+        padding: 40px 24px 0 !important;
+    }
+    .ant-modal-footer {
+        padding-top: 20px !important;
+    }
+    .ant-form-item {
+        &:first-child {
+            margin-bottom: 15px;
+        }
+    }
 
-.modal-title-container {
-    text-align: center;
-}
+    .modal-footer-container {
+        display: flex;
+        justify-content: space-around;
+        button {
+            width: 150px;
+            height: 35px;
+            border-radius: 25px;
+            text-align: center;
+            line-height: 35px;
+            cursor: pointer;
+            font-family: PingFangTC-Regular;
+            color: #fff;
+            border: 0;
+            &.cancel {
+                background: #f5f5f5;
+                color: rgba(0, 0, 0, 0.25);
+            }
+            &.ok {
+                background: #376FFF;
+                color: #FFFFFF;
+                &:disabled {
+                    background: #f5f5f5;
+                    color: rgba(0, 0, 0, 0.25);
+                }
+            }
+        }
+    }
 
-// todo: hide fee
-p.fee {
-    display: none;
+    .modal-title-container {
+        text-align: center;
+    }
+
+    // todo: hide fee
+    p.fee {
+        display: none;
+    }
 }
