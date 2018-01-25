@@ -9,7 +9,7 @@ const xosOptions = {
     name: pkg.name,
     out: OUT_PUT,
     icon: 'resources/icons/icon.icns',
-    background: 'resources/background.png',
+    background: 'resources/background.jpg',
     overwrite: true,
     version: pkg.version,
     contents: [

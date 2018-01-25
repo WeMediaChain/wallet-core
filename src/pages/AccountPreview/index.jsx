@@ -14,7 +14,7 @@ export default class AccountPreview extends Component {
         accountStore: PropTypes.shape({
             createAccount: PropTypes.func.isRequired,
             deleteAccount: PropTypes.func.isRequired,
-            walletsMap: MobxPropTypes.arrayOrObservableArray.isRequired,
+            walletsMap: MobxPropTypes.observableObject.isRequired,
             totalAccount: PropTypes.number.isRequired,
         }).isRequired,
     };
@@ -23,10 +23,10 @@ export default class AccountPreview extends Component {
         accountStore: {
             createAccount: null,
             deleteAccount: null,
-            walletsMap: [],
+            walletsMap: {},
             totalAccount: 0,
         },
-    }
+    };
 
     @autobind
     createAccount(params) {
@@ -46,7 +46,7 @@ export default class AccountPreview extends Component {
                 <PreviewHeader cions={totalAccount} />
                 <section className="account-list">
                     {
-                        walletsMap.map((account, index) => (
+                        walletsMap.values().map((account, index) => (
                             <AccountCard
                                 key={index}
                                 link="/account"
