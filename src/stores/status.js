@@ -1,5 +1,4 @@
 import { observable, action } from 'mobx';
-import autobind from 'autobind-decorator';
 
 class StatusStore {
     @observable transferModal = false;
@@ -29,15 +28,13 @@ class StatusStore {
     toggleConfirmPasswordStatus() {
         this.confirmPwdModal = !this.confirmPwdModal;
     }
-
-    @autobind
-    @action('toggle qrcode modal')
+    
+    @action.bound
     toggleQrcodeModal() {
         this.qrcodeModal = !this.qrcodeModal;
     }
-
-    @autobind
-    @action('show toast message')
+    
+    @action.bound
     showToast(message, duration = 1500) {
         this.toastMessage = message;
         this.toastModal = true;
