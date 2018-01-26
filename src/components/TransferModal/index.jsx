@@ -48,16 +48,16 @@ class TransferModal extends Component {
             values = form.getFieldsValue();
 
         onConfirm && onConfirm(values);
-        form.resetFields();
         statusStore.toggleTransfer();
+        form.resetFields();
     }
 
     @autobind
     onCancel() {
         const { statusStore, onCancel, form } = this.props;
         onCancel && onCancel();
-        form.resetFields();
         statusStore.toggleTransfer();
+        form.resetFields();
     }
 
     hasErrors() {
@@ -80,10 +80,10 @@ class TransferModal extends Component {
     renderModalFooter() {
         return (
             <div className="modal-footer-container">
-                <Button onClick={this.onCancel} type="danger">取消</Button>
+                <Button onClick={this.onCancel} className="cancel">取消</Button>
                 <Button
                     onClick={this.onConfirm}
-                    type="primary"
+                    className="ok"
                     disabled={this.hasErrors()}>确定</Button>
             </div>
         );
@@ -95,6 +95,7 @@ class TransferModal extends Component {
 
         return (
             <Modal
+                className="transfer-modal"
                 visible={statusStore.transferModal}
                 onOk={this.onConfirm}
                 onCancel={this.onCancel}

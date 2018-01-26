@@ -25,7 +25,12 @@ button {
     -webkit-app-region: no-drag;
 }
 
-.titlebar {
-    -webkit-user-select: none;
-    -webkit-app-region: drag;
+.has-error .ant-input {
+    border-color: #FAAD14 !important;
+}
+
+.has-error .ant-form-explain {
+    color: #FAAD14 !important;
+    font-size: 13px !important;
+    margin-top: 1px !important;
 }

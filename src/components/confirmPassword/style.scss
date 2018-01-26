@@ -1,46 +1,105 @@
-.confirm-password-card {
-    position: relative;
-    width: 240px;
-    border-radius: 5px;
-    height: 160px;
-    background: #F9FAFD;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 50px;
-    border: 1px dashed #B5BEE4;
-    cursor: pointer;
-    outline: none;
-    .icon {
-        font-size: 30px;
-        color: #DBDCE6;
+.confirm-password-modal-container {
+    .confirm-password-modal {
+        margin-top: 0 !important;
     }
-    span {
-        position: absolute;
-        bottom: 25px;
-        color: #B5BEE4;
+    .ant-modal-header,
+    .ant-modal-footer {
+        border: 0 !important;
     }
-}
-
-.confirm-password-modal {
-    margin-top: 20px;
-
-    .confirm-password-item {
-        margin: 10px auto;
+    .ant-modal-header {
+        padding: 24px 16px 0;
+        font-family: PingFangTC-Regular;
     }
-}
-
-.confirm-password-tip {
-    display: flex;
-    justify-content: space-around;
-}
-
-.modal-footer-container {
-    display: flex;
-    justify-content: space-around;
-}
-
-.modal-title-container {
-    text-align: center;
+    .ant-modal-footer {
+        padding: 10px 16px 35px !important;
+    }
+    .ant-modal-body {
+        padding: 34px 24px 0 !important;
+    }
+    .ant-form-item-label {
+        text-align: left !important;
+    }
+    .ant-form-item {
+        margin: 0 !important;
+        display: flex;
+        justify-content: center;
+        input {
+            width: 317px !important;
+        }
+    }
+    .ant-modal-footer {
+        padding-top: 47px !important;
+        padding-bottom: 45px !important;
+    }
+    .ant-form-item-required:before {
+        content: '' !important;
+        margin-right: 0 !important;
+    }
+    .confirm-password-card {
+        position: relative;
+        width: 240px;
+        border-radius: 5px;
+        height: 160px;
+        background: #F9FAFD;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 50px;
+        border: 1px dashed #B5BEE4;
+        cursor: pointer;
+        outline: none;
+        .icon {
+            font-size: 30px;
+            color: #DBDCE6;
+        }
+        span {
+            position: absolute;
+            bottom: 25px;
+            color: #B5BEE4;
+        }
+    }
+    .confirm-password-modal {
+        margin-top: 20px;
+        .confirm-password-item {
+            margin: 10px auto;
+        }
+    }
+    .confirm-password-tip {
+        display: flex;
+        justify-content: space-around;
+    }
+    .modal-footer-container {
+        display: flex;
+        justify-content: space-around;
+        button {
+            width: 150px;
+            height: 35px;
+            border-radius: 25px;
+            text-align: center;
+            line-height: 35px;
+            cursor: pointer;
+            font-family: PingFangTC-Regular;
+            color: #fff;
+            border: 0;
+            &.cancel {
+                background: #f5f5f5;
+                color: rgba(0, 0, 0, 0.25);
+            }
+            &.ok {
+                background: #376FFF;
+                color: #FFFFFF;
+                &:disabled {
+                    background: #f5f5f5;
+                    color: rgba(0, 0, 0, 0.25);
+                }
+            }
+        }
+    }
+    .modal-title-container {
+        text-align: center;
+    }
+    .confirm-password-modal .confirm-password-item:last-child {
+        margin-top: 10px !important;
+    }
 }
